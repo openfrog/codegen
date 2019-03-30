@@ -1,0 +1,16 @@
+.DS_Store
+
+.classpath
+.project
+.settings
+*.iml
+*.jar
+
+.idea/
+target/
+
+!maven-wrapper.jar
+.flattened-pom.xml
+
+pom.xml.releaseBackup
+release.properties

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>codegen</artifactId>
+    <groupId>io.github.lollipok</groupId>
+    <version>${revision}</version>
+    <relativePath>..</relativePath>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>mybatis-codegen-sample</artifactId>
+
+  <properties>
+    <main.basedir>${project.basedir}/..</main.basedir>
+
+    <mybatis.generator.config.location>
+      ${project.basedir}/src/main/resources/META-INF/mybatis/mybatis-generator.xml
+    </mybatis.generator.config.location>
+
+    <h2.version>1.4.199</h2.version>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.mybatis.generator</groupId>
+        <artifactId>mybatis-generator-maven-plugin</artifactId>
+        <version>${mybatis-generator.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>io.github.lollipok</groupId>
+            <artifactId>mybatis-codegen</artifactId>
+            <version>${project.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <configurationFile>${mybatis.generator.config.location}</configurationFile>
+          <outputDirectory>${project.build.directory}/generated/mybatis-generator</outputDirectory>
+          <verbose>true</verbose>
+          <overwrite>true</overwrite>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
