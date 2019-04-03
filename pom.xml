@@ -28,8 +28,10 @@
   <description>MyBatis Generator Plugin</description>
   <url>https://github.com/lollipok/codegen</url>
 
+  <inceptionYear>2019</inceptionYear>
+
   <properties>
-    <revision>0.0.1-SNAPSHOT</revision>
+    <revision>0.0.1</revision>
     <java.version>1.8</java.version>
     <main.basedir>${project.basedir}</main.basedir>
     <maven.deploy.skip>true</maven.deploy.skip>
@@ -100,7 +102,7 @@
               <dependencyManagement>flatten</dependencyManagement>
               <distributionManagement>flatten</distributionManagement>
               <properties>flatten</properties>
-              <build>flatten</build>
+              <build>remove</build>
             </pomElements>
           </configuration>
           <executions>
@@ -153,15 +155,18 @@
 
   <developers>
     <developer>
+      <id>lollipok</id>
       <name>yangyanju</name>
       <email>yanjuyang@outlook.com</email>
+      <url>https://github.com/lollipok</url>
     </developer>
   </developers>
 
   <licenses>
     <license>
-      <name>The Apache License, Version 2.0</name>
+      <name>The Apache Software License, Version 2.0</name>
       <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
     </license>
   </licenses>
 

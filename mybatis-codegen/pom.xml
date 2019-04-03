@@ -27,7 +27,7 @@
 
   <artifactId>mybatis-codegen</artifactId>
 
-  <name>${project.groupId}:${project.artifactId}</name>
+  <name>${project.artifactId}</name>
 
   <properties>
     <main.basedir>${project.basedir}/..</main.basedir>
