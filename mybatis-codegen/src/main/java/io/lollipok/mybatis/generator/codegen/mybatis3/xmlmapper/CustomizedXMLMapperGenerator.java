@@ -16,9 +16,12 @@
 
 package io.lollipok.mybatis.generator.codegen.mybatis3.xmlmapper;
 
+import io.lollipok.mybatis.generator.codegen.mybatis3.xmlmapper.elements.UpdateByIdSelectiveElementGenerator;
+import io.lollipok.mybatis.generator.codegen.mybatis3.xmlmapper.elements.UpdateClauseElementGenerator;
 import io.lollipok.mybatis.generator.utils.Utils;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.XMLMapperGenerator;
+import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElementGenerator;
 
 /**
  * @author yangyanju
@@ -34,6 +37,16 @@ public class CustomizedXMLMapperGenerator extends XMLMapperGenerator {
     }
 
     super.addInsertElement(parentElement);
+  }
+
+  @Override
+  protected void addUpdateByPrimaryKeySelectiveElement(XmlElement parentElement) {
+    if (introspectedTable.getRules().generateUpdateByPrimaryKeySelective()) {
+      addUpdateClauseElement(parentElement);
+
+      AbstractXmlElementGenerator elementGenerator = new UpdateByIdSelectiveElementGenerator();
+      initializeAndExecuteGenerator(elementGenerator, parentElement);
+    }
   }
 
   @Override
@@ -70,5 +83,10 @@ public class CustomizedXMLMapperGenerator extends XMLMapperGenerator {
     }
 
     super.addUpdateByExampleWithoutBLOBsElement(parentElement);
+  }
+
+  protected void addUpdateClauseElement(XmlElement parentElement) {
+    AbstractXmlElementGenerator elementGenerator = new UpdateClauseElementGenerator();
+    initializeAndExecuteGenerator(elementGenerator, parentElement);
   }
 }
