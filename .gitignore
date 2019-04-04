@@ -14,3 +14,7 @@ target/
 
 pom.xml.releaseBackup
 release.properties
+
+build/
+
+!gradle-wrapper.jar
