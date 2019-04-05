@@ -16,4 +16,5 @@
 
 dependencies {
     compile(Libs.mybatisGeneratorCore)
+    compileOnly(Libs.ant)
 }

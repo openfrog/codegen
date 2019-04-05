@@ -33,7 +33,11 @@ tasks.withType<Wrapper> {
 val projectInceptionYear = "2019"
 val projectURL = "https://github.com/lollipok/codegen"
 
-val projectNamesToPublish = listOf("mybatis-codegen")
+val projectNamesToPublish = listOf(
+    "mybatis-codegen",
+    "mybatis-generator-gradle-plugin"
+)
+
 val projectsToPublish: List<Project> by extra {
     subprojects.filter {
         projectNamesToPublish.contains(it.name)

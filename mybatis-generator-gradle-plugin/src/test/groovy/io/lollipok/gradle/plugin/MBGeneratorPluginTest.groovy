@@ -14,32 +14,30 @@
  * limitations under the License.
  */
 
-import io.lollipok.gradle.plugin.MBGeneratorExtension
+package io.lollipok.gradle.plugin
 
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
+import org.gradle.api.Project
+import org.gradle.testfixtures.ProjectBuilder
+import org.junit.Before
+import org.junit.Test
+
+import static org.junit.Assert.assertTrue
+
+/**
+ * @author yangyanju
+ */
+class MBGeneratorPluginTest {
+
+    Project project
+
+    @Before
+    void setUp() {
+        project = ProjectBuilder.builder().build()
     }
 
-    dependencies {
-        classpath("io.github.lollipok:mybatis-generator-gradle-plugin:${project.version}")
+    @Test
+    void applyMBGeneratorPlugin() {
+        project.pluginManager.apply 'io.lollipok.gradle.mybatis-generator-plugin'
+        assertTrue(project.tasks.mybatisGenerate instanceof MBGeneratorTask)
     }
 }
-
-apply {
-    plugin("io.lollipok.gradle.mybatis-generator-plugin")
-}
-
-val mybatisGenerator by configurations
-
-dependencies {
-    mybatisGenerator(project(":mybatis-codegen"))
-    mybatisGenerator(Libs.mybatisGeneratorCore)
-    mybatisGenerator(Libs.h2)
-}
-
-configure<MBGeneratorExtension> {
-
-}
-

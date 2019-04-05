@@ -18,6 +18,8 @@ object Versions {
 
     const val javaVersion = "1.8"
     const val mybatisVersion = "1.3.7"
+    const val antVersion = "1.10.5"
+
     const val h2Version = "1.4.199"
 
     const val junitVersion = "4.12"

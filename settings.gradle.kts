@@ -19,7 +19,6 @@ rootProject.buildFileName = "build.gradle.kts"
 
 pluginManagement {
     repositories {
-        mavenLocal()
         mavenCentral()
         gradlePluginPortal()
     }
@@ -27,3 +26,4 @@ pluginManagement {
 
 include("mybatis-codegen")
 include("mybatis-codegen-sample")
+include("mybatis-generator-gradle-plugin")
