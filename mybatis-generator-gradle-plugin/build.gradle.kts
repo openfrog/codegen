@@ -18,10 +18,7 @@ gradlePlugin {
     plugins {
         create("mbGeneratorPlugin") {
             id = "io.lollipok.gradle.mybatis-generator-plugin"
-            displayName = "Mybatis Generator Plugin"
-            description = "${project.description}"
             implementationClass = "io.lollipok.gradle.plugin.MBGeneratorPlugin"
-            version = "${project.version}"
         }
     }
 }
