@@ -28,7 +28,7 @@ buildscript {
 }
 
 apply {
-    plugin("io.lollipok.gradle.mybatis-generator-plugin")
+    plugin("io.lollipok.mybatis-generator-plugin")
 }
 
 val mybatisGenerator by configurations

@@ -6,6 +6,8 @@
 
 ## MyBatis Codegen
 
+### Getting started
+
 ```xml
 <plugin>
     <groupId>org.mybatis.generator</groupId>
@@ -20,6 +22,8 @@
     </dependencies>
 </plugin>
 ```
+
+[mybatis-codegen-sample](./mybatis-codegen-sample "MyBatis Codegen Sample")
 
 ## MyBatis Generator Gradle Plugin
 
