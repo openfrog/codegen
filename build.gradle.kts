@@ -14,8 +14,14 @@
  * limitations under the License.
  */
 
-import groovy.util.Node
-import groovy.util.NodeList
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath("com.gradle.publish:plugin-publish-plugin:0.10.1")
+    }
+}
 
 plugins {
     java
@@ -30,17 +36,22 @@ tasks.withType<Wrapper> {
     distributionType = Wrapper.DistributionType.ALL
 }
 
-val projectInceptionYear = "2019"
-val projectURL = "https://github.com/lollipok/codegen"
+val projectInceptionYear: String by extra { "2019" }
+val projectURL: String by extra { "https://github.com/lollipok/codegen" }
 
 val projectNamesToPublish = listOf(
-    "mybatis-codegen",
-    "mybatis-generator-gradle-plugin"
+    "mybatis-codegen"
 )
 
 val projectsToPublish: List<Project> by extra {
     subprojects.filter {
         projectNamesToPublish.contains(it.name)
+    }
+}
+
+val gradlePluginProjects: List<Project> by extra {
+    subprojects.filter {
+        it.name.endsWith("-gradle-plugin")
     }
 }
 
@@ -124,6 +135,8 @@ subprojects {
 
 configure(projectsToPublish) {
 
+    // val isGradlePlugin: Boolean by extra { gradlePluginProjects.contains(this) }
+
     apply {
         plugin("signing")
         plugin("maven")
@@ -156,75 +169,13 @@ configure(projectsToPublish) {
         }
     }
 
+    // https://docs.gradle.org/current/userguide/publishing_maven.html
     publishing {
-        repositories {
-            maven {
-                val releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-                val snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
-
-                setUrl(if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl)
-
-                credentials {
-                    username = System.getProperty("oss.username")
-                    password = System.getProperty("oss.password")
-                }
-            }
-        }
+        apply(from = "$rootDir/gradle/maven-repo.gradle.kts")
 
         publications {
             register("mavenJava", MavenPublication::class) {
-                pom {
-                    name.set(project.name)
-                    description.set(project.description)
-                    inceptionYear.set(projectInceptionYear)
-                    url.set(projectURL)
-
-                    groupId = project.group.toString()
-                    artifactId = project.name
-                    version = project.version.toString()
-                    packaging = "jar"
-
-                    scm {
-                        connection.set("scm:git:https://github.com/lollipok/codegen.git")
-                        developerConnection.set("scm:git:https://github.com/lollipok/codegen.git")
-                        url.set("https://github.com/lollipok/codegen")
-                    }
-
-                    licenses {
-                        license {
-                            name.set("The Apache Software License, Version 2.0")
-                            url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                            distribution.set("repo")
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            id.set("lollipok")
-                            name.set("yangyanju")
-                            email.set("yanjuyang@outlook.com")
-                            url.set("https://github.com/lollipok")
-                        }
-                    }
-
-                    withXml {
-                        fun Any?.asNode() = this as Node
-                        fun Any?.asNodeList() = this as NodeList
-
-                        val root = asNode()
-                        root["dependencies"].asNodeList().getAt("*").forEach {
-                            val dependency = it.asNode()
-                            if (dependency["scope"].asNodeList().text() == "runtime") {
-                                if (project.configurations.findByName("implementation")?.allDependencies?.none { dep ->
-                                        dep.name == dependency["artifactId"].asNodeList().text()
-                                    } == false) {
-                                    dependency["scope"].asNodeList().forEach { dep -> dep.asNode().setValue("compile") }
-                                    dependency.appendNode("optional", true)
-                                }
-                            }
-                        }
-                    }
-                }
+                maven.customizePom(this, project, rootProject)
 
                 from(components["java"])
                 artifact(sourcesJar.get())
@@ -236,5 +187,70 @@ configure(projectsToPublish) {
     signing {
         useGpgCmd()
         sign(publishing.publications["mavenJava"])
+    }
+}
+
+configure(gradlePluginProjects) {
+
+    apply {
+        plugin("groovy")
+        plugin("signing")
+        plugin("maven")
+        plugin("maven-publish")
+        plugin("java-gradle-plugin")
+        plugin("com.gradle.plugin-publish")
+    }
+
+    dependencies {
+        compile(gradleApi())
+        compile(localGroovy())
+
+        testCompile(gradleTestKit())
+        testCompile(TestLibs.junit)
+    }
+
+    val sourcesJar by tasks.registering(Jar::class) {
+        archiveClassifier.set("sources")
+        from(sourceSets.main.get().allSource)
+        dependsOn(JavaPlugin.CLASSES_TASK_NAME)
+    }
+
+    val javadocJar by tasks.registering(Jar::class) {
+        archiveClassifier.set("javadoc")
+        from(tasks[JavaPlugin.JAVADOC_TASK_NAME])
+        dependsOn(JavaPlugin.JAVADOC_TASK_NAME)
+    }
+
+    val groovydocJar by tasks.registering(Jar::class) {
+        archiveClassifier.set("groovydoc")
+        from(tasks[GroovyPlugin.GROOVYDOC_TASK_NAME])
+        dependsOn(GroovyPlugin.GROOVYDOC_TASK_NAME)
+    }
+
+    tasks {
+        whenTaskAdded {
+            if (this.name.contains("signPluginMavenPublication")) {
+                this.enabled = File(project.property("signing.secretKeyRingFile") as String).isFile
+            }
+        }
+    }
+
+    publishing {
+        apply(from = "$rootDir/gradle/maven-repo.gradle.kts")
+
+        publications {
+            register("pluginMaven", MavenPublication::class) {
+                maven.customizePom(this, project, rootProject)
+
+                artifact(sourcesJar.get())
+                artifact(javadocJar.get())
+                artifact(groovydocJar.get())
+            }
+        }
+    }
+
+    signing {
+        useGpgCmd()
+        sign(publishing.publications["pluginMaven"])
     }
 }
