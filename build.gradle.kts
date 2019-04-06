@@ -57,7 +57,7 @@ val gradlePluginProjects: List<Project> by extra {
 
 allprojects {
     group = "io.github.lollipok"
-    version = "0.0.2-SNAPSHOT"
+    version = "0.0.2"
 
     description = "MyBatis Generator Plugin"
 
