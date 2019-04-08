@@ -21,14 +21,15 @@ import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
-import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElementGenerator;
+
+import static io.lollipok.mybatis.generator.constants.Constants.UPDATE_SELECTIVE_CLAUSE_ID;
 
 /**
  * @author yangyanju
  * @version 1.0
  * @date 2019-04-03
  */
-public class UpdateByIdSelectiveElementGenerator extends AbstractXmlElementGenerator {
+public class UpdateByIdSelectiveElementGenerator extends BaseXmlElementGenerator {
 
   public UpdateByIdSelectiveElementGenerator() {
     super();
@@ -59,7 +60,7 @@ public class UpdateByIdSelectiveElementGenerator extends AbstractXmlElementGener
     sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
     answer.addElement(new TextElement(sb.toString()));
 
-    answer.addElement(getSqlClauseElement("Update_Clause"));
+    answer.addElement(getSqlClauseElement(UPDATE_SELECTIVE_CLAUSE_ID));
 
     boolean and = false;
     for (IntrospectedColumn introspectedColumn : introspectedTable.getPrimaryKeyColumns()) {
@@ -82,11 +83,5 @@ public class UpdateByIdSelectiveElementGenerator extends AbstractXmlElementGener
         .sqlMapUpdateByPrimaryKeySelectiveElementGenerated(answer, introspectedTable)) {
       parentElement.addElement(answer);
     }
-  }
-
-  private XmlElement getSqlClauseElement(String refid) {
-    XmlElement answer = new XmlElement("include");
-    answer.addAttribute(new Attribute("refid", refid));
-    return answer;
   }
 }

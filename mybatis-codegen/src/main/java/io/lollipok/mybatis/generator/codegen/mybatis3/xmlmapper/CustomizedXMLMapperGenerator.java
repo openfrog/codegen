@@ -16,6 +16,8 @@
 
 package io.lollipok.mybatis.generator.codegen.mybatis3.xmlmapper;
 
+import io.lollipok.mybatis.generator.codegen.mybatis3.xmlmapper.elements.InsertClauseElementGenerator;
+import io.lollipok.mybatis.generator.codegen.mybatis3.xmlmapper.elements.InsertSelectiveElementGenerator;
 import io.lollipok.mybatis.generator.codegen.mybatis3.xmlmapper.elements.UpdateByIdSelectiveElementGenerator;
 import io.lollipok.mybatis.generator.codegen.mybatis3.xmlmapper.elements.UpdateClauseElementGenerator;
 import io.lollipok.mybatis.generator.utils.Utils;
@@ -37,6 +39,16 @@ public class CustomizedXMLMapperGenerator extends XMLMapperGenerator {
     }
 
     super.addInsertElement(parentElement);
+  }
+
+  @Override
+  protected void addInsertSelectiveElement(XmlElement parentElement) {
+    if (introspectedTable.getRules().generateInsertSelective()) {
+      addInsertClauseElement(parentElement);
+
+      AbstractXmlElementGenerator elementGenerator = new InsertSelectiveElementGenerator();
+      initializeAndExecuteGenerator(elementGenerator, parentElement);
+    }
   }
 
   @Override
@@ -83,6 +95,11 @@ public class CustomizedXMLMapperGenerator extends XMLMapperGenerator {
     }
 
     super.addUpdateByExampleWithoutBLOBsElement(parentElement);
+  }
+
+  protected void addInsertClauseElement(XmlElement parentElement) {
+    AbstractXmlElementGenerator elementGenerator = new InsertClauseElementGenerator();
+    initializeAndExecuteGenerator(elementGenerator, parentElement);
   }
 
   protected void addUpdateClauseElement(XmlElement parentElement) {

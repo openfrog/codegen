@@ -24,6 +24,8 @@ import org.mybatis.generator.codegen.mybatis3.ListUtilities;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElementGenerator;
 
+import static io.lollipok.mybatis.generator.constants.Constants.UPDATE_SELECTIVE_CLAUSE_ID;
+
 /**
  * @author yangyanju
  * @version 1.0
@@ -38,7 +40,7 @@ public class UpdateClauseElementGenerator extends AbstractXmlElementGenerator {
   @Override
   public void addElements(XmlElement parentElement) {
     XmlElement answer = new XmlElement("sql");
-    answer.addAttribute(new Attribute("id", "Update_Clause"));
+    answer.addAttribute(new Attribute("id", UPDATE_SELECTIVE_CLAUSE_ID));
 
     context.getCommentGenerator().addComment(answer);
 

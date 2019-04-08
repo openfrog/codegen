@@ -14,22 +14,26 @@
  * limitations under the License.
  */
 
-package io.lollipok.mybatis.generator.constants;
+package io.lollipok.mybatis.generator.codegen.mybatis3.xmlmapper.elements;
+
+import org.mybatis.generator.api.dom.xml.Attribute;
+import org.mybatis.generator.api.dom.xml.XmlElement;
+import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElementGenerator;
 
 /**
  * @author yangyanju
  * @version 1.0
- * @date 2019-03-29
+ * @date 2019-04-08
  */
-public final class Constants {
+public abstract class BaseXmlElementGenerator extends AbstractXmlElementGenerator {
 
-  public static final String SERIAL_VERSION_UID_FIELD_NAME = "serialVersionUID";
-  public static final String SERIAL_VERSION_UID_FIELD_VALUE = "1L";
-  public static final String DEFAULT_XML_MAPPER_SUFFIX = "Mapper.generated.xml";
-  public static final String CUSTOMIZED_XML_MAPPER_SUFFIX = ".generated.xml";
+  public BaseXmlElementGenerator() {
+    super();
+  }
 
-  public static final String INSERT_SELECTIVE_CLAUSE_ID = "Insert_Selective_Clause";
-  public static final String UPDATE_SELECTIVE_CLAUSE_ID = "Update_Selective_Clause";
-
-  private Constants() {}
+  protected XmlElement getSqlClauseElement(String refid) {
+    XmlElement answer = new XmlElement("include");
+    answer.addAttribute(new Attribute("refid", refid));
+    return answer;
+  }
 }
