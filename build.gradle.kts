@@ -19,7 +19,8 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath("com.gradle.publish:plugin-publish-plugin:0.10.1")
+        classpath(BuildPlugins.gradlePluginPublishPlugin)
+        classpath(BuildPlugins.gradleReleasePlugin)
     }
 }
 
@@ -27,6 +28,7 @@ plugins {
     java
     signing
     `maven-publish`
+    id("net.researchgate.release") version Versions.gradleReleaseVersion
 }
 
 tasks.withType<Wrapper> {
@@ -57,7 +59,6 @@ val gradlePluginProjects: List<Project> by extra {
 
 allprojects {
     group = "io.github.lollipok"
-    version = "0.0.3-SNAPSHOT"
 
     description = "MyBatis Generator Plugin"
 
@@ -141,6 +142,7 @@ configure(projectsToPublish) {
         plugin("signing")
         plugin("maven")
         plugin("maven-publish")
+        plugin("net.researchgate.release")
     }
 
     val sourcesJar by tasks.registering(Jar::class) {
@@ -167,6 +169,10 @@ configure(projectsToPublish) {
                 this.enabled = File(project.property("signing.secretKeyRingFile") as String).isFile
             }
         }
+
+        afterReleaseBuild {
+
+        }
     }
 
     // https://docs.gradle.org/current/userguide/publishing_maven.html
@@ -188,6 +194,11 @@ configure(projectsToPublish) {
         useGpgCmd()
         sign(publishing.publications["mavenJava"])
     }
+
+    release {
+        tagTemplate = "v$version"
+        pushReleaseVersionBranch = false
+    }
 }
 
 configure(gradlePluginProjects) {
@@ -199,6 +210,7 @@ configure(gradlePluginProjects) {
         plugin("maven-publish")
         plugin("java-gradle-plugin")
         plugin("com.gradle.plugin-publish")
+        plugin("net.researchgate.release")
     }
 
     dependencies {
@@ -233,6 +245,10 @@ configure(gradlePluginProjects) {
                 this.enabled = File(project.property("signing.secretKeyRingFile") as String).isFile
             }
         }
+
+        afterReleaseBuild {
+
+        }
     }
 
     publishing {
@@ -252,5 +268,10 @@ configure(gradlePluginProjects) {
     signing {
         useGpgCmd()
         sign(publishing.publications["pluginMaven"])
+    }
+
+    release {
+        tagTemplate = "v$version"
+        pushReleaseVersionBranch = false
     }
 }

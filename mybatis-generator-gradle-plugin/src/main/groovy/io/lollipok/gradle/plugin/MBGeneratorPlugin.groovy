@@ -38,6 +38,7 @@ class MBGeneratorPlugin implements Plugin<ProjectInternal> {
 
         MBGeneratorTask task = project.tasks.create(MYBATIS_GENERATOR_TASK, MBGeneratorTask)
             .configure {
+                group = "mybatis"
                 description = 'Generate mybatis files'
             } as MBGeneratorTask
 

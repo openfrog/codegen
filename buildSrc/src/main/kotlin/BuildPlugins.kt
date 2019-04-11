@@ -14,17 +14,9 @@
  * limitations under the License.
  */
 
-object Versions {
+object BuildPlugins {
 
-    const val javaVersion = "1.8"
-    const val mybatisVersion = "1.3.7"
-    const val antVersion = "1.10.5"
-
-    const val h2Version = "1.4.199"
-
-    const val junitVersion = "4.12"
-
-    // Plugins
-    const val gradleReleaseVersion = "2.8.0"
-    const val gradlePluginPublishVersion = "0.10.1"
+    const val gradlePluginPublishPlugin =
+        "com.gradle.publish:plugin-publish-plugin:${Versions.gradlePluginPublishVersion}"
+    const val gradleReleasePlugin = "net.researchgate:gradle-release:${Versions.gradleReleaseVersion}"
 }
