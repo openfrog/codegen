@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package maven
+package mvn
 
 import groovy.util.Node
 import groovy.util.NodeList

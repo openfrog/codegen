@@ -13,3 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package mvn
+
+import org.gradle.api.artifacts.repositories.MavenArtifactRepository
+
+fun configureRepository(version: Any, repo: MavenArtifactRepository) {
+    val releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+    val snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+
+    repo.setUrl(if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl)
+
+    repo.credentials {
+        username = System.getProperty("oss.username")
+        password = System.getProperty("oss.password")
+    }
+}

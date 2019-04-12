@@ -17,7 +17,7 @@
         <dependency>
             <groupId>io.github.lollipok</groupId>
             <artifactId>mybatis-codegen</artifactId>
-            <version>0.0.2</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </plugin>

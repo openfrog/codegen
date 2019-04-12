@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+import mvn.configureRepository
+import mvn.customizePom
+import net.researchgate.release.ReleaseExtension
+
 buildscript {
     repositories {
         gradlePluginPortal()
@@ -59,7 +63,6 @@ val gradlePluginProjects: List<Project> by extra {
 
 allprojects {
     group = "io.github.lollipok"
-    version = System.getProperty("version")
 
     description = "MyBatis Generator Plugin"
 
@@ -178,11 +181,15 @@ configure(projectsToPublish) {
 
     // https://docs.gradle.org/current/userguide/publishing_maven.html
     publishing {
-        apply(from = "$rootDir/gradle/maven-repo.gradle.kts")
+        repositories {
+            maven {
+                configureRepository(version, this)
+            }
+        }
 
         publications {
             register("mavenJava", MavenPublication::class) {
-                maven.customizePom(this, project, rootProject)
+                customizePom(this, project, rootProject)
 
                 from(components["java"])
                 artifact(sourcesJar.get())
@@ -197,8 +204,7 @@ configure(projectsToPublish) {
     }
 
     release {
-        tagTemplate = "v$version"
-        pushReleaseVersionBranch = false
+        customizeRelease(this)
     }
 }
 
@@ -253,11 +259,15 @@ configure(gradlePluginProjects) {
     }
 
     publishing {
-        apply(from = "$rootDir/gradle/maven-repo.gradle.kts")
+        repositories {
+            maven {
+                configureRepository(version, this)
+            }
+        }
 
         publications {
             register("pluginMaven", MavenPublication::class) {
-                maven.customizePom(this, project, rootProject)
+                customizePom(this, project, rootProject)
 
                 artifact(sourcesJar.get())
                 artifact(javadocJar.get())
@@ -272,7 +282,14 @@ configure(gradlePluginProjects) {
     }
 
     release {
-        tagTemplate = "v$version"
-        pushReleaseVersionBranch = false
+        customizeRelease(this)
     }
+}
+
+fun customizeRelease(extension: ReleaseExtension) {
+    extension.tagTemplate = """v${"$"}version"""
+    extension.pushReleaseVersionBranch = false
+    extension.preTagCommitMessage = "[gradle-release-plugin] prepare release "
+    extension.tagCommitMessage = "[gradle-release-plugin] release "
+    extension.newVersionCommitMessage = "[gradle-release-plugin] prepare for next development iteration "
 }
