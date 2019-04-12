@@ -37,7 +37,7 @@ class MBGeneratorPluginTest {
 
     @Test
     void applyMBGeneratorPlugin() {
-        project.pluginManager.apply 'io.lollipok.mybatis-generator-plugin'
+        project.pluginManager.apply 'io.github.lollipok.mybatis-generator'
         assertTrue(project.tasks.mybatisGenerate instanceof MBGeneratorTask)
     }
 }

@@ -16,10 +16,11 @@
 
 description = "Mybatis Generator Gradle Plugin"
 
+// https://docs.gradle.org/current/userguide/plugins.html#sec:plugin_markers
 gradlePlugin {
     plugins {
         create("mbGeneratorPlugin") {
-            id = "io.lollipok.mybatis-generator-plugin"
+            id = "io.github.lollipok.mybatis-generator"
             implementationClass = "io.lollipok.gradle.plugin.MBGeneratorPlugin"
         }
     }
