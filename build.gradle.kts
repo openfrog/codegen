@@ -35,7 +35,7 @@ plugins {
     signing
     `maven-publish`
 
-    id("com.jfrog.bintray") version Versions.gradleBintrayVersion
+    // id("com.jfrog.bintray") version Versions.gradleBintrayVersion
     id("net.researchgate.release") version Versions.gradleReleaseVersion
 }
 
@@ -188,7 +188,7 @@ configure(projectsToPublish) {
     }
 
     configure<BintrayExtension> {
-        configureBintray(this, "mavenJava")
+        configureBintray(project, this, "mavenJava")
     }
 
     signing {
@@ -269,7 +269,7 @@ configure(gradlePluginProjects) {
     }
 
     configure<BintrayExtension> {
-        configureBintray(this, "pluginMaven")
+        configureBintray(project, this, "pluginMaven")
     }
 
     signing {
@@ -290,7 +290,7 @@ fun customizeRelease(extension: ReleaseExtension) {
     extension.newVersionCommitMessage = "[gradle-release-plugin] prepare for next development iteration "
 }
 
-fun configureBintray(extension: BintrayExtension, publication: String) {
+fun configureBintray(project: Project, extension: BintrayExtension, publication: String) {
     extension.user = project.property("bintrayUser") as String?
     extension.key = project.property("bintrayKey") as String?
 
@@ -302,6 +302,7 @@ fun configureBintray(extension: BintrayExtension, publication: String) {
     extension.pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
         repo = "maven"
         name = project.name
+
         userOrg = "lollipok"
         websiteUrl = projectURL
         githubRepo = "lollipok/codegen"
