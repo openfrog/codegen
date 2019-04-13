@@ -22,10 +22,10 @@ import org.gradle.api.Project
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.kotlin.dsl.extra
 
-fun customizePom(publication: MavenPublication, project: Project, rootProject: Project) {
+fun MavenPublication.customizePom(project: Project, rootProject: Project) = {
     val properties = rootProject.extra.properties
 
-    publication.pom {
+    pom {
         val projectInceptionYear: String by properties
         val projectURL: String by properties
 
@@ -34,9 +34,9 @@ fun customizePom(publication: MavenPublication, project: Project, rootProject: P
         inceptionYear.set(projectInceptionYear)
         url.set(projectURL)
 
-        publication.groupId = project.group.toString()
-        publication.artifactId = project.name
-        publication.version = project.version.toString()
+        groupId = project.group as String
+        artifactId = project.name
+        version = project.version as String
 
         packaging = "jar"
 

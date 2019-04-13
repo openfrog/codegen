@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-import mvn.configureRepository
-import mvn.customizePom
+import com.jfrog.bintray.gradle.BintrayExtension
+import mvn.configurePublishing
 import net.researchgate.release.ReleaseExtension
 
 buildscript {
     repositories {
+        jcenter()
         gradlePluginPortal()
     }
     dependencies {
         classpath(BuildPlugins.gradlePluginPublishPlugin)
         classpath(BuildPlugins.gradleReleasePlugin)
+        classpath(BuildPlugins.gradleBintrayPlugin)
     }
 }
 
@@ -32,6 +34,8 @@ plugins {
     java
     signing
     `maven-publish`
+
+    id("com.jfrog.bintray") version Versions.gradleBintrayVersion
     id("net.researchgate.release") version Versions.gradleReleaseVersion
 }
 
@@ -129,12 +133,6 @@ subprojects {
                 }
             }
         }
-
-        whenTaskAdded {
-            if (this.name.contains("signMavenJavaPublication")) {
-                this.enabled = File(project.property("signing.secretKeyRingFile") as String).isFile
-            }
-        }
     }
 }
 
@@ -146,6 +144,7 @@ configure(projectsToPublish) {
         plugin("signing")
         plugin("maven")
         plugin("maven-publish")
+        plugin("com.jfrog.bintray")
         plugin("net.researchgate.release")
     }
 
@@ -179,23 +178,17 @@ configure(projectsToPublish) {
         }
     }
 
-    // https://docs.gradle.org/current/userguide/publishing_maven.html
     publishing {
-        repositories {
-            maven {
-                configureRepository(version, this)
-            }
-        }
+        configurePublishing(
+            project,
+            "mavenJava",
+            true,
+            listOf(sourcesJar, javadocJar)
+        )
+    }
 
-        publications {
-            register("mavenJava", MavenPublication::class) {
-                customizePom(this, project, rootProject)
-
-                from(components["java"])
-                artifact(sourcesJar.get())
-                artifact(javadocJar.get())
-            }
-        }
+    configure<BintrayExtension> {
+        configureBintray(this, "mavenJava")
     }
 
     signing {
@@ -211,13 +204,15 @@ configure(projectsToPublish) {
 configure(gradlePluginProjects) {
 
     apply {
-        plugin("groovy")
         plugin("signing")
         plugin("maven")
         plugin("maven-publish")
+        plugin("com.jfrog.bintray")
+        plugin("net.researchgate.release")
+
+        plugin("groovy")
         plugin("java-gradle-plugin")
         plugin("com.gradle.plugin-publish")
-        plugin("net.researchgate.release")
     }
 
     dependencies {
@@ -247,6 +242,12 @@ configure(gradlePluginProjects) {
     }
 
     tasks {
+        artifacts {
+            add("archives", sourcesJar)
+            add("archives", javadocJar)
+            add("archives", groovydocJar)
+        }
+
         whenTaskAdded {
             if (this.name.contains("signPluginMavenPublication")) {
                 this.enabled = File(project.property("signing.secretKeyRingFile") as String).isFile
@@ -259,21 +260,16 @@ configure(gradlePluginProjects) {
     }
 
     publishing {
-        repositories {
-            maven {
-                configureRepository(version, this)
-            }
-        }
+        configurePublishing(
+            project,
+            "pluginMaven",
+            false,
+            listOf(sourcesJar, javadocJar, groovydocJar)
+        )
+    }
 
-        publications {
-            register("pluginMaven", MavenPublication::class) {
-                customizePom(this, project, rootProject)
-
-                artifact(sourcesJar.get())
-                artifact(javadocJar.get())
-                artifact(groovydocJar.get())
-            }
-        }
+    configure<BintrayExtension> {
+        configureBintray(this, "pluginMaven")
     }
 
     signing {
@@ -292,4 +288,43 @@ fun customizeRelease(extension: ReleaseExtension) {
     extension.preTagCommitMessage = "[gradle-release-plugin] prepare release "
     extension.tagCommitMessage = "[gradle-release-plugin] release "
     extension.newVersionCommitMessage = "[gradle-release-plugin] prepare for next development iteration "
+}
+
+fun configureBintray(extension: BintrayExtension, publication: String) {
+    extension.user = project.property("bintrayUser") as String?
+    extension.key = project.property("bintrayKey") as String?
+
+    extension.dryRun = false
+    extension.publish = true
+
+    extension.setPublications(publication)
+
+    extension.pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
+        repo = "maven"
+        name = project.name
+        userOrg = "lollipok"
+        websiteUrl = projectURL
+        githubRepo = "lollipok/codegen"
+        vcsUrl = "https://github.com/lollipok/codegen.git"
+        desc = project.description
+        publicDownloadNumbers = true
+
+        setLabels("java", "mybatis", "mybatis-generator", "code-generator", "gradle-plugin")
+        setLicenses("Apache-2.0")
+
+        version(delegateClosureOf<BintrayExtension.VersionConfig> {
+            name = project.version as String
+            desc = project.description
+            vcsTag = "v${project.version}"
+
+            gpg(delegateClosureOf<BintrayExtension.GpgConfig> {
+                sign = true
+                passphrase = project.property("signing.password") as String?
+            })
+
+            mavenCentralSync(delegateClosureOf<BintrayExtension.MavenCentralSyncConfig> {
+
+            })
+        })
+    })
 }

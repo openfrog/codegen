@@ -19,4 +19,5 @@ object BuildPlugins {
     const val gradlePluginPublishPlugin =
         "com.gradle.publish:plugin-publish-plugin:${Versions.gradlePluginPublishVersion}"
     const val gradleReleasePlugin = "net.researchgate:gradle-release:${Versions.gradleReleaseVersion}"
+    const val gradleBintrayPlugin = "com.jfrog.bintray.gradle:gradle-bintray-plugin:${Versions.gradleBintrayVersion}"
 }

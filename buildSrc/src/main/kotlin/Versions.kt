@@ -27,4 +27,5 @@ object Versions {
     // Plugins
     const val gradleReleaseVersion = "2.8.0"
     const val gradlePluginPublishVersion = "0.10.1"
+    const val gradleBintrayVersion = "1.8.4"
 }

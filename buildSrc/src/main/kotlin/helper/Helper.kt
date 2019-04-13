@@ -17,7 +17,7 @@
 package helper
 
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 fun getBuildTime(): String {
     return Date().format()
