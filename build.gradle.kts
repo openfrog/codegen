@@ -291,8 +291,8 @@ fun customizeRelease(extension: ReleaseExtension) {
 }
 
 fun configureBintray(project: Project, extension: BintrayExtension, publication: String) {
-    extension.user = project.property("bintrayUser") as String?
-    extension.key = project.property("bintrayKey") as String?
+    extension.user = project.property("bintray.user") as String?
+    extension.key = project.property("bintray.key") as String?
 
     extension.dryRun = false
     extension.publish = true
@@ -324,7 +324,9 @@ fun configureBintray(project: Project, extension: BintrayExtension, publication:
             })
 
             mavenCentralSync(delegateClosureOf<BintrayExtension.MavenCentralSyncConfig> {
-
+                sync = true
+                user = System.getProperty("oss.username")
+                password = System.getProperty("oss.password")
             })
         })
     })
