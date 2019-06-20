@@ -31,7 +31,7 @@
   <inceptionYear>2019</inceptionYear>
 
   <properties>
-    <revision>0.0.4-SNAPSHOT</revision>
+    <revision>0.0.4</revision>
     <java.version>1.8</java.version>
     <main.basedir>${project.basedir}</main.basedir>
     <maven.deploy.skip>true</maven.deploy.skip>
