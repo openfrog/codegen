@@ -15,6 +15,10 @@
  */
 
 import com.jfrog.bintray.gradle.BintrayExtension
+import make.getBuildJdk
+import make.getBuildOS
+import make.getBuildTime
+import make.getUsername
 import mvn.configurePublishing
 import net.researchgate.release.ReleaseExtension
 
@@ -102,15 +106,15 @@ subprojects {
                         "Manifest-Version" to "1.0",
                         "X-Compile-Source-JDK" to Versions.javaVersion,
                         "X-Compile-Target-JDK" to Versions.javaVersion,
-                        "Build-Time" to helper.getBuildTime(),
+                        "Build-Time" to getBuildTime(),
                         "Specification-Version" to "1.0",
                         "Specification-Title" to project.name,
                         "Implementation-Title" to project.name,
                         "Implementation-Version" to project.version,
                         "Implementation-Vendor-Id" to project.group,
-                        "Built-By" to helper.getUsername(),
-                        "Build-Jdk" to helper.getBuildJdk(),
-                        "Build-OS" to helper.getBuildOS(),
+                        "Built-By" to getUsername(),
+                        "Build-Jdk" to getBuildJdk(),
+                        "Build-OS" to getBuildOS(),
                         "Created-By" to "Gradle ${gradle.gradleVersion}"
                     )
                 }
