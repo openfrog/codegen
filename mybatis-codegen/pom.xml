@@ -19,7 +19,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <artifactId>codegen</artifactId>
-    <groupId>io.github.lollipok</groupId>
+    <groupId>io.github.openfrog</groupId>
     <version>${revision}</version>
     <relativePath>..</relativePath>
   </parent>

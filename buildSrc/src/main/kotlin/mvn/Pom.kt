@@ -22,7 +22,7 @@ import org.gradle.api.Project
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.kotlin.dsl.extra
 
-fun MavenPublication.customizePom(project: Project, rootProject: Project) = {
+fun MavenPublication.customizePom(project: Project, rootProject: Project) {
     val properties = rootProject.extra.properties
 
     pom {
@@ -41,9 +41,9 @@ fun MavenPublication.customizePom(project: Project, rootProject: Project) = {
         packaging = "jar"
 
         scm {
-            connection.set("scm:git:https://github.com/lollipok/codegen.git")
-            developerConnection.set("scm:git:https://github.com/lollipok/codegen.git")
-            url.set("https://github.com/lollipok/codegen")
+            connection.set("scm:git:https://github.com/openfrog/codegen.git")
+            developerConnection.set("scm:git:https://github.com/openfrog/codegen.git")
+            url.set("https://github.com/openfrog/codegen")
         }
 
         licenses {
@@ -56,10 +56,10 @@ fun MavenPublication.customizePom(project: Project, rootProject: Project) = {
 
         developers {
             developer {
-                id.set("lollipok")
+                id.set("openfrog")
                 name.set("yangyanju")
                 email.set("yanjuyang@outlook.com")
-                url.set("https://github.com/lollipok")
+                url.set("https://github.com/openfrog")
             }
         }
 

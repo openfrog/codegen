@@ -14,32 +14,31 @@
  * limitations under the License.
  */
 
-import io.openfrog.gradle.plugin.MBGeneratorExtension
+package io.openfrog.gradle.plugin
 
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
+import io.openfrog.gradle.plugin.MBGeneratorTask
+import org.gradle.api.Project
+import org.gradle.testfixtures.ProjectBuilder
+import org.junit.Before
+import org.junit.Test
+
+import static org.junit.Assert.assertTrue
+
+/**
+ * @author yangyanju
+ */
+class MBGeneratorPluginTest {
+
+    Project project
+
+    @Before
+    void setUp() {
+        project = ProjectBuilder.builder().build()
     }
 
-    dependencies {
-        classpath("io.github.openfrog:mybatis-generator-gradle-plugin:${project.version}")
+    @Test
+    void applyMBGeneratorPlugin() {
+        project.pluginManager.apply 'io.github.openfrog.mybatis-generator'
+        assertTrue(project.tasks.mybatisGenerate instanceof MBGeneratorTask)
     }
 }
-
-apply {
-    plugin("io.github.openfrog.mybatis-generator")
-}
-
-val mybatisGenerator by configurations
-
-dependencies {
-    mybatisGenerator(project(":mybatis-codegen"))
-    mybatisGenerator(Libs.mybatisGeneratorCore)
-    mybatisGenerator(Libs.h2)
-}
-
-configure<MBGeneratorExtension> {
-
-}
-

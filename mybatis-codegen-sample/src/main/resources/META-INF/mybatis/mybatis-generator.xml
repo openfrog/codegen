@@ -6,7 +6,7 @@
 <generatorConfiguration>
   <!-- <properties resource="META-INF/mybatis/generator.properties"/> -->
   <context id="MySQLTables"
-           targetRuntime="io.lollipok.mybatis.generator.codegen.mybatis3.CustomizedIntrospectedTableMyBatis3Impl">
+           targetRuntime="io.openfrog.mybatis.generator.codegen.mybatis3.CustomizedIntrospectedTableMyBatis3Impl">
 
     <property name="javaFileEncoding" value="UTF-8"/>
     <property name="addGWTInterface" value="false"/>
@@ -19,19 +19,23 @@
     <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
     <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
 
-    <plugin type="io.lollipok.mybatis.generator.plugins.SimpleStyleToStringPlugin"/>
-    <plugin type="io.lollipok.mybatis.generator.plugins.FindAllPlugin"/>
-    <plugin type="io.lollipok.mybatis.generator.plugins.AliasColumnListPlugin"/>
-    <plugin type="io.lollipok.mybatis.generator.plugins.EmptyXMLMapperPlugin"/>
-    <!--<plugin type="io.lollipok.mybatis.generator.plugins.EmptyJavaMapperPlugin"/>-->
+    <plugin type="io.openfrog.mybatis.generator.plugins.SimpleStyleToStringPlugin"/>
+    <plugin type="io.openfrog.mybatis.generator.plugins.FindAllPlugin"/>
+    <plugin type="io.openfrog.mybatis.generator.plugins.AliasColumnListPlugin"/>
+    <plugin type="io.openfrog.mybatis.generator.plugins.EmptyXMLMapperPlugin"/>
+    <!--<plugin type="io.openfrog.mybatis.generator.plugins.EmptyJavaMapperPlugin"/>-->
 
-    <plugin type="io.lollipok.mybatis.generator.plugins.MarkAsDeletedByIdPlugin">
+    <plugin type="io.openfrog.mybatis.generator.plugins.BaseMapperPlugin">
+      <property name="targetPackage" value="com.github.vanilla.dao.base"/>
+    </plugin>
+
+    <plugin type="io.openfrog.mybatis.generator.plugins.MarkAsDeletedByIdPlugin">
       <property name="markAsDeletedColumn" value="deleted"/>
       <property name="markAsDeletedValue" value="1"/>
       <property name="markAsUnDeletedValue" value="0"/>
     </plugin>
 
-    <commentGenerator type="io.lollipok.mybatis.generator.internal.CustomizedCommentGeneratorImpl">
+    <commentGenerator type="io.openfrog.mybatis.generator.internal.CustomizedCommentGeneratorImpl">
       <property name="suppressAllComments" value="${suppress_all_comments}"/>
       <property name="addRemarkComments" value="${add_remark_comments}"/>
       <property name="suppressDate" value="true"/>
@@ -44,7 +48,7 @@
       password="${jdbc.password}">
     </jdbcConnection>
 
-    <javaTypeResolver type="io.lollipok.mybatis.generator.internal.types.JavaTypeResolverImpl">
+    <javaTypeResolver type="io.openfrog.mybatis.generator.internal.types.JavaTypeResolverImpl">
       <property name="forceBigDecimals" value="false"/>
       <property name="useJSR310Types" value="${use_jsr310_types}"/>
     </javaTypeResolver>

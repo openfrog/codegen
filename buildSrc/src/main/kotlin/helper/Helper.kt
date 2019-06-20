@@ -36,6 +36,6 @@ fun getBuildOS(): String {
 }
 
 private fun Date.format(format: String = ""): String {
-    val sdf = if (!format.isEmpty()) SimpleDateFormat(format) else SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+    val sdf = if (format.isNotEmpty()) SimpleDateFormat(format) else SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     return sdf.format(this)
 }

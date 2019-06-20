@@ -47,7 +47,7 @@ tasks.withType<Wrapper> {
 }
 
 val projectInceptionYear: String by extra { "2019" }
-val projectURL: String by extra { "https://github.com/lollipok/codegen" }
+val projectURL: String by extra { "https://github.com/openfrog/codegen" }
 
 val projectNamesToPublish = listOf(
     "mybatis-codegen"
@@ -66,7 +66,7 @@ val gradlePluginProjects: List<Project> by extra {
 }
 
 allprojects {
-    group = "io.github.lollipok"
+    group = "io.github.openfrog"
 
     description = "MyBatis Generator Plugin"
 
@@ -303,10 +303,10 @@ fun configureBintray(project: Project, extension: BintrayExtension, publication:
         repo = "maven"
         name = project.name
 
-        userOrg = "lollipok"
+        userOrg = "openfrog"
         websiteUrl = projectURL
-        githubRepo = "lollipok/codegen"
-        vcsUrl = "https://github.com/lollipok/codegen.git"
+        githubRepo = "openfrog/codegen"
+        vcsUrl = "https://github.com/openfrog/codegen.git"
         desc = project.description
         publicDownloadNumbers = true
 
