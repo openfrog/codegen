@@ -19,14 +19,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.github.openfrog</groupId>
+  <groupId>io.github.digimono</groupId>
   <artifactId>codegen</artifactId>
   <packaging>pom</packaging>
   <version>${revision}</version>
 
   <name>${project.artifactId}</name>
   <description>MyBatis Generator Plugin</description>
-  <url>https://github.com/openfrog/codegen</url>
+  <url>https://github.com/digimono/codegen</url>
 
   <inceptionYear>2019</inceptionYear>
 
@@ -156,10 +156,10 @@
 
   <developers>
     <developer>
-      <id>openfrog</id>
+      <id>digimono</id>
       <name>yangyanju</name>
       <email>yanjuyang@outlook.com</email>
-      <url>https://github.com/openfrog</url>
+      <url>https://github.com/digimono</url>
     </developer>
   </developers>
 
@@ -172,9 +172,9 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:https://github.com/openfrog/codegen.git</connection>
-    <developerConnection>scm:git:https://github.com/openfrog/codegen.git</developerConnection>
-    <url>https://github.com/openfrog/codegen</url>
+    <connection>scm:git:https://github.com/digimono/codegen.git</connection>
+    <developerConnection>scm:git:https://github.com/digimono/codegen.git</developerConnection>
+    <url>https://github.com/digimono/codegen</url>
     <tag>HEAD</tag>
   </scm>
 

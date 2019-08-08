@@ -20,15 +20,15 @@ description = "Mybatis Generator Gradle Plugin"
 gradlePlugin {
     plugins {
         create("mbGeneratorPlugin") {
-            id = "io.github.openfrog.mybatis-generator"
-            implementationClass = "io.openfrog.gradle.plugin.MBGeneratorPlugin"
+            id = "io.github.digimono.mybatis-generator"
+            implementationClass = "io.digimono.gradle.plugin.MBGeneratorPlugin"
         }
     }
 }
 
 pluginBundle {
-    website = "https://github.com/openfrog/codegen.git"
-    vcsUrl = "https://github.com/openfrog/codegen.git"
+    website = "https://github.com/digimono/codegen.git"
+    vcsUrl = "https://github.com/digimono/codegen.git"
 
     (plugins){
         "mbGeneratorPlugin"{

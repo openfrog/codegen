@@ -41,9 +41,9 @@ fun MavenPublication.customizePom(project: Project, rootProject: Project) {
         packaging = "jar"
 
         scm {
-            connection.set("scm:git:https://github.com/openfrog/codegen.git")
-            developerConnection.set("scm:git:https://github.com/openfrog/codegen.git")
-            url.set("https://github.com/openfrog/codegen")
+            connection.set("scm:git:https://github.com/digimono/codegen.git")
+            developerConnection.set("scm:git:https://github.com/digimono/codegen.git")
+            url.set("https://github.com/digimono/codegen")
         }
 
         licenses {
@@ -56,10 +56,10 @@ fun MavenPublication.customizePom(project: Project, rootProject: Project) {
 
         developers {
             developer {
-                id.set("openfrog")
+                id.set("digimono")
                 name.set("yangyanju")
                 email.set("yanjuyang@outlook.com")
-                url.set("https://github.com/openfrog")
+                url.set("https://github.com/digimono")
             }
         }
 

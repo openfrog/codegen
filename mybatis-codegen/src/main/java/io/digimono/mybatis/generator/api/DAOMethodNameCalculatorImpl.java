@@ -14,32 +14,12 @@
  * limitations under the License.
  */
 
-import io.digimono.gradle.plugin.MBGeneratorExtension
+package io.digimono.mybatis.generator.api;
 
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-    }
+import org.mybatis.generator.internal.DefaultDAOMethodNameCalculator;
 
-    dependencies {
-        classpath("io.github.digimono:mybatis-generator-gradle-plugin:${project.version}")
-    }
-}
-
-apply {
-    plugin("io.github.digimono.mybatis-generator")
-}
-
-val mybatisGenerator by configurations
-
-dependencies {
-    mybatisGenerator(project(":mybatis-codegen"))
-    mybatisGenerator(Libs.mybatisGeneratorCore)
-    mybatisGenerator(Libs.h2)
-}
-
-configure<MBGeneratorExtension> {
-
-}
-
+/**
+ * @author yangyanju
+ * @version 1.0
+ */
+public class DAOMethodNameCalculatorImpl extends DefaultDAOMethodNameCalculator {}
