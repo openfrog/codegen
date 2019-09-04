@@ -23,7 +23,7 @@
     <plugin type="io.digimono.mybatis.generator.plugins.FindAllPlugin"/>
     <plugin type="io.digimono.mybatis.generator.plugins.AliasColumnListPlugin"/>
     <plugin type="io.digimono.mybatis.generator.plugins.EmptyXMLMapperPlugin"/>
-    <!--<plugin type="io.digimono.mybatis.generator.plugins.EmptyJavaMapperPlugin"/>-->
+    <plugin type="io.digimono.mybatis.generator.plugins.EmptyJavaMapperPlugin"/>
 
     <plugin type="io.digimono.mybatis.generator.plugins.BaseMapperPlugin">
       <property name="targetPackage" value="com.github.vanilla.dao.base"/>
