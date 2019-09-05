@@ -30,6 +30,8 @@ public final class Utils {
       "onlyGenerateInsertSelectiveMethod";
   private static final String PROP_ONLY_GENERATE_UPDATE_SELECTIVE_METHOD =
       "onlyGenerateUpdateSelectiveMethod";
+  private static final String PROP_GENERATED_MAPPER_SUBPACKAGE = "generatedMapperSubpackage";
+  private static final String PROP_GENERATED_MAPPER_SUFFIX = "generatedMapperSuffix";
 
   private Utils() {}
 
@@ -57,5 +59,23 @@ public final class Utils {
     }
 
     return StringUtility.isTrue(onlyGenerateUpdateSelectiveMethod);
+  }
+
+  public static String getGeneratedMapperSubpackage(Context context) {
+    String subpackage = context.getProperty(PROP_GENERATED_MAPPER_SUBPACKAGE);
+    if (StringUtility.stringHasValue(subpackage)) {
+      return subpackage;
+    } else {
+      return "generated";
+    }
+  }
+
+  public static String getGeneratedMapperSuffix(Context context) {
+    String suffix = context.getProperty(PROP_GENERATED_MAPPER_SUFFIX);
+    if (StringUtility.stringHasValue(suffix)) {
+      return suffix;
+    } else {
+      return "Generated";
+    }
   }
 }

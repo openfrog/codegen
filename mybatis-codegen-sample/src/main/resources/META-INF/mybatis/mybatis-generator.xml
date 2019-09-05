@@ -15,19 +15,24 @@
     <property name="onlyGenerateInsertSelectiveMethod" value="true"/>
     <property name="onlyGenerateUpdateSelectiveMethod" value="true"/>
 
+    <property name="generatedMapperSuffix" value="Generated"/>
+    <property name="generatedMapperSubpackage" value="generated"/>
+
     <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
-    <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
     <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
 
     <plugin type="io.digimono.mybatis.generator.plugins.SimpleStyleToStringPlugin"/>
     <plugin type="io.digimono.mybatis.generator.plugins.FindAllPlugin"/>
     <plugin type="io.digimono.mybatis.generator.plugins.AliasColumnListPlugin"/>
     <plugin type="io.digimono.mybatis.generator.plugins.EmptyXMLMapperPlugin"/>
-    <plugin type="io.digimono.mybatis.generator.plugins.EmptyJavaMapperPlugin"/>
 
-    <plugin type="io.digimono.mybatis.generator.plugins.BaseMapperPlugin">
-      <property name="targetPackage" value="com.github.vanilla.dao.base"/>
-    </plugin>
+    <plugin type="io.digimono.mybatis.generator.plugins.EmptyJavaMapperPlugin"/>
+    <!-- MapperAnnotationPlugin must be after EmptyJavaMapperPlugin -->
+    <plugin type="io.digimono.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+
+    <!-- <plugin type="io.digimono.mybatis.generator.plugins.BaseMapperPlugin"> -->
+    <!-- <property name="targetPackage" value="com.github.vanilla.dao.base"/> -->
+    <!-- </plugin> -->
 
     <plugin type="io.digimono.mybatis.generator.plugins.MarkAsDeletedByIdPlugin">
       <property name="markAsDeletedColumn" value="deleted"/>

@@ -1,6 +1,7 @@
 package io.digimono.mybatis.generator.plugins;
 
 import io.digimono.mybatis.generator.plugins.base.BasePlugin;
+import io.digimono.mybatis.generator.utils.Utils;
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -29,9 +30,11 @@ public class EmptyJavaMapperPlugin extends BasePlugin {
     int lastDotIndex = originalMapperType.lastIndexOf(".");
     String rootInterface =
         String.format(
-            "%s.Generated%s",
+            "%s.%s.%s%s",
             originalMapperType.substring(0, lastDotIndex),
-            originalMapperType.substring(lastDotIndex + 1));
+            Utils.getGeneratedMapperSubpackage(context),
+            originalMapperType.substring(lastDotIndex + 1),
+            Utils.getGeneratedMapperSuffix(context));
 
     FullyQualifiedJavaType type = new FullyQualifiedJavaType(originalMapperType);
     Interface interfaze = new Interface(type);
