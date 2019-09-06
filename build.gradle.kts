@@ -208,10 +208,10 @@ configure(projectsToPublish) {
 configure(gradlePluginProjects) {
 
     apply {
-        plugin("signing")
+        // plugin("signing")
         plugin("maven")
-        plugin("maven-publish")
-        plugin("com.jfrog.bintray")
+        // plugin("maven-publish")
+        // plugin("com.jfrog.bintray")
         plugin("net.researchgate.release")
 
         plugin("groovy")
@@ -252,34 +252,34 @@ configure(gradlePluginProjects) {
             add("archives", groovydocJar)
         }
 
-        whenTaskAdded {
-            if (this.name.contains("signPluginMavenPublication")) {
-                this.enabled = File(project.property("signing.secretKeyRingFile") as String).isFile
-            }
-        }
+       // whenTaskAdded {
+       //     if (this.name.contains("signPluginMavenPublication")) {
+       //         this.enabled = File(project.property("signing.secretKeyRingFile") as String).isFile
+       //     }
+       // }
 
         afterReleaseBuild {
 
         }
     }
 
-    publishing {
-        configurePublishing(
-            project,
-            "pluginMaven",
-            false,
-            listOf(sourcesJar, javadocJar, groovydocJar)
-        )
-    }
-
-    configure<BintrayExtension> {
-        configureBintray(project, this, "pluginMaven")
-    }
-
-    signing {
-        useGpgCmd()
-        sign(publishing.publications["pluginMaven"])
-    }
+   // publishing {
+   //     configurePublishing(
+   //         project,
+   //         "pluginMaven",
+   //         false,
+   //         listOf(sourcesJar, javadocJar, groovydocJar)
+   //     )
+   // }
+   //
+   // configure<BintrayExtension> {
+   //     configureBintray(project, this, "pluginMaven")
+   // }
+   //
+   // signing {
+   //     useGpgCmd()
+   //     sign(publishing.publications["pluginMaven"])
+   // }
 
     release {
         customizeRelease(this)
