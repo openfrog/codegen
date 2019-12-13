@@ -16,7 +16,8 @@
 
 object Libs {
 
-    const val mybatisGeneratorCore = "org.mybatis.generator:mybatis-generator-core:${Versions.mybatisVersion}"
+    const val mybatisGeneratorCore = "org.mybatis.generator:mybatis-generator-core:${Versions.mybatisGeneratorVersion}"
     const val ant = "org.apache.ant:ant:${Versions.antVersion}"
     const val h2 = "com.h2database:h2:${Versions.h2Version}"
+    const val lombok = "org.projectlombok:lombok:${Versions.lombokVersion}"
 }

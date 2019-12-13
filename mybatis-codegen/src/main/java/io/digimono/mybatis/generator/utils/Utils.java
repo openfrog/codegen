@@ -20,10 +20,7 @@ import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.config.Context;
 import org.mybatis.generator.internal.util.StringUtility;
 
-/**
- * @author yangyanju
- * @version 1.0
- */
+/** @author yangyanju */
 public final class Utils {
 
   private static final String PROP_ONLY_GENERATE_INSERT_SELECTIVE_METHOD =

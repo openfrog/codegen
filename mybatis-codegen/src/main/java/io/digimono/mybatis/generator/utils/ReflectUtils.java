@@ -16,8 +16,6 @@
 
 package io.digimono.mybatis.generator.utils;
 
-import org.mybatis.generator.internal.PluginAggregator;
-
 import java.lang.reflect.Field;
 
 /** @author yangyanju */

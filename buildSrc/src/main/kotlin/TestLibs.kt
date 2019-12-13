@@ -17,4 +17,13 @@
 object TestLibs {
 
     const val junit = "junit:junit:${Versions.junitVersion}"
+
+    const val junit5Bom = "org.junit:junit-bom:${Versions.junit5Version}"
+    const val junitPlatformLauncher = "org.junit.platform:junit-platform-launcher:${Versions.junitPlatformVersion}"
+    const val junitJupiterApi = "org.junit.jupiter:junit-jupiter-api:${Versions.junit5Version}"
+    const val junitJupiterEngine = "org.junit.jupiter:junit-jupiter-engine:${Versions.junit5Version}"
+    const val junitVintageEngine = "org.junit.vintage:junit-vintage-engine:${Versions.junit5Version}"
+
+    const val apiGuardianApi = "org.apiguardian:apiguardian-api:${Versions.apiGuardianVersion}"
+    const val opentest4j = "org.opentest4j:opentest4j:${Versions.opentest4jVersion}"
 }

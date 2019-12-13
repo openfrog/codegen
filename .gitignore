@@ -9,11 +9,10 @@
 .idea/
 target/
 
-!maven-wrapper.jar
 .flattened-pom.xml
-
 pom.xml.releaseBackup
 release.properties
+!maven-wrapper.jar
 
 .gradle/
 out/

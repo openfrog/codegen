@@ -18,10 +18,6 @@ package io.digimono.mybatis.generator.plugins;
 
 import io.digimono.mybatis.generator.plugins.base.BasePlugin;
 import io.digimono.mybatis.generator.utils.PluginUtils;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeSet;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
@@ -29,17 +25,18 @@ import org.mybatis.generator.api.dom.java.Interface;
 import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.Parameter;
-import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
-/**
- * @author yangyanju
- * @version 1.0
- */
+import java.util.List;
+import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
+
+/** @author yangyanju */
 public class MarkAsDeletedByIdPlugin extends BasePlugin {
 
   private static final String STATEMENT_ID_MARK_AS_DELETED_BY_ID = "markAsDeletedById";
@@ -64,17 +61,16 @@ public class MarkAsDeletedByIdPlugin extends BasePlugin {
   }
 
   @Override
-  public boolean clientGenerated(
-      Interface interfaze, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+  public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
     if (this.introspectedColumn == null || !introspectedTable.hasPrimaryKeyColumns()) {
       return false;
     }
 
     Set<FullyQualifiedJavaType> importedTypes = new TreeSet<>();
-    Method method = new Method();
+    Method method = new Method(STATEMENT_ID_MARK_AS_DELETED_BY_ID);
     method.setVisibility(JavaVisibility.PUBLIC);
+    method.setAbstract(true);
     method.setReturnType(FullyQualifiedJavaType.getIntInstance());
-    method.setName(STATEMENT_ID_MARK_AS_DELETED_BY_ID);
 
     if (introspectedTable.getRules().generatePrimaryKeyClass()) {
       FullyQualifiedJavaType type =

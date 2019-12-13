@@ -17,8 +17,6 @@
 package io.digimono.mybatis.generator.plugins;
 
 import io.digimono.mybatis.generator.plugins.base.BasePlugin;
-
-import java.util.Iterator;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.xml.Attribute;
@@ -27,10 +25,9 @@ import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
-/**
- * @author yangyanju
- * @version 1.0
- */
+import java.util.Iterator;
+
+/** @author yangyanju */
 public class AliasColumnListPlugin extends BasePlugin {
 
   @Override

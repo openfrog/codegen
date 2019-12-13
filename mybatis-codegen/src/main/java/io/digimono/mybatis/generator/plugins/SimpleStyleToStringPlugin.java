@@ -55,7 +55,7 @@ public class SimpleStyleToStringPlugin extends BaseToStringPlugin {
     }
 
     method.addBodyLine("sb.append(\"]\");");
-    if (useToStringFromRoot && topLevelClass.getSuperClass() != null) {
+    if (useToStringFromRoot && topLevelClass.getSuperClass().isPresent()) {
       method.addBodyLine("sb.append(\", from super class \");");
       method.addBodyLine("sb.append(super.toString());");
     }

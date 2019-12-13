@@ -16,10 +16,7 @@
 
 package io.digimono.mybatis.generator.constants;
 
-/**
- * @author yangyanju
- * @version 1.0
- */
+/** @author yangyanju */
 public final class Constants {
 
   public static final String SERIAL_VERSION_UID_FIELD_NAME = "serialVersionUID";

@@ -21,6 +21,7 @@ import io.digimono.mybatis.generator.plugins.EmptyJavaMapperPlugin;
 import io.digimono.mybatis.generator.utils.ReflectUtils;
 import io.digimono.mybatis.generator.utils.Utils;
 import org.mybatis.generator.api.CommentGenerator;
+import org.mybatis.generator.api.CompositePlugin;
 import org.mybatis.generator.api.Plugin;
 import org.mybatis.generator.api.dom.java.CompilationUnit;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
@@ -29,7 +30,6 @@ import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.codegen.AbstractXmlGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.JavaMapperGenerator;
 import org.mybatis.generator.config.PropertyRegistry;
-import org.mybatis.generator.internal.PluginAggregator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,11 +38,16 @@ import java.util.List;
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
-/**
- * @author yangyanju
- * @version 1.0
- */
+/** @author yangyanju */
 public class CustomizedJavaMapperGenerator extends JavaMapperGenerator {
+
+  public CustomizedJavaMapperGenerator(String project) {
+    super(project);
+  }
+
+  public CustomizedJavaMapperGenerator(String project, boolean requiresMatchedXMLGenerator) {
+    super(project, requiresMatchedXMLGenerator);
+  }
 
   @Override
   public List<CompilationUnit> getCompilationUnits() {
@@ -51,9 +56,9 @@ public class CustomizedJavaMapperGenerator extends JavaMapperGenerator {
     CommentGenerator commentGenerator = context.getCommentGenerator();
 
     boolean hasEmptyJavaMapperPlugin = false;
-    PluginAggregator pluginAggregator = (PluginAggregator) context.getPlugins();
+    CompositePlugin compositePlugin = (CompositePlugin) context.getPlugins();
     try {
-      Object value = ReflectUtils.getValue(pluginAggregator, PluginAggregator.class, "plugins");
+      Object value = ReflectUtils.getValue(compositePlugin, CompositePlugin.class, "plugins");
       if (value instanceof ArrayList) {
         @SuppressWarnings("unchecked")
         List<Plugin> plugins = (ArrayList<Plugin>) value;
@@ -116,8 +121,8 @@ public class CustomizedJavaMapperGenerator extends JavaMapperGenerator {
     addUpdateByPrimaryKeyWithBLOBsMethod(interfaze);
     addUpdateByPrimaryKeyWithoutBLOBsMethod(interfaze);
 
-    List<CompilationUnit> answer = new ArrayList<CompilationUnit>();
-    if (context.getPlugins().clientGenerated(interfaze, null, introspectedTable)) {
+    List<CompilationUnit> answer = new ArrayList<>();
+    if (context.getPlugins().clientGenerated(interfaze, introspectedTable)) {
       answer.add(interfaze);
     }
 

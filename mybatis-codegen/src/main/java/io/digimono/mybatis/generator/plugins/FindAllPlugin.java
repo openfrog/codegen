@@ -17,21 +17,20 @@
 package io.digimono.mybatis.generator.plugins;
 
 import io.digimono.mybatis.generator.plugins.base.BasePlugin;
-
-import java.util.Set;
-import java.util.TreeSet;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.Interface;
 import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
-import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.PropertyRegistry;
 import org.mybatis.generator.internal.util.StringUtility;
+
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @author yangyanju
@@ -88,13 +87,13 @@ public class FindAllPlugin extends BasePlugin {
   }
 
   @Override
-  public boolean clientGenerated(
-      Interface interfaze, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+  public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
     Set<FullyQualifiedJavaType> importedTypes = new TreeSet<>();
     importedTypes.add(FullyQualifiedJavaType.getNewListInstance());
 
-    Method method = new Method();
+    Method method = new Method(introspectedTable.getSelectAllStatementId());
     method.setVisibility(JavaVisibility.PUBLIC);
+    method.setAbstract(true);
 
     FullyQualifiedJavaType returnType = FullyQualifiedJavaType.getNewListInstance();
     FullyQualifiedJavaType listType =
@@ -103,7 +102,6 @@ public class FindAllPlugin extends BasePlugin {
     importedTypes.add(listType);
     returnType.addTypeArgument(listType);
     method.setReturnType(returnType);
-    method.setName(introspectedTable.getSelectAllStatementId());
 
     context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 

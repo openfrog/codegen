@@ -23,6 +23,8 @@ import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.GeneratedKey;
 
+import java.util.Optional;
+
 import static io.digimono.mybatis.generator.constants.Constants.INSERT_SELECTIVE_CLAUSE_ID;
 
 /**
@@ -49,16 +51,17 @@ public class InsertSelectiveElementGenerator extends BaseXmlElementGenerator {
 
     GeneratedKey gk = introspectedTable.getGeneratedKey();
     if (gk != null) {
-      IntrospectedColumn introspectedColumn = introspectedTable.getColumn(gk.getColumn());
+      Optional<IntrospectedColumn> introspectedColumn = introspectedTable.getColumn(gk.getColumn());
       // if the column is null, then it's a configuration error. The
       // warning has already been reported
-      if (introspectedColumn != null) {
+      if (introspectedColumn.isPresent()) {
+        IntrospectedColumn column = introspectedColumn.get();
         if (gk.isJdbcStandard()) {
           answer.addAttribute(new Attribute("useGeneratedKeys", "true"));
-          answer.addAttribute(new Attribute("keyProperty", introspectedColumn.getJavaProperty()));
-          answer.addAttribute(new Attribute("keyColumn", introspectedColumn.getActualColumnName()));
+          answer.addAttribute(new Attribute("keyProperty", column.getJavaProperty()));
+          answer.addAttribute(new Attribute("keyColumn", column.getActualColumnName()));
         } else {
-          answer.addElement(getSelectKey(introspectedColumn, gk));
+          answer.addElement(getSelectKey(column, gk));
         }
       }
     }

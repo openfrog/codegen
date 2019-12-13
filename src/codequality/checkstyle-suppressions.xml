@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suppressions PUBLIC
+  "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+  "http://checkstyle.sourceforge.net/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+  <!--<suppress checks=".*" files="src/test/java/.*"/>-->
+  <suppress checks="CustomImportOrder" files=".*"/>
+  <suppress checks="SummaryJavadoc" files=".*"/>
+  <suppress checks="SummaryJavadoc" files="(.*Test\.java)"/>
+  <suppress checks="OuterTypeFilename" files="package-info.java"/>
+</suppressions>

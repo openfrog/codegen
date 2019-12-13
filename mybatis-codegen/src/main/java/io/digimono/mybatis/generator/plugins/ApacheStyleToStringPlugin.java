@@ -21,10 +21,7 @@ import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 
-/**
- * @author yangyanju
- * @version 1.0
- */
+/** @author yangyanju */
 public class ApacheStyleToStringPlugin extends BaseToStringPlugin {
 
   @Override

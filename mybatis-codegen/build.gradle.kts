@@ -15,6 +15,6 @@
  */
 
 dependencies {
-    compile(Libs.mybatisGeneratorCore)
+    api(Libs.mybatisGeneratorCore)
     compileOnly(Libs.ant)
 }

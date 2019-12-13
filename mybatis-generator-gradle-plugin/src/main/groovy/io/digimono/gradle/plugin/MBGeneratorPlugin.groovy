@@ -26,7 +26,7 @@ class MBGeneratorPlugin implements Plugin<ProjectInternal> {
 
     def MYBATIS_GENERATOR_CONFIGURATION = 'mybatisGenerator'
     def MYBATIS_GENERATOR_TASK = 'mybatisGenerate'
-    def MYBATIS_GENERATOR_DEPENDENCY = 'org.mybatis.generator:mybatis-generator-core:1.3.7'
+    def MYBATIS_GENERATOR_DEPENDENCY = 'org.mybatis.generator:mybatis-generator-core:1.4.0'
 
     @Override
     void apply(ProjectInternal project) {

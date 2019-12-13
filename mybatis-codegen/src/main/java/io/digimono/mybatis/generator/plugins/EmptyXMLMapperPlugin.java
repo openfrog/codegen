@@ -17,9 +17,6 @@
 package io.digimono.mybatis.generator.plugins;
 
 import io.digimono.mybatis.generator.plugins.base.BasePlugin;
-
-import java.util.ArrayList;
-import java.util.List;
 import org.mybatis.generator.api.GeneratedXmlFile;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.xml.Attribute;
@@ -29,10 +26,10 @@ import org.mybatis.generator.codegen.XmlConstants;
 import org.mybatis.generator.config.TableConfiguration;
 import org.mybatis.generator.internal.util.StringUtility;
 
-/**
- * @author yangyanju
- * @version 1.0
- */
+import java.util.ArrayList;
+import java.util.List;
+
+/** @author yangyanju */
 public class EmptyXMLMapperPlugin extends BasePlugin {
 
   @Override

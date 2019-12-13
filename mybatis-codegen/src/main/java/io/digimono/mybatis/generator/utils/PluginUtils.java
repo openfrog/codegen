@@ -16,15 +16,14 @@
 
 package io.digimono.mybatis.generator.utils;
 
-import java.util.Properties;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.internal.util.StringUtility;
 
-/**
- * @author yangyanju
- * @version 1.0
- */
+import java.util.Optional;
+import java.util.Properties;
+
+/** @author yangyanju */
 public final class PluginUtils {
 
   private static final String PROP_MARK_AS_DELETED_COLUMN = "markAsDeletedColumn";
@@ -41,11 +40,14 @@ public final class PluginUtils {
     String columnName =
         getProperty(pluginProperties, introspectedTable, PROP_MARK_AS_DELETED_COLUMN);
 
+    Optional<IntrospectedColumn> introspectedColumn;
     if (StringUtility.stringHasValue(columnName)) {
-      return introspectedTable.getColumn(columnName);
+      introspectedColumn = introspectedTable.getColumn(columnName);
+    } else {
+      introspectedColumn = Optional.empty();
     }
 
-    return null;
+    return introspectedColumn.orElse(null);
   }
 
   public static int getMarkAsDeletedValue(

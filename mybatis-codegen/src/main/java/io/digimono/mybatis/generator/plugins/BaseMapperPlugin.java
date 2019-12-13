@@ -25,10 +25,7 @@
 //
 //import java.util.List;
 //
-///**
-// * @author yangyanju
-// * @version 1.0
-// */
+///** @author yangyanju */
 //public class BaseMapperPlugin extends BasePlugin {
 //
 //  private String targetPackage;

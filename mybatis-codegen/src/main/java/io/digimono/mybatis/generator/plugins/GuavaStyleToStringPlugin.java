@@ -16,16 +16,13 @@
 
 package io.digimono.mybatis.generator.plugins;
 
+import io.digimono.mybatis.generator.plugins.base.BaseToStringPlugin;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Field;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
-import io.digimono.mybatis.generator.plugins.base.BaseToStringPlugin;
 
-/**
- * @author yangyanju
- * @version 1.0
- */
+/** @author yangyanju */
 public class GuavaStyleToStringPlugin extends BaseToStringPlugin {
 
   @Override

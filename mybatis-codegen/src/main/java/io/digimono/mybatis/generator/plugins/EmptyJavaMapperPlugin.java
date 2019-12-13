@@ -14,10 +14,7 @@ import org.mybatis.generator.config.PropertyRegistry;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * @author yangyanju
- * @version 1.0
- */
+/** @author yangyanju */
 public class EmptyJavaMapperPlugin extends BasePlugin {
 
   @Override

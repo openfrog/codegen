@@ -41,10 +41,7 @@ import java.util.StringTokenizer;
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
-/**
- * @author yangyanju
- * @version 1.0
- */
+/** @author yangyanju */
 public class MBGeneratorAntTask extends GeneratorAntTask {
 
   private PropertySet propertyset;

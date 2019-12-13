@@ -16,11 +16,12 @@
 
 package io.digimono.mybatis.generator.plugins.base;
 
-import java.util.List;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.IntrospectedTable.TargetRuntime;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.internal.util.StringUtility;
+
+import java.util.List;
 
 /**
  * @author yangyanju

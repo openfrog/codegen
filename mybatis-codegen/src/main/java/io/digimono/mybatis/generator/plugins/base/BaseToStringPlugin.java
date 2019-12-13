@@ -16,11 +16,6 @@
 
 package io.digimono.mybatis.generator.plugins.base;
 
-import static org.mybatis.generator.internal.util.StringUtility.isTrue;
-
-import java.util.List;
-import java.util.Properties;
-
 import io.digimono.mybatis.generator.constants.Constants;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.IntrospectedTable.TargetRuntime;
@@ -29,6 +24,11 @@ import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
+
+import java.util.List;
+import java.util.Properties;
+
+import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 
 /**
  * @author yangyanju
@@ -69,13 +69,9 @@ public abstract class BaseToStringPlugin extends BasePlugin {
 
   protected boolean generateToString(
       IntrospectedTable introspectedTable, TopLevelClass topLevelClass) {
-    Method method = new Method();
+    Method method = new Method("toString");
     method.setVisibility(JavaVisibility.PUBLIC);
     method.setReturnType(FullyQualifiedJavaType.getStringInstance());
-    method.setName("toString");
-    if (introspectedTable.isJava5Targeted()) {
-      method.addAnnotation("@Override");
-    }
 
     if (introspectedTable.getTargetRuntime() == TargetRuntime.MYBATIS3_DSQL) {
       context

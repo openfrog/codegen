@@ -20,9 +20,14 @@
 
 plugins {
     `kotlin-dsl`
-    `maven-publish`
 }
 
 repositories {
+    jcenter()
     mavenCentral()
+    gradlePluginPortal()
+}
+
+kotlinDslPluginOptions {
+    experimentalWarning.set(false)
 }

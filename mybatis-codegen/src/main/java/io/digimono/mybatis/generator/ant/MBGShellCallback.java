@@ -25,10 +25,7 @@ import java.io.File;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
-/**
- * @author yangyanju
- * @version 1.0
- */
+/** @author yangyanju */
 public class MBGShellCallback extends DefaultShellCallback {
 
   private final Properties properties;

@@ -16,9 +16,6 @@
 
 package io.digimono.mybatis.generator.internal;
 
-import static org.mybatis.generator.internal.util.StringUtility.isTrue;
-
-import java.util.Properties;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Field;
@@ -28,10 +25,11 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.PropertyRegistry;
 import org.mybatis.generator.internal.DefaultCommentGenerator;
 
-/**
- * @author yangyanju
- * @version 1.0
- */
+import java.util.Properties;
+
+import static org.mybatis.generator.internal.util.StringUtility.isTrue;
+
+/** @author yangyanju */
 public class CustomizedCommentGeneratorImpl extends DefaultCommentGenerator {
 
   private boolean suppressAllComments;

@@ -19,17 +19,14 @@ package io.digimono.mybatis.generator.codegen.mybatis3;
 import io.digimono.mybatis.generator.codegen.mybatis3.javamapper.CustomizedJavaMapperGenerator;
 import io.digimono.mybatis.generator.codegen.mybatis3.xmlmapper.CustomizedXMLMapperGenerator;
 import io.digimono.mybatis.generator.constants.Constants;
-import java.util.List;
-
 import org.mybatis.generator.api.ProgressCallback;
 import org.mybatis.generator.codegen.AbstractJavaClientGenerator;
 import org.mybatis.generator.codegen.mybatis3.IntrospectedTableMyBatis3Impl;
 import org.mybatis.generator.internal.util.StringUtility;
 
-/**
- * @author yangyanju
- * @version 1.0
- */
+import java.util.List;
+
+/** @author yangyanju */
 public class CustomizedIntrospectedTableMyBatis3Impl extends IntrospectedTableMyBatis3Impl {
 
   public CustomizedIntrospectedTableMyBatis3Impl() {
@@ -110,9 +107,9 @@ public class CustomizedIntrospectedTableMyBatis3Impl extends IntrospectedTableMy
     AbstractJavaClientGenerator javaGenerator;
 
     if ("XMLMAPPER".equalsIgnoreCase(type)) {
-      javaGenerator = new CustomizedJavaMapperGenerator();
+      javaGenerator = new CustomizedJavaMapperGenerator(getClientProject());
     } else if ("MAPPER".equalsIgnoreCase(type)) {
-      javaGenerator = new CustomizedJavaMapperGenerator();
+      javaGenerator = new CustomizedJavaMapperGenerator(getClientProject());
     } else {
       javaGenerator = super.createJavaClientGenerator();
     }
