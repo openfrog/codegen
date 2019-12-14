@@ -1,7 +1,6 @@
 # MyBatis Generator Plugin
 
 [![License](https://img.shields.io/badge/license-Apache%202-blue.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0)
-[![License](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 [![License](https://img.shields.io/maven-central/v/io.github.digimono/mybatis-codegen.svg?color=blue&style=flat-square)](https://search.maven.org/search?q=g:io.github.digimono%20AND%20a:mybatis-codegen)
 
 ## MyBatis Codegen
