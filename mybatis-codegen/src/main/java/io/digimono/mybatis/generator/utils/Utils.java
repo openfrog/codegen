@@ -27,6 +27,7 @@ public final class Utils {
       "onlyGenerateInsertSelectiveMethod";
   private static final String PROP_ONLY_GENERATE_UPDATE_SELECTIVE_METHOD =
       "onlyGenerateUpdateSelectiveMethod";
+  private static final String PROP_GENERATE_EMPTY_JAVA_MAPPER = "generateEmptyJavaMapper";
   private static final String PROP_GENERATED_MAPPER_SUBPACKAGE = "generatedMapperSubpackage";
   private static final String PROP_GENERATED_MAPPER_SUFFIX = "generatedMapperSuffix";
 
@@ -56,6 +57,18 @@ public final class Utils {
     }
 
     return StringUtility.isTrue(onlyGenerateUpdateSelectiveMethod);
+  }
+
+  public static boolean generateEmptyJavaMapper(
+      Context context, IntrospectedTable introspectedTable) {
+    String generateEmptyJavaMapper =
+        introspectedTable.getTableConfigurationProperty(PROP_GENERATE_EMPTY_JAVA_MAPPER);
+
+    if (!StringUtility.stringHasValue(generateEmptyJavaMapper)) {
+      generateEmptyJavaMapper = context.getProperty(PROP_GENERATE_EMPTY_JAVA_MAPPER);
+    }
+
+    return StringUtility.isTrue(generateEmptyJavaMapper);
   }
 
   public static String getGeneratedMapperSubpackage(Context context) {

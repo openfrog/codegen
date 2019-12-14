@@ -16,10 +16,14 @@
 
 package io.digimono.mybatis.generator.utils;
 
+import org.mybatis.generator.api.CompositePlugin;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
+import org.mybatis.generator.api.Plugin;
+import org.mybatis.generator.config.Context;
 import org.mybatis.generator.internal.util.StringUtility;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
@@ -72,6 +76,27 @@ public final class PluginUtils {
     }
 
     return DEFAULT_MARK_AS_UN_DELETED_VALUE;
+  }
+
+  public static boolean hasPlugin(Context context, Class<? extends Plugin> pluginClass) {
+    if (context == null) {
+      return false;
+    }
+
+    boolean hasPlugin = false;
+    CompositePlugin compositePlugin = (CompositePlugin) context.getPlugins();
+    try {
+      Object value = ReflectUtils.getValue(compositePlugin, CompositePlugin.class, "plugins");
+      if (value instanceof List) {
+        @SuppressWarnings("unchecked")
+        List<Plugin> plugins = (List<Plugin>) value;
+        hasPlugin = plugins.stream().anyMatch(plugin -> plugin.getClass().equals(pluginClass));
+      }
+    } catch (Exception ex) {
+      throw new RuntimeException(ex);
+    }
+
+    return hasPlugin;
   }
 
   private static String getProperty(

@@ -16,11 +16,8 @@
 
 package io.digimono.mybatis.generator.plugins;
 
-import io.digimono.mybatis.generator.utils.ReflectUtils;
-import org.mybatis.generator.api.CompositePlugin;
-import org.mybatis.generator.api.Plugin;
+import io.digimono.mybatis.generator.utils.PluginUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /** @author yangyanju */
@@ -28,20 +25,11 @@ public class MapperAnnotationPlugin extends org.mybatis.generator.plugins.Mapper
 
   @Override
   public boolean validate(List<String> warnings) {
-    CompositePlugin compositePlugin = (CompositePlugin) context.getPlugins();
-
     try {
-      Object value = ReflectUtils.getValue(compositePlugin, CompositePlugin.class, "plugins");
-      if (value instanceof ArrayList) {
-        @SuppressWarnings("unchecked")
-        List<Plugin> plugins = (ArrayList<Plugin>) value;
-
-        boolean hasEmptyJavaMapperPlugin =
-            plugins.stream().anyMatch(plugin -> plugin instanceof EmptyJavaMapperPlugin);
-
-        if (hasEmptyJavaMapperPlugin) {
-          return false;
-        }
+      boolean hasEmptyJavaMapperPlugin =
+          PluginUtils.hasPlugin(context, EmptyJavaMapperPlugin.class);
+      if (hasEmptyJavaMapperPlugin) {
+        return false;
       }
     } catch (Exception ex) {
       warnings.add(

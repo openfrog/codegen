@@ -14,6 +14,7 @@
 
     <property name="onlyGenerateInsertSelectiveMethod" value="true"/>
     <property name="onlyGenerateUpdateSelectiveMethod" value="true"/>
+    <!--<property name="generateEmptyJavaMapper" value="true"/>-->
 
     <property name="generatedMapperSuffix" value="Generated"/>
     <property name="generatedMapperSubpackage" value="generated"/>
@@ -91,7 +92,8 @@
       <property name="markAsDeletedValue" value="1"/>
       <property name="markAsUnDeletedValue" value="0"/>
 
-      <!--<property name="rootInterface" value=""/>-->
+      <!--<property name="rootInterface"-->
+      <!--          value="io.digimono.mybatis.mapper.BaseMapper&lt;Employee, Integer&gt;"/>-->
 
       <!--JDBC / SqlServer / MySql-->
       <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->

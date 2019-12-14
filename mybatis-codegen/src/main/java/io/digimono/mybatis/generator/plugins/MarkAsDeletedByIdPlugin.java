@@ -18,6 +18,7 @@ package io.digimono.mybatis.generator.plugins;
 
 import io.digimono.mybatis.generator.plugins.base.BasePlugin;
 import io.digimono.mybatis.generator.utils.PluginUtils;
+import io.digimono.mybatis.generator.utils.Utils;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
@@ -62,8 +63,12 @@ public class MarkAsDeletedByIdPlugin extends BasePlugin {
 
   @Override
   public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
+    if (Utils.generateEmptyJavaMapper(context, introspectedTable)) {
+      return true;
+    }
+
     if (this.introspectedColumn == null || !introspectedTable.hasPrimaryKeyColumns()) {
-      return false;
+      return true;
     }
 
     Set<FullyQualifiedJavaType> importedTypes = new TreeSet<>();

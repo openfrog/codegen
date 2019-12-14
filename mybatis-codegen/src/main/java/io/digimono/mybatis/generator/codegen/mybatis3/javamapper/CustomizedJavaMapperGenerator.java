@@ -18,11 +18,9 @@ package io.digimono.mybatis.generator.codegen.mybatis3.javamapper;
 
 import io.digimono.mybatis.generator.codegen.mybatis3.xmlmapper.CustomizedXMLMapperGenerator;
 import io.digimono.mybatis.generator.plugins.EmptyJavaMapperPlugin;
-import io.digimono.mybatis.generator.utils.ReflectUtils;
+import io.digimono.mybatis.generator.utils.PluginUtils;
 import io.digimono.mybatis.generator.utils.Utils;
 import org.mybatis.generator.api.CommentGenerator;
-import org.mybatis.generator.api.CompositePlugin;
-import org.mybatis.generator.api.Plugin;
 import org.mybatis.generator.api.dom.java.CompilationUnit;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.Interface;
@@ -55,24 +53,10 @@ public class CustomizedJavaMapperGenerator extends JavaMapperGenerator {
         getString("Progress.17", introspectedTable.getFullyQualifiedTable().toString()));
     CommentGenerator commentGenerator = context.getCommentGenerator();
 
-    boolean hasEmptyJavaMapperPlugin = false;
-    CompositePlugin compositePlugin = (CompositePlugin) context.getPlugins();
-    try {
-      Object value = ReflectUtils.getValue(compositePlugin, CompositePlugin.class, "plugins");
-      if (value instanceof ArrayList) {
-        @SuppressWarnings("unchecked")
-        List<Plugin> plugins = (ArrayList<Plugin>) value;
-
-        hasEmptyJavaMapperPlugin =
-            plugins.stream().anyMatch(plugin -> plugin instanceof EmptyJavaMapperPlugin);
-      }
-    } catch (Exception ex) {
-      throw new RuntimeException(ex);
-    }
-
     String mapperType;
     String originalMapperType = introspectedTable.getMyBatis3JavaMapperType();
 
+    boolean hasEmptyJavaMapperPlugin = PluginUtils.hasPlugin(context, EmptyJavaMapperPlugin.class);
     if (hasEmptyJavaMapperPlugin) {
       int lastDotIndex = originalMapperType.lastIndexOf(".");
       mapperType =
@@ -106,20 +90,22 @@ public class CustomizedJavaMapperGenerator extends JavaMapperGenerator {
       interfaze.addImportedType(fqjt);
     }
 
-    addCountByExampleMethod(interfaze);
-    addDeleteByExampleMethod(interfaze);
-    addDeleteByPrimaryKeyMethod(interfaze);
-    addInsertMethod(interfaze);
-    addInsertSelectiveMethod(interfaze);
-    addSelectByExampleWithBLOBsMethod(interfaze);
-    addSelectByExampleWithoutBLOBsMethod(interfaze);
-    addSelectByPrimaryKeyMethod(interfaze);
-    addUpdateByExampleSelectiveMethod(interfaze);
-    addUpdateByExampleWithBLOBsMethod(interfaze);
-    addUpdateByExampleWithoutBLOBsMethod(interfaze);
-    addUpdateByPrimaryKeySelectiveMethod(interfaze);
-    addUpdateByPrimaryKeyWithBLOBsMethod(interfaze);
-    addUpdateByPrimaryKeyWithoutBLOBsMethod(interfaze);
+    if (!Utils.generateEmptyJavaMapper(context, introspectedTable)) {
+      addCountByExampleMethod(interfaze);
+      addDeleteByExampleMethod(interfaze);
+      addDeleteByPrimaryKeyMethod(interfaze);
+      addInsertMethod(interfaze);
+      addInsertSelectiveMethod(interfaze);
+      addSelectByExampleWithBLOBsMethod(interfaze);
+      addSelectByExampleWithoutBLOBsMethod(interfaze);
+      addSelectByPrimaryKeyMethod(interfaze);
+      addUpdateByExampleSelectiveMethod(interfaze);
+      addUpdateByExampleWithBLOBsMethod(interfaze);
+      addUpdateByExampleWithoutBLOBsMethod(interfaze);
+      addUpdateByPrimaryKeySelectiveMethod(interfaze);
+      addUpdateByPrimaryKeyWithBLOBsMethod(interfaze);
+      addUpdateByPrimaryKeyWithoutBLOBsMethod(interfaze);
+    }
 
     List<CompilationUnit> answer = new ArrayList<>();
     if (context.getPlugins().clientGenerated(interfaze, introspectedTable)) {

@@ -17,6 +17,7 @@
 package io.digimono.mybatis.generator.plugins;
 
 import io.digimono.mybatis.generator.plugins.base.BasePlugin;
+import io.digimono.mybatis.generator.utils.Utils;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.Interface;
@@ -88,6 +89,10 @@ public class FindAllPlugin extends BasePlugin {
 
   @Override
   public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
+    if (Utils.generateEmptyJavaMapper(context, introspectedTable)) {
+      return true;
+    }
+
     Set<FullyQualifiedJavaType> importedTypes = new TreeSet<>();
     importedTypes.add(FullyQualifiedJavaType.getNewListInstance());
 

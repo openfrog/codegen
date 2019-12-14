@@ -115,6 +115,7 @@ configure(gradlePluginProjects) {
         plugin("groovy")
         plugin("java-gradle-plugin")
         plugin("com.gradle.plugin-publish")
+        // plugin("maven-publish")
     }
 
     dependencies {

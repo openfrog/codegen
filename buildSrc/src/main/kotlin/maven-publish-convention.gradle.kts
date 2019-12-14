@@ -145,7 +145,7 @@ tasks {
         val isReleaseVersion = !version.toString().endsWith("SNAPSHOT")
 
         onlyIf {
-            isReleaseVersion && gradle.taskGraph.hasTask("publish")
+            isReleaseVersion
         }
     }
 
