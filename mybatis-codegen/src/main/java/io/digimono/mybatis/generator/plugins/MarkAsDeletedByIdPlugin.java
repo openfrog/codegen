@@ -121,7 +121,7 @@ public class MarkAsDeletedByIdPlugin extends BasePlugin {
   @Override
   public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
     if (this.introspectedColumn == null || !introspectedTable.hasPrimaryKeyColumns()) {
-      return false;
+      return true;
     }
 
     XmlElement rootElement = document.getRootElement();

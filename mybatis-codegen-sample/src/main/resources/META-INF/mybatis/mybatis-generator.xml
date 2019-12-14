@@ -31,10 +31,6 @@
     <!-- MapperAnnotationPlugin must be after EmptyJavaMapperPlugin -->
     <plugin type="io.digimono.mybatis.generator.plugins.MapperAnnotationPlugin"/>
 
-    <!-- <plugin type="io.digimono.mybatis.generator.plugins.BaseMapperPlugin"> -->
-    <!-- <property name="targetPackage" value="com.github.vanilla.dao.base"/> -->
-    <!-- </plugin> -->
-
     <plugin type="io.digimono.mybatis.generator.plugins.MarkAsDeletedByIdPlugin">
       <property name="markAsDeletedColumn" value="deleted"/>
       <property name="markAsDeletedValue" value="1"/>
