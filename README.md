@@ -11,12 +11,12 @@
 <plugin>
     <groupId>org.mybatis.generator</groupId>
     <artifactId>mybatis-generator-maven-plugin</artifactId>
-    <version>1.3.7</version>
+    <version>${mybatis-generator.version}</version>
     <dependencies>
         <dependency>
             <groupId>io.github.digimono</groupId>
             <artifactId>mybatis-codegen</artifactId>
-            <version>${project.version}</version>
+            <version>${mybatis-codegen.version}</version>
         </dependency>
     </dependencies>
 </plugin>
