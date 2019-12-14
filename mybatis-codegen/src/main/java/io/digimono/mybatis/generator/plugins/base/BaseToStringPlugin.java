@@ -72,6 +72,7 @@ public abstract class BaseToStringPlugin extends BasePlugin {
     Method method = new Method("toString");
     method.setVisibility(JavaVisibility.PUBLIC);
     method.setReturnType(FullyQualifiedJavaType.getStringInstance());
+    method.addAnnotation("@Override");
 
     if (introspectedTable.getTargetRuntime() == TargetRuntime.MYBATIS3_DSQL) {
       context
