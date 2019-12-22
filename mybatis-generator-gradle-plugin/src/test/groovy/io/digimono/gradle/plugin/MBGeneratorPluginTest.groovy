@@ -16,7 +16,6 @@
 
 package io.digimono.gradle.plugin
 
-
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Before
@@ -29,16 +28,16 @@ import static org.junit.Assert.assertTrue
  */
 class MBGeneratorPluginTest {
 
-    Project project
+    private Project project
 
     @Before
     void setUp() {
         project = ProjectBuilder.builder().build()
+        project.pluginManager.apply 'io.github.digimono.mybatis-generator'
     }
 
     @Test
     void applyMBGeneratorPlugin() {
-        project.pluginManager.apply 'io.github.digimono.mybatis-generator'
         assertTrue(project.tasks.mybatisGenerate instanceof MBGeneratorTask)
     }
 }

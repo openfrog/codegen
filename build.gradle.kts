@@ -122,6 +122,7 @@ configure(gradlePluginProjects) {
         implementation(gradleApi())
         implementation(localGroovy())
 
+        testImplementation(TestLibs.junit)
         testImplementation(gradleTestKit())
     }
 }
