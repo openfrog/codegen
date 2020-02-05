@@ -19,13 +19,16 @@ package io.digimono.mybatis.generator.internal;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Field;
+import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.Parameter;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.PropertyRegistry;
 import org.mybatis.generator.internal.DefaultCommentGenerator;
+import org.mybatis.generator.internal.util.StringUtility;
 
 import java.util.Properties;
+import java.util.Set;
 
 import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 
@@ -33,23 +36,46 @@ import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 public class CustomizedCommentGeneratorImpl extends DefaultCommentGenerator {
 
   private boolean suppressAllComments;
+  /** If suppressAllComments is true, this option is ignored. */
+  private boolean addRemarkComments;
 
   @Override
   public void addConfigurationProperties(Properties properties) {
     super.addConfigurationProperties(properties);
     suppressAllComments =
         isTrue(properties.getProperty(PropertyRegistry.COMMENT_GENERATOR_SUPPRESS_ALL_COMMENTS));
+    addRemarkComments =
+        isTrue(properties.getProperty(PropertyRegistry.COMMENT_GENERATOR_ADD_REMARK_COMMENTS));
   }
 
   @Override
   public void addComment(XmlElement xmlElement) {}
 
   @Override
-  public void addFieldComment(Field field, IntrospectedTable introspectedTable) {}
+  public void addFieldComment(
+      Field field, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
+    if (suppressAllComments) {
+      return;
+    }
+
+    field.addJavaDocLine("/**"); // $NON-NLS-1$
+
+    String remarks = introspectedColumn.getRemarks();
+    if (addRemarkComments && StringUtility.stringHasValue(remarks)) {
+      field.addJavaDocLine(" * Database Column Remarks:"); // $NON-NLS-1$
+      String[] remarkLines = remarks.split(System.getProperty("line.separator")); // $NON-NLS-1$
+      for (String remarkLine : remarkLines) {
+        field.addJavaDocLine(" *   " + remarkLine); // $NON-NLS-1$
+      }
+    }
+
+    // addJavadocTag(field, false);
+
+    field.addJavaDocLine(" */"); // $NON-NLS-1$
+  }
 
   @Override
-  public void addFieldComment(
-      Field field, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {}
+  public void addFieldComment(Field field, IntrospectedTable introspectedTable) {}
 
   @Override
   public void addGeneralMethodComment(Method method, IntrospectedTable introspectedTable) {}
@@ -79,7 +105,7 @@ public class CustomizedCommentGeneratorImpl extends DefaultCommentGenerator {
     sb.append(introspectedColumn.getRemarks());
     method.addJavaDocLine(sb.toString());
 
-    addJavadocTag(method, false);
+    // addJavadocTag(method, false);
 
     method.addJavaDocLine(" */");
   }
@@ -105,11 +131,50 @@ public class CustomizedCommentGeneratorImpl extends DefaultCommentGenerator {
     sb.append(" * @param ");
     sb.append(param.getName());
     sb.append(" ");
+    sb.append(introspectedTable.getFullyQualifiedTable());
+    sb.append('.');
+    sb.append(introspectedColumn.getActualColumnName());
+    sb.append(" ");
     sb.append(introspectedColumn.getRemarks());
     method.addJavaDocLine(sb.toString());
 
-    addJavadocTag(method, false);
+    // addJavadocTag(method, false);
 
     method.addJavaDocLine(" */");
+  }
+
+  @Override
+  public void addGeneralMethodAnnotation(
+      Method method, IntrospectedTable introspectedTable, Set<FullyQualifiedJavaType> imports) {}
+
+  @Override
+  public void addGeneralMethodAnnotation(
+      Method method,
+      IntrospectedTable introspectedTable,
+      IntrospectedColumn introspectedColumn,
+      Set<FullyQualifiedJavaType> imports) {}
+
+  @Override
+  public void addFieldAnnotation(
+      Field field, IntrospectedTable introspectedTable, Set<FullyQualifiedJavaType> imports) {}
+
+  @Override
+  public void addFieldAnnotation(
+      Field field,
+      IntrospectedTable introspectedTable,
+      IntrospectedColumn introspectedColumn,
+      Set<FullyQualifiedJavaType> imports) {
+    if (!suppressAllComments && addRemarkComments) {
+      String remarks = introspectedColumn.getRemarks();
+      if (addRemarkComments && StringUtility.stringHasValue(remarks)) {
+        field.addJavaDocLine("/**"); // $NON-NLS-1$
+        field.addJavaDocLine(" * Database Column Remarks:"); // $NON-NLS-1$
+        String[] remarkLines = remarks.split(System.getProperty("line.separator")); // $NON-NLS-1$
+        for (String remarkLine : remarkLines) {
+          field.addJavaDocLine(" *   " + remarkLine); // $NON-NLS-1$
+        }
+        field.addJavaDocLine(" */"); // $NON-NLS-1$
+      }
+    }
   }
 }
