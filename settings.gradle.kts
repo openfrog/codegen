@@ -26,6 +26,6 @@ pluginManagement {
 
 include(
     "mybatis-codegen",
-    "mybatis-codegen-sample",
+    "mybatis-codegen-example",
     "mybatis-generator-gradle-plugin"
 )

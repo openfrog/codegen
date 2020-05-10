@@ -22,7 +22,7 @@
 </plugin>
 ```
 
-[mybatis-codegen-sample](./mybatis-codegen-sample "MyBatis Codegen Sample")
+[mybatis-codegen-example](./mybatis-codegen-example "MyBatis Codegen Example")
 
 ## MyBatis Generator Gradle Plugin
 

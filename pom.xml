@@ -271,6 +271,6 @@
 
   <modules>
     <module>mybatis-codegen</module>
-    <module>mybatis-codegen-sample</module>
+    <module>mybatis-codegen-example</module>
   </modules>
 </project>
