@@ -19,6 +19,10 @@ package io.digimono.mybatis.generator.plugins;
 import io.digimono.mybatis.generator.plugins.base.BasePlugin;
 import io.digimono.mybatis.generator.utils.PluginUtils;
 import io.digimono.mybatis.generator.utils.Utils;
+import java.util.List;
+import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
@@ -31,11 +35,6 @@ import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
-
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeSet;
 
 /** @author yangyanju */
 public class MarkAsDeletedByIdPlugin extends BasePlugin {
@@ -176,6 +175,14 @@ public class MarkAsDeletedByIdPlugin extends BasePlugin {
       sb.append(MyBatis3FormattingUtilities.getParameterClause(introspectedColumn));
       answer.addElement(new TextElement(sb.toString()));
     }
+
+    sb.setLength(0);
+    sb.append(" AND ")
+        .append(introspectedColumn.getActualColumnName())
+        .append(" <![CDATA[ <> ]]> ")
+        .append(markAsDeletedValue);
+
+    answer.addElement(new TextElement(sb.toString()));
 
     rootElement.addElement(answer);
 
