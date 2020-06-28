@@ -16,6 +16,10 @@
 
 package io.digimono.mybatis.generator.internal;
 
+import static org.mybatis.generator.internal.util.StringUtility.isTrue;
+
+import java.util.Properties;
+import java.util.Set;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Field;
@@ -26,11 +30,6 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.PropertyRegistry;
 import org.mybatis.generator.internal.DefaultCommentGenerator;
 import org.mybatis.generator.internal.util.StringUtility;
-
-import java.util.Properties;
-import java.util.Set;
-
-import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 
 /** @author yangyanju */
 public class CustomizedCommentGeneratorImpl extends DefaultCommentGenerator {
@@ -58,20 +57,16 @@ public class CustomizedCommentGeneratorImpl extends DefaultCommentGenerator {
       return;
     }
 
-    field.addJavaDocLine("/**"); // $NON-NLS-1$
-
     String remarks = introspectedColumn.getRemarks();
     if (addRemarkComments && StringUtility.stringHasValue(remarks)) {
-      field.addJavaDocLine(" * Database Column Remarks:"); // $NON-NLS-1$
+      field.addJavaDocLine("/**"); // $NON-NLS-1$
       String[] remarkLines = remarks.split(System.getProperty("line.separator")); // $NON-NLS-1$
       for (String remarkLine : remarkLines) {
-        field.addJavaDocLine(" *   " + remarkLine); // $NON-NLS-1$
+        field.addJavaDocLine(" * " + remarkLine); // $NON-NLS-1$
       }
+
+      field.addJavaDocLine(" */"); // $NON-NLS-1$
     }
-
-    // addJavadocTag(field, false);
-
-    field.addJavaDocLine(" */"); // $NON-NLS-1$
   }
 
   @Override
@@ -168,10 +163,9 @@ public class CustomizedCommentGeneratorImpl extends DefaultCommentGenerator {
       String remarks = introspectedColumn.getRemarks();
       if (addRemarkComments && StringUtility.stringHasValue(remarks)) {
         field.addJavaDocLine("/**"); // $NON-NLS-1$
-        field.addJavaDocLine(" * Database Column Remarks:"); // $NON-NLS-1$
         String[] remarkLines = remarks.split(System.getProperty("line.separator")); // $NON-NLS-1$
         for (String remarkLine : remarkLines) {
-          field.addJavaDocLine(" *   " + remarkLine); // $NON-NLS-1$
+          field.addJavaDocLine(" * " + remarkLine); // $NON-NLS-1$
         }
         field.addJavaDocLine(" */"); // $NON-NLS-1$
       }
