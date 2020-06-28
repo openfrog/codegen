@@ -73,21 +73,21 @@ configure(coreProjects) {
     }
 
     spotbugs {
-        toolVersion = Versions.spotbugsVersion
-        isIgnoreFailures = true
+        toolVersion.set(Versions.spotbugsVersion)
+        ignoreFailures.set(true)
 
         // The analysis effort level. The value specified should be one of min, default, or max.
         // Higher levels increase precision and find more bugs at the expense of running time and memory consumption.
-        effort = "max"
+        effort.set(com.github.spotbugs.snom.Effort.MAX)
 
         // The priority threshold for reporting bugs.
         // If set to low, all bugs are reported.
         // If set to medium (the default), medium and high priority bugs are reported.
         // If set to high, only high priority bugs are reported.
-        reportLevel = "medium"
+        reportLevel.set(com.github.spotbugs.snom.Confidence.MEDIUM)
 
-        // includeFilter = file("$rootDir/src/codequality/spotbugs-include.xml")
-        excludeFilter = file("$rootDir/src/codequality/spotbugs-exclude.xml")
+        // includeFilter.set(file("$rootDir/src/codequality/spotbugs-include.xml"))
+        excludeFilter.set(file("$rootDir/src/codequality/spotbugs-exclude.xml"))
     }
 
     dependencies {
@@ -97,9 +97,11 @@ configure(coreProjects) {
     }
 
     tasks {
-        withType<com.github.spotbugs.SpotBugsTask> {
-            reports.xml.isEnabled = false
-            reports.html.isEnabled = true
+        withType<com.github.spotbugs.snom.SpotBugsTask> {
+            reports {
+                create("xml") { enabled = false }
+                create("html") { enabled = true }
+            }
         }
     }
 }

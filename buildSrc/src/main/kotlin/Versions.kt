@@ -20,8 +20,8 @@ object Versions {
     const val javaVersion = "1.8"
 
     // Plugins
-    const val spotbugsVersion = "3.1.12"
-    const val spotbugsPluginVersion = "3.0.0"
+    const val spotbugsVersion = "4.0.6"
+    const val spotbugsPluginVersion = "4.4.3"
     const val findsecbugsPluginVersion = "1.10.1"
     const val pmdVersion = "6.20.0"
     const val checkstyleVersion = "8.27"

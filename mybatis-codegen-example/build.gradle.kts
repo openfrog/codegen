@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// import io.digimono.gradle.plugin.MBGeneratorExtension
-//
+import io.digimono.gradle.plugin.MBGeneratorExtension
+
 // buildscript {
 //     repositories {
 //         mavenLocal()
@@ -30,16 +30,20 @@
 // apply {
 //     plugin("io.github.digimono.mybatis-generator")
 // }
-//
-// val mybatisGenerator by configurations
-//
-// dependencies {
-//     mybatisGenerator(project(":mybatis-codegen"))
-//     mybatisGenerator(Libs.mybatisGeneratorCore)
-//     mybatisGenerator(Libs.h2)
-// }
-//
-// configure<MBGeneratorExtension> {
-//
-// }
+
+plugins {
+    id("io.github.digimono.mybatis-generator") version "0.0.7"
+}
+
+val mybatisGenerator by configurations
+
+dependencies {
+    mybatisGenerator(project(":mybatis-codegen"))
+    mybatisGenerator(Libs.mybatisGeneratorCore)
+    mybatisGenerator(Libs.h2)
+}
+
+configure<MBGeneratorExtension> {
+
+}
 

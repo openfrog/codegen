@@ -6,7 +6,7 @@
 <generatorConfiguration>
   <!-- <properties resource="META-INF/mybatis/generator.properties"/> -->
   <context id="MySQLTables"
-           targetRuntime="io.digimono.mybatis.generator.codegen.mybatis3.CustomizedIntrospectedTableMyBatis3Impl">
+    targetRuntime="io.digimono.mybatis.generator.codegen.mybatis3.CustomizedIntrospectedTableMyBatis3Impl">
 
     <property name="javaFileEncoding" value="UTF-8"/>
     <property name="addGWTInterface" value="false"/>
@@ -18,6 +18,7 @@
 
     <property name="generatedMapperSuffix" value="Generated"/>
     <property name="generatedMapperSubpackage" value="generated"/>
+    <property name="useDefaultStatementId" value="true"/>
 
     <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
     <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
@@ -25,9 +26,9 @@
     <plugin type="io.digimono.mybatis.generator.plugins.SimpleStyleToStringPlugin"/>
     <plugin type="io.digimono.mybatis.generator.plugins.FindAllPlugin"/>
     <plugin type="io.digimono.mybatis.generator.plugins.AliasColumnListPlugin"/>
-    <plugin type="io.digimono.mybatis.generator.plugins.EmptyXMLMapperPlugin"/>
+    <!--<plugin type="io.digimono.mybatis.generator.plugins.EmptyXMLMapperPlugin"/>-->
 
-    <plugin type="io.digimono.mybatis.generator.plugins.EmptyJavaMapperPlugin"/>
+    <!--<plugin type="io.digimono.mybatis.generator.plugins.EmptyJavaMapperPlugin"/>-->
     <!-- MapperAnnotationPlugin must be after EmptyJavaMapperPlugin -->
     <plugin type="io.digimono.mybatis.generator.plugins.MapperAnnotationPlugin"/>
 
@@ -77,10 +78,10 @@
     </javaClientGenerator>
 
     <table tableName="employees" domainObjectName="Employee"
-           enableSelectByExample="false"
-           enableCountByExample="false"
-           enableDeleteByExample="false"
-           enableUpdateByExample="false">
+      enableSelectByExample="false"
+      enableCountByExample="false"
+      enableDeleteByExample="false"
+      enableUpdateByExample="false">
       <property name="useActualColumnNames" value="false"/>
       <property name="selectAllOrderByClause" value="id DESC"/>
 

@@ -30,6 +30,10 @@ public final class Utils {
   private static final String PROP_GENERATE_EMPTY_JAVA_MAPPER = "generateEmptyJavaMapper";
   private static final String PROP_GENERATED_MAPPER_SUBPACKAGE = "generatedMapperSubpackage";
   private static final String PROP_GENERATED_MAPPER_SUFFIX = "generatedMapperSuffix";
+  private static final String PROP_USE_DEFAULT_STATEMENT_ID = "useDefaultStatementId";
+
+  private static final String STATEMENT_ID_MARK_AS_DELETED_BY_ID_1 = "markAsDeletedByPrimaryKey";
+  private static final String STATEMENT_ID_MARK_AS_DELETED_BY_ID_2 = "markAsDeletedById";
 
   private Utils() {}
 
@@ -86,6 +90,23 @@ public final class Utils {
       return suffix;
     } else {
       return "Generated";
+    }
+  }
+
+  public static boolean useDefaultStatementId(Context context) {
+    String useDefaultStatementId = context.getProperty(PROP_USE_DEFAULT_STATEMENT_ID);
+    if (StringUtility.stringHasValue(useDefaultStatementId)) {
+      return StringUtility.isTrue(useDefaultStatementId);
+    } else {
+      return true;
+    }
+  }
+
+  public static String getMarkAsDeletedStatementId(Context context) {
+    if (Utils.useDefaultStatementId(context)) {
+      return STATEMENT_ID_MARK_AS_DELETED_BY_ID_1;
+    } else {
+      return STATEMENT_ID_MARK_AS_DELETED_BY_ID_2;
     }
   }
 }

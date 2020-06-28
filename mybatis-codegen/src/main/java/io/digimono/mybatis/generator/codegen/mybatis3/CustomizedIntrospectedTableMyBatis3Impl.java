@@ -19,15 +19,17 @@ package io.digimono.mybatis.generator.codegen.mybatis3;
 import io.digimono.mybatis.generator.codegen.mybatis3.javamapper.CustomizedJavaMapperGenerator;
 import io.digimono.mybatis.generator.codegen.mybatis3.xmlmapper.CustomizedXMLMapperGenerator;
 import io.digimono.mybatis.generator.constants.Constants;
+import io.digimono.mybatis.generator.utils.Utils;
+import java.util.List;
 import org.mybatis.generator.api.ProgressCallback;
 import org.mybatis.generator.codegen.AbstractJavaClientGenerator;
 import org.mybatis.generator.codegen.mybatis3.IntrospectedTableMyBatis3Impl;
 import org.mybatis.generator.internal.util.StringUtility;
 
-import java.util.List;
-
 /** @author yangyanju */
 public class CustomizedIntrospectedTableMyBatis3Impl extends IntrospectedTableMyBatis3Impl {
+
+  private Boolean useDefaultStatementId;
 
   public CustomizedIntrospectedTableMyBatis3Impl() {
     super();
@@ -37,42 +39,45 @@ public class CustomizedIntrospectedTableMyBatis3Impl extends IntrospectedTableMy
 
   @Override
   public void setDeleteByPrimaryKeyStatementId(String s) {
-    internalAttributes.put(InternalAttribute.ATTR_DELETE_BY_PRIMARY_KEY_STATEMENT_ID, "deleteById");
+    super.setDeleteByPrimaryKeyStatementId(getUseDefaultStatementId() ? s : "deleteById");
   }
 
   @Override
   public void setSelectAllStatementId(String s) {
-    super.setSelectAllStatementId("findAll");
+    super.setSelectAllStatementId(getUseDefaultStatementId() ? s : "findAll");
   }
 
   @Override
   public void setSelectByExampleStatementId(String s) {
-    super.setSelectByExampleStatementId("findByExample");
+    super.setSelectByExampleStatementId(getUseDefaultStatementId() ? s : "findByExample");
   }
 
   @Override
   public void setSelectByExampleWithBLOBsStatementId(String s) {
-    super.setSelectByExampleWithBLOBsStatementId("findByExampleWithBLOBs");
+    super.setSelectByExampleWithBLOBsStatementId(
+        getUseDefaultStatementId() ? s : "findByExampleWithBLOBs");
   }
 
   @Override
   public void setSelectByPrimaryKeyStatementId(String s) {
-    super.setSelectByPrimaryKeyStatementId("findById");
+    super.setSelectByPrimaryKeyStatementId(getUseDefaultStatementId() ? s : "findById");
   }
 
   @Override
   public void setUpdateByPrimaryKeyStatementId(String s) {
-    super.setUpdateByPrimaryKeyStatementId("updateById");
+    super.setUpdateByPrimaryKeyStatementId(getUseDefaultStatementId() ? s : "updateById");
   }
 
   @Override
   public void setUpdateByPrimaryKeySelectiveStatementId(String s) {
-    super.setUpdateByPrimaryKeySelectiveStatementId("updateByIdSelective");
+    super.setUpdateByPrimaryKeySelectiveStatementId(
+        getUseDefaultStatementId() ? s : "updateByIdSelective");
   }
 
   @Override
   public void setUpdateByPrimaryKeyWithBLOBsStatementId(String s) {
-    super.setUpdateByPrimaryKeyWithBLOBsStatementId("updateByIdWithBLOBs");
+    super.setUpdateByPrimaryKeyWithBLOBsStatementId(
+        getUseDefaultStatementId() ? s : "updateByIdWithBLOBs");
   }
 
   // endregion
@@ -131,5 +136,12 @@ public class CustomizedIntrospectedTableMyBatis3Impl extends IntrospectedTableMy
     }
 
     initializeAbstractGenerator(xmlMapperGenerator, warnings, progressCallback);
+  }
+
+  protected Boolean getUseDefaultStatementId() {
+    if (this.useDefaultStatementId == null) {
+      this.useDefaultStatementId = Utils.useDefaultStatementId(context);
+    }
+    return this.useDefaultStatementId;
   }
 }

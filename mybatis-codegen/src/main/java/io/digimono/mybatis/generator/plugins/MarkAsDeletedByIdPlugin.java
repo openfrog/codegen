@@ -39,11 +39,10 @@ import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 /** @author yangyanju */
 public class MarkAsDeletedByIdPlugin extends BasePlugin {
 
-  private static final String STATEMENT_ID_MARK_AS_DELETED_BY_ID = "markAsDeletedById";
-
   private IntrospectedColumn introspectedColumn;
   private int markAsDeletedValue;
   private int markAsUnDeletedValue;
+  private String markAsDeletedStatementId;
 
   @Override
   public void initialized(IntrospectedTable introspectedTable) {
@@ -54,6 +53,7 @@ public class MarkAsDeletedByIdPlugin extends BasePlugin {
     this.introspectedColumn = PluginUtils.getMarkAsDeletedColumn(properties, introspectedTable);
     this.markAsDeletedValue = PluginUtils.getMarkAsDeletedValue(properties, introspectedTable);
     this.markAsUnDeletedValue = PluginUtils.getMarkAsUnDeletedValue(properties, introspectedTable);
+    this.markAsDeletedStatementId = Utils.getMarkAsDeletedStatementId(context);
 
     if (this.introspectedColumn == null) {
       warnings.add("The logical delete column does not exist.");
@@ -71,7 +71,7 @@ public class MarkAsDeletedByIdPlugin extends BasePlugin {
     }
 
     Set<FullyQualifiedJavaType> importedTypes = new TreeSet<>();
-    Method method = new Method(STATEMENT_ID_MARK_AS_DELETED_BY_ID);
+    Method method = new Method(markAsDeletedStatementId);
     method.setVisibility(JavaVisibility.PUBLIC);
     method.setAbstract(true);
     method.setReturnType(FullyQualifiedJavaType.getIntInstance());
@@ -126,7 +126,7 @@ public class MarkAsDeletedByIdPlugin extends BasePlugin {
     XmlElement rootElement = document.getRootElement();
 
     XmlElement answer = new XmlElement("update");
-    answer.addAttribute(new Attribute("id", STATEMENT_ID_MARK_AS_DELETED_BY_ID));
+    answer.addAttribute(new Attribute("id", markAsDeletedStatementId));
 
     String parameterClass;
     if (introspectedTable.getRules().generatePrimaryKeyClass()) {
