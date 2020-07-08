@@ -92,8 +92,6 @@ dependencies {
 
         testImplementation(enforcedPlatform(TestLibs.junit5Bom))
         testImplementation(TestLibs.junit)
-        testImplementation(TestLibs.apiGuardianApi)
-        testImplementation(TestLibs.opentest4j)
 
         testImplementation("org.junit.platform:junit-platform-launcher")
         testImplementation("org.junit.jupiter:junit-jupiter-api")

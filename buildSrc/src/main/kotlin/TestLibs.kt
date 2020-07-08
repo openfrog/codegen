@@ -24,6 +24,6 @@ object TestLibs {
     const val junitJupiterEngine = "org.junit.jupiter:junit-jupiter-engine:${Versions.junit5Version}"
     const val junitVintageEngine = "org.junit.vintage:junit-vintage-engine:${Versions.junit5Version}"
 
-    const val apiGuardianApi = "org.apiguardian:apiguardian-api:${Versions.apiGuardianVersion}"
-    const val opentest4j = "org.opentest4j:opentest4j:${Versions.opentest4jVersion}"
+    // const val apiGuardianApi = "org.apiguardian:apiguardian-api:${Versions.apiGuardianVersion}"
+    // const val opentest4j = "org.opentest4j:opentest4j:${Versions.opentest4jVersion}"
 }
