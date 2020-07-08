@@ -1,5 +1,6 @@
 package io.digimono.mybatis.generator.plugins;
 
+import io.digimono.mybatis.generator.constants.Constants.MyBatisPlus;
 import io.digimono.mybatis.generator.plugins.base.BasePlugin;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.IntrospectedTable.TargetRuntime;
@@ -8,7 +9,7 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.internal.util.StringUtility;
 
 /** @author yangyanju */
-public class MybatisTableNameAnnotationPlugin extends BasePlugin {
+public class MybatisPlusTableNameAnnotationPlugin extends BasePlugin {
 
   private static final String LINE_INDENT = "    ";
   private static final String LINE_SEPARATOR = System.getProperty("line.separator");
@@ -18,13 +19,13 @@ public class MybatisTableNameAnnotationPlugin extends BasePlugin {
       TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
     if (introspectedTable.getTargetRuntime() == TargetRuntime.MYBATIS3) {
       final String schema =
-          introspectedTable.getTableConfigurationProperty("myBatisPlusTableSchema");
+          introspectedTable.getTableConfigurationProperty(MyBatisPlus.TABLE_SCHEMA);
       final String resultMap =
-          introspectedTable.getTableConfigurationProperty("myBatisPlusTableResultMap");
+          introspectedTable.getTableConfigurationProperty(MyBatisPlus.TABLE_RESULT_MAP);
       final String autoResultMap =
-          introspectedTable.getTableConfigurationProperty("myBatisPlusTableAutoResultMap");
+          introspectedTable.getTableConfigurationProperty(MyBatisPlus.TABLE_AUTO_RESULT_MAP);
       final String keepGlobalPrefix =
-          introspectedTable.getTableConfigurationProperty("myBatisPlusTableKeepGlobalPrefix");
+          introspectedTable.getTableConfigurationProperty(MyBatisPlus.TABLE_KEEP_GLOBAL_PREFIX);
 
       final String tableName = introspectedTable.getTableConfiguration().getTableName();
       final StringBuilder sb = new StringBuilder();

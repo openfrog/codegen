@@ -179,8 +179,8 @@ public class MarkAsDeletedByIdPlugin extends BasePlugin {
     sb.setLength(0);
     sb.append(" AND ")
         .append(introspectedColumn.getActualColumnName())
-        .append(" <![CDATA[ <> ]]> ")
-        .append(markAsDeletedValue);
+        .append(" = ")
+        .append(markAsUnDeletedValue);
 
     answer.addElement(new TextElement(sb.toString()));
 

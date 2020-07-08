@@ -27,5 +27,15 @@ public final class Constants {
   public static final String INSERT_SELECTIVE_CLAUSE_ID = "Insert_Selective_Clause";
   public static final String UPDATE_SELECTIVE_CLAUSE_ID = "Update_Selective_Clause";
 
+  public static final class MyBatisPlus {
+
+    public static final String TABLE_SCHEMA = "myBatisPlusTableSchema";
+    public static final String TABLE_RESULT_MAP = "myBatisPlusTableResultMap";
+    public static final String TABLE_AUTO_RESULT_MAP = "myBatisPlusTableAutoResultMap";
+    public static final String TABLE_KEEP_GLOBAL_PREFIX = "myBatisPlusTableKeepGlobalPrefix";
+
+    private MyBatisPlus() {}
+  }
+
   private Constants() {}
 }

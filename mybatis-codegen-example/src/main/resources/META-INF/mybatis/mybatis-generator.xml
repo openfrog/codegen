@@ -38,7 +38,7 @@
       <property name="markAsUnDeletedValue" value="0"/>
     </plugin>
 
-    <plugin type="io.digimono.mybatis.generator.plugins.MybatisTableNameAnnotationPlugin"/>
+    <plugin type="io.digimono.mybatis.generator.plugins.MybatisPlusTableNameAnnotationPlugin"/>
 
     <commentGenerator type="io.digimono.mybatis.generator.internal.CustomizedCommentGeneratorImpl">
       <property name="suppressAllComments" value="${suppress_all_comments}"/>
