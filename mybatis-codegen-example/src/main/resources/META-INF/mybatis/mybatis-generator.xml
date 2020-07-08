@@ -38,6 +38,8 @@
       <property name="markAsUnDeletedValue" value="0"/>
     </plugin>
 
+    <plugin type="io.digimono.mybatis.generator.plugins.MybatisTableNameAnnotationPlugin"/>
+
     <commentGenerator type="io.digimono.mybatis.generator.internal.CustomizedCommentGeneratorImpl">
       <property name="suppressAllComments" value="${suppress_all_comments}"/>
       <property name="addRemarkComments" value="${add_remark_comments}"/>
@@ -88,6 +90,11 @@
       <property name="markAsDeletedColumn" value="deleted"/>
       <property name="markAsDeletedValue" value="1"/>
       <property name="markAsUnDeletedValue" value="0"/>
+
+      <!--<property name="myBatisPlusTableSchema" value=""/>-->
+      <!--<property name="myBatisPlusTableResultMap" value="BaseResultMap"/>-->
+      <!--<property name="myBatisPlusTableAutoResultMap" value="false"/>-->
+      <!--<property name="myBatisPlusTableKeepGlobalPrefix" value="false"/>-->
 
       <!--<property name="rootInterface"-->
       <!--          value="io.digimono.mybatis.mapper.BaseMapper&lt;Employee, Integer&gt;"/>-->

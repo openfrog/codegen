@@ -49,7 +49,7 @@ public abstract class BasePlugin extends PluginAdapter {
 
     try {
       Class<?> clazz = Class.forName(runtime);
-      Object obj = clazz.newInstance();
+      Object obj = clazz.newInstance(); // NOSONAR
 
       if (obj instanceof IntrospectedTable) {
         if (((IntrospectedTable) obj).getTargetRuntime().equals(TargetRuntime.MYBATIS3)) {
