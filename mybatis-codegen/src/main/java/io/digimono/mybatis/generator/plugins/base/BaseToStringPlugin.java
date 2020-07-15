@@ -19,6 +19,8 @@ package io.digimono.mybatis.generator.plugins.base;
 import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 
 import io.digimono.mybatis.generator.constants.Constants;
+import io.digimono.mybatis.generator.plugins.LombokPlugin;
+import io.digimono.mybatis.generator.utils.PluginUtils;
 import java.util.List;
 import java.util.Properties;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -36,6 +38,16 @@ public abstract class BaseToStringPlugin extends BasePlugin {
 
   @Override
   public boolean validate(List<String> warnings) {
+    try {
+      boolean hasLombokPlugin = PluginUtils.hasPlugin(context, LombokPlugin.class);
+      if (hasLombokPlugin) {
+        return false;
+      }
+    } catch (Exception ex) {
+      warnings.add(
+          String.format("Plugin %s error. Msg: %s", getClass().getName(), ex.getMessage()));
+      return false;
+    }
     return true;
   }
 

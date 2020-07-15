@@ -23,6 +23,9 @@
     <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
     <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
 
+    <plugin type="io.digimono.mybatis.generator.plugins.LombokPlugin"/>
+    <plugin type="io.digimono.mybatis.generator.plugins.MybatisPlusTableNameAnnotationPlugin"/>
+
     <plugin type="io.digimono.mybatis.generator.plugins.SimpleStyleToStringPlugin">
       <property name="useToStringFromRoot" value="true"/>
     </plugin>
@@ -39,8 +42,6 @@
       <property name="markAsDeletedValue" value="1"/>
       <property name="markAsUnDeletedValue" value="0"/>
     </plugin>
-
-    <plugin type="io.digimono.mybatis.generator.plugins.MybatisPlusTableNameAnnotationPlugin"/>
 
     <commentGenerator type="io.digimono.mybatis.generator.internal.CustomizedCommentGeneratorImpl">
       <property name="suppressAllComments" value="${suppress_all_comments}"/>
