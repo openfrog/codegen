@@ -19,6 +19,8 @@ package io.digimono.mybatis.generator.constants;
 /** @author yangyanju */
 public final class Constants {
 
+  public static final String LINE_INDENT = "    ";
+
   public static final String SERIAL_VERSION_UID_FIELD_NAME = "serialVersionUID";
   public static final String SERIAL_VERSION_UID_FIELD_VALUE = "1L";
   public static final String DEFAULT_XML_MAPPER_SUFFIX = "Mapper.generated.xml";

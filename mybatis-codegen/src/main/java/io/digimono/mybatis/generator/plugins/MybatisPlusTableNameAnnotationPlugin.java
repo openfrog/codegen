@@ -1,5 +1,7 @@
 package io.digimono.mybatis.generator.plugins;
 
+import static io.digimono.mybatis.generator.constants.Constants.LINE_INDENT;
+
 import io.digimono.mybatis.generator.constants.Constants.MyBatisPlus;
 import io.digimono.mybatis.generator.plugins.base.BasePlugin;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -11,7 +13,6 @@ import org.mybatis.generator.internal.util.StringUtility;
 /** @author yangyanju */
 public class MybatisPlusTableNameAnnotationPlugin extends BasePlugin {
 
-  private static final String LINE_INDENT = "    ";
   private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
   @Override

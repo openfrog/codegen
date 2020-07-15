@@ -16,6 +16,8 @@
 
 package io.digimono.mybatis.generator.plugins;
 
+import static io.digimono.mybatis.generator.constants.Constants.LINE_INDENT;
+
 import io.digimono.mybatis.generator.plugins.base.BaseToStringPlugin;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Field;
@@ -33,7 +35,7 @@ public class GuavaStyleToStringPlugin extends BaseToStringPlugin {
     method.addBodyLine("return MoreObjects.toStringHelper(this)");
 
     if (useToStringFromRoot && topLevelClass.getSuperClass().isPresent()) {
-      method.addBodyLine("    .add(\"super\", super.toString())");
+      method.addBodyLine(LINE_INDENT + ".add(\"super\", super.toString())");
     }
 
     StringBuilder sb = new StringBuilder();
@@ -45,7 +47,7 @@ public class GuavaStyleToStringPlugin extends BaseToStringPlugin {
       String property = field.getName();
 
       sb.setLength(0);
-      sb.append("    ")
+      sb.append(LINE_INDENT)
           .append(".add(\"")
           .append(property)
           .append("\", ")
