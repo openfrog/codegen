@@ -11,7 +11,7 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.internal.util.StringUtility;
 
 /** @author yangyanju */
-public class MybatisPlusTableNameAnnotationPlugin extends BasePlugin {
+public class MybatisPlusAnnotationPlugin extends BasePlugin {
 
   private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 

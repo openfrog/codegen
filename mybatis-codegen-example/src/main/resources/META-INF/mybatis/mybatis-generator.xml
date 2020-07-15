@@ -24,7 +24,7 @@
     <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
 
     <plugin type="io.digimono.mybatis.generator.plugins.LombokPlugin"/>
-    <plugin type="io.digimono.mybatis.generator.plugins.MybatisPlusTableNameAnnotationPlugin"/>
+    <plugin type="io.digimono.mybatis.generator.plugins.MybatisPlusAnnotationPlugin"/>
 
     <plugin type="io.digimono.mybatis.generator.plugins.SimpleStyleToStringPlugin">
       <property name="useToStringFromRoot" value="true"/>
