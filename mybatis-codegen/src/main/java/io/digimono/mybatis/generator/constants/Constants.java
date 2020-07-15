@@ -27,6 +27,18 @@ public final class Constants {
   public static final String INSERT_SELECTIVE_CLAUSE_ID = "Insert_Selective_Clause";
   public static final String UPDATE_SELECTIVE_CLAUSE_ID = "Update_Selective_Clause";
 
+  public static final String PROP_ONLY_GENERATE_INSERT_SELECTIVE_METHOD =
+      "onlyGenerateInsertSelectiveMethod";
+  public static final String PROP_ONLY_GENERATE_UPDATE_SELECTIVE_METHOD =
+      "onlyGenerateUpdateSelectiveMethod";
+  public static final String PROP_GENERATE_EMPTY_JAVA_MAPPER = "generateEmptyJavaMapper";
+  public static final String PROP_GENERATED_MAPPER_SUBPACKAGE = "generatedMapperSubpackage";
+  public static final String PROP_GENERATED_MAPPER_SUFFIX = "generatedMapperSuffix";
+  public static final String PROP_USE_DEFAULT_STATEMENT_ID = "useDefaultStatementId";
+
+  public static final String STATEMENT_ID_MARK_AS_DELETED_BY_ID_1 = "markAsDeletedByPrimaryKey";
+  public static final String STATEMENT_ID_MARK_AS_DELETED_BY_ID_2 = "markAsDeletedById";
+
   public static final class MyBatisPlus {
 
     public static final String TABLE_SCHEMA = "myBatisPlusTableSchema";

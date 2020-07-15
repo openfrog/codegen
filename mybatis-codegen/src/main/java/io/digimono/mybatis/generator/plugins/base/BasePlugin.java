@@ -16,17 +16,13 @@
 
 package io.digimono.mybatis.generator.plugins.base;
 
+import java.util.List;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.IntrospectedTable.TargetRuntime;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.internal.util.StringUtility;
 
-import java.util.List;
-
-/**
- * @author yangyanju
- * @version 1.0
- */
+/** @author yangyanju */
 public abstract class BasePlugin extends PluginAdapter {
 
   private static final String RUNTIME_MYBATIS3 = "MyBatis3";

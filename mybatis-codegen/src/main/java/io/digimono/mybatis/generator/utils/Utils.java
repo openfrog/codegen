@@ -16,24 +16,21 @@
 
 package io.digimono.mybatis.generator.utils;
 
+import static io.digimono.mybatis.generator.constants.Constants.PROP_GENERATED_MAPPER_SUBPACKAGE;
+import static io.digimono.mybatis.generator.constants.Constants.PROP_GENERATED_MAPPER_SUFFIX;
+import static io.digimono.mybatis.generator.constants.Constants.PROP_GENERATE_EMPTY_JAVA_MAPPER;
+import static io.digimono.mybatis.generator.constants.Constants.PROP_ONLY_GENERATE_INSERT_SELECTIVE_METHOD;
+import static io.digimono.mybatis.generator.constants.Constants.PROP_ONLY_GENERATE_UPDATE_SELECTIVE_METHOD;
+import static io.digimono.mybatis.generator.constants.Constants.PROP_USE_DEFAULT_STATEMENT_ID;
+import static io.digimono.mybatis.generator.constants.Constants.STATEMENT_ID_MARK_AS_DELETED_BY_ID_1;
+import static io.digimono.mybatis.generator.constants.Constants.STATEMENT_ID_MARK_AS_DELETED_BY_ID_2;
+
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.config.Context;
 import org.mybatis.generator.internal.util.StringUtility;
 
 /** @author yangyanju */
 public final class Utils {
-
-  private static final String PROP_ONLY_GENERATE_INSERT_SELECTIVE_METHOD =
-      "onlyGenerateInsertSelectiveMethod";
-  private static final String PROP_ONLY_GENERATE_UPDATE_SELECTIVE_METHOD =
-      "onlyGenerateUpdateSelectiveMethod";
-  private static final String PROP_GENERATE_EMPTY_JAVA_MAPPER = "generateEmptyJavaMapper";
-  private static final String PROP_GENERATED_MAPPER_SUBPACKAGE = "generatedMapperSubpackage";
-  private static final String PROP_GENERATED_MAPPER_SUFFIX = "generatedMapperSuffix";
-  private static final String PROP_USE_DEFAULT_STATEMENT_ID = "useDefaultStatementId";
-
-  private static final String STATEMENT_ID_MARK_AS_DELETED_BY_ID_1 = "markAsDeletedByPrimaryKey";
-  private static final String STATEMENT_ID_MARK_AS_DELETED_BY_ID_2 = "markAsDeletedById";
 
   private Utils() {}
 

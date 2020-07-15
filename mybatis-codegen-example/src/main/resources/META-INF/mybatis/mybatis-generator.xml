@@ -23,7 +23,9 @@
     <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
     <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
 
-    <plugin type="io.digimono.mybatis.generator.plugins.SimpleStyleToStringPlugin"/>
+    <plugin type="io.digimono.mybatis.generator.plugins.SimpleStyleToStringPlugin">
+      <property name="useToStringFromRoot" value="true"/>
+    </plugin>
     <plugin type="io.digimono.mybatis.generator.plugins.FindAllPlugin"/>
     <plugin type="io.digimono.mybatis.generator.plugins.AliasColumnListPlugin"/>
     <!--<plugin type="io.digimono.mybatis.generator.plugins.EmptyXMLMapperPlugin"/>-->

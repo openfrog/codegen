@@ -32,6 +32,10 @@ public class GuavaStyleToStringPlugin extends BaseToStringPlugin {
 
     method.addBodyLine("return MoreObjects.toStringHelper(this)");
 
+    if (useToStringFromRoot && topLevelClass.getSuperClass().isPresent()) {
+      method.addBodyLine("    .add(\"super\", super.toString())");
+    }
+
     StringBuilder sb = new StringBuilder();
     for (Field field : topLevelClass.getFields()) {
       if (ignoreField(field)) {
@@ -41,10 +45,15 @@ public class GuavaStyleToStringPlugin extends BaseToStringPlugin {
       String property = field.getName();
 
       sb.setLength(0);
-      sb.append(".add(\"").append(property).append("\", ").append(property).append(")");
+      sb.append("    ")
+          .append(".add(\"")
+          .append(property)
+          .append("\", ")
+          .append(property)
+          .append(")");
       method.addBodyLine(sb.toString());
     }
-    method.addBodyLine(".toString();");
+    method.addBodyLine("    .toString();");
 
     topLevelClass.addMethod(method);
 

@@ -31,9 +31,15 @@ public class SimpleStyleToStringPlugin extends BaseToStringPlugin {
   @Override
   protected boolean doGenerateToString(
       IntrospectedTable introspectedTable, TopLevelClass topLevelClass, Method method) {
-    method.addBodyLine("StringBuilder sb = new StringBuilder();");
+    method.addBodyLine("final StringBuilder sb = new StringBuilder();");
     method.addBodyLine("sb.append(getClass().getSimpleName());");
-    method.addBodyLine("sb.append(\" [\");");
+    method.addBodyLine("sb.append(\"{\");");
+
+    int loop = 0;
+    if (useToStringFromRoot && topLevelClass.getSuperClass().isPresent()) {
+      method.addBodyLine("sb.append(\"super=\").append(super.toString());");
+      loop++;
+    }
 
     StringBuilder sb = new StringBuilder();
     for (Field field : topLevelClass.getFields()) {
@@ -44,21 +50,19 @@ public class SimpleStyleToStringPlugin extends BaseToStringPlugin {
       String property = field.getName();
 
       sb.setLength(0);
-      sb.append("sb.append(\"")
-          .append(", ")
-          .append(property)
-          .append("=\")")
-          .append(".append(")
-          .append(property)
-          .append(");");
+      sb.append("sb.append(\"");
+
+      if (loop > 0) {
+        sb.append(", ");
+      }
+
+      sb.append(property).append("=\")").append(".append(").append(property).append(");");
       method.addBodyLine(sb.toString());
+
+      loop++;
     }
 
-    method.addBodyLine("sb.append(\"]\");");
-    if (useToStringFromRoot && topLevelClass.getSuperClass().isPresent()) {
-      method.addBodyLine("sb.append(\", from super class \");");
-      method.addBodyLine("sb.append(super.toString());");
-    }
+    method.addBodyLine("sb.append(\"}\");");
     method.addBodyLine("return sb.toString();");
 
     topLevelClass.addMethod(method);

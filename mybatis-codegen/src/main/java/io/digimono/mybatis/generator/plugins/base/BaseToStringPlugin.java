@@ -16,7 +16,11 @@
 
 package io.digimono.mybatis.generator.plugins.base;
 
+import static org.mybatis.generator.internal.util.StringUtility.isTrue;
+
 import io.digimono.mybatis.generator.constants.Constants;
+import java.util.List;
+import java.util.Properties;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.IntrospectedTable.TargetRuntime;
 import org.mybatis.generator.api.dom.java.Field;
@@ -25,15 +29,7 @@ import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 
-import java.util.List;
-import java.util.Properties;
-
-import static org.mybatis.generator.internal.util.StringUtility.isTrue;
-
-/**
- * @author yangyanju
- * @version 1.0
- */
+/** @author yangyanju */
 public abstract class BaseToStringPlugin extends BasePlugin {
 
   protected boolean useToStringFromRoot;
