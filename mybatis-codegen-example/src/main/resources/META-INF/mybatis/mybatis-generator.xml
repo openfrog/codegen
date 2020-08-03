@@ -6,7 +6,7 @@
 <generatorConfiguration>
   <!-- <properties resource="META-INF/mybatis/generator.properties"/> -->
   <context id="MySQLTables"
-    targetRuntime="io.digimono.mybatis.generator.codegen.mybatis3.CustomizedIntrospectedTableMyBatis3Impl">
+           targetRuntime="io.digimono.mybatis.generator.codegen.mybatis3.CustomizedIntrospectedTableMyBatis3Impl">
 
     <property name="javaFileEncoding" value="UTF-8"/>
     <property name="addGWTInterface" value="false"/>
@@ -83,10 +83,10 @@
     </javaClientGenerator>
 
     <table tableName="employees" domainObjectName="Employee"
-      enableSelectByExample="false"
-      enableCountByExample="false"
-      enableDeleteByExample="false"
-      enableUpdateByExample="false">
+           enableSelectByExample="false"
+           enableCountByExample="false"
+           enableDeleteByExample="false"
+           enableUpdateByExample="false">
       <property name="useActualColumnNames" value="false"/>
       <property name="selectAllOrderByClause" value="id DESC"/>
 
@@ -98,12 +98,15 @@
       <!--<property name="myBatisPlusTableResultMap" value="BaseResultMap"/>-->
       <!--<property name="myBatisPlusTableAutoResultMap" value="false"/>-->
       <!--<property name="myBatisPlusTableKeepGlobalPrefix" value="false"/>-->
+      <!--<property name="myBatisPlusTableFieldAddTypeHandler" value="true"/>-->
 
       <!--<property name="rootInterface"-->
       <!--          value="io.digimono.mybatis.mapper.BaseMapper&lt;Employee, Integer&gt;"/>-->
 
       <!--JDBC / SqlServer / MySql-->
       <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+      <columnOverride column="name" property="employeeName"
+                      typeHandler="com.github.ptech.mybatis.typehandler.ExampleTypeHandler"/>
     </table>
   </context>
 </generatorConfiguration>

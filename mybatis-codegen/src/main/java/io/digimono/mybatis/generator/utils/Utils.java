@@ -106,4 +106,11 @@ public final class Utils {
       return STATEMENT_ID_MARK_AS_DELETED_BY_ID_2;
     }
   }
+
+  public static boolean toBoolean(String value, boolean defaultValue) {
+    if (StringUtility.stringHasValue(value)) {
+      return StringUtility.isTrue(value);
+    }
+    return defaultValue;
+  }
 }

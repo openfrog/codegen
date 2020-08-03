@@ -10,12 +10,4 @@
   <Match>
     <Class name="~.*\.generated\..*"/>
   </Match>
-  <Match>
-    <Class name="com.zhixin.vanilla.common.crypto.RsaCrypto"/>
-    <Or>
-      <Method name="loadKeyPair"/>
-      <Method name="loadKeyPairFromClasspath"/>
-    </Or>
-    <Bug pattern="PATH_TRAVERSAL_IN"/>
-  </Match>
 </FindBugsFilter>

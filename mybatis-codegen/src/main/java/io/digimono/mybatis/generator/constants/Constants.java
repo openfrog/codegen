@@ -47,6 +47,7 @@ public final class Constants {
     public static final String TABLE_RESULT_MAP = "myBatisPlusTableResultMap";
     public static final String TABLE_AUTO_RESULT_MAP = "myBatisPlusTableAutoResultMap";
     public static final String TABLE_KEEP_GLOBAL_PREFIX = "myBatisPlusTableKeepGlobalPrefix";
+    public static final String TABLE_FIELD_ADD_TYPE_HANDLER = "myBatisPlusTableFieldAddTypeHandler";
 
     private MyBatisPlus() {}
   }
