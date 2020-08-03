@@ -14,6 +14,39 @@
  * limitations under the License.
  */
 
+object Versions {
+
+    // Java
+    const val javaVersion = "1.8"
+
+    // Plugins
+    const val spotbugsVersion = "4.0.6"
+    const val spotbugsPluginVersion = "4.4.3"
+    const val findsecbugsPluginVersion = "1.10.1"
+    const val pmdVersion = "6.25.0"
+    const val checkstyleVersion = "8.27"
+    const val p3cPmdVersion = "2.0.1"
+    const val gradlePluginPublishVersion = "0.12.0"
+
+    // Dependencies
+    const val junitVersion = "4.13"
+    const val junit5Version = "5.6.2"
+    const val junitPlatformVersion = "1.6.2"
+
+    const val mybatisGeneratorVersion = "1.4.0"
+    const val antVersion = "1.10.8"
+    const val h2Version = "1.4.200"
+    const val lombokVersion = "1.18.12"
+}
+
+object Libs {
+
+    const val mybatisGeneratorCore = "org.mybatis.generator:mybatis-generator-core:${Versions.mybatisGeneratorVersion}"
+    const val ant = "org.apache.ant:ant:${Versions.antVersion}"
+    const val h2 = "com.h2database:h2:${Versions.h2Version}"
+    const val lombok = "org.projectlombok:lombok:${Versions.lombokVersion}"
+}
+
 object TestLibs {
 
     const val junit = "junit:junit:${Versions.junitVersion}"

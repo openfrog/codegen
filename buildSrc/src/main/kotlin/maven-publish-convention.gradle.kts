@@ -16,7 +16,6 @@
 
 import groovy.util.Node
 import groovy.util.NodeList
-import java.time.LocalDate
 
 plugins {
     `java-library`
@@ -48,7 +47,7 @@ publishing {
 
             pom {
                 val projectURL: String by rootProject
-                val projectInceptionYear = LocalDate.now().year.toString()
+                val projectInceptionYear = "2019"
                 val projectDescription = if (project.description.isNullOrEmpty()) project.name else project.description
                 val isBom = project.name.endsWith("-bom")
 

@@ -17,6 +17,15 @@
 import java.text.SimpleDateFormat
 import java.util.Date
 
+object Build {
+
+    const val buildTimestampFormat = "yyyyMMddHHmmss"
+    const val buildSourceEncoding = "UTF-8"
+    const val buildResourcesEncoding = "UTF-8"
+    const val buildJavadocEncoding = "UTF-8"
+    const val reportingOutputEncoding = "UTF-8"
+}
+
 object Manifest {
 
     val buildTime: String
