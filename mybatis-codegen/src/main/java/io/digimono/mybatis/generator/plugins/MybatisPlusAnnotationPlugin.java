@@ -102,20 +102,20 @@ public class MybatisPlusAnnotationPlugin extends BasePlugin {
       } else {
         final ColumnOverride columnOverride = cnf.getColumnOverride(actualColumnName);
         if (columnOverride != null) {
-          final String realJavaProperty = columnOverride.getJavaProperty();
-          final String underlineName = camelToUnderline(realJavaProperty);
-          final String typeHandler = columnOverride.getTypeHandler();
-
-          if (!underlineName.equalsIgnoreCase(actualColumnName)) {
-            list.add(new AnnotationEntry("value", actualColumnName, false, true));
+          final String javaProperty = columnOverride.getJavaProperty();
+          if (stringHasValue(javaProperty)) {
+            final String underlineName = camelToUnderline(javaProperty);
+            if (!underlineName.equalsIgnoreCase(actualColumnName)) {
+              list.add(new AnnotationEntry("value", actualColumnName, false, true));
+            }
           }
 
+          final String typeHandler = columnOverride.getTypeHandler();
           final String addTypeHandler =
               introspectedTable.getTableConfigurationProperty(
                   MyBatisPlus.TABLE_FIELD_ADD_TYPE_HANDLER);
 
           if (Utils.toBoolean(addTypeHandler, true) && stringHasValue(typeHandler)) {
-
             list.add(new AnnotationEntry("typeHandler", typeHandler, true, false));
           }
         }
