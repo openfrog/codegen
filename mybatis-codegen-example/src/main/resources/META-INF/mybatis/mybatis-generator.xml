@@ -29,7 +29,8 @@
     <plugin type="io.digimono.mybatis.generator.plugins.SimpleStyleToStringPlugin">
       <property name="useToStringFromRoot" value="true"/>
     </plugin>
-    <plugin type="io.digimono.mybatis.generator.plugins.FindAllPlugin"/>
+
+    <!--<plugin type="io.digimono.mybatis.generator.plugins.FindAllPlugin"/>-->
     <plugin type="io.digimono.mybatis.generator.plugins.AliasColumnListPlugin"/>
     <!--<plugin type="io.digimono.mybatis.generator.plugins.EmptyXMLMapperPlugin"/>-->
 

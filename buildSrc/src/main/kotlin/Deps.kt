@@ -36,6 +36,7 @@ object Versions {
     const val mybatisGeneratorVersion = "1.4.0"
     const val antVersion = "1.10.8"
     const val h2Version = "1.4.200"
+    const val mysqlVersion = "8.0.22"
     const val lombokVersion = "1.18.12"
 }
 
@@ -45,6 +46,7 @@ object Libs {
     const val ant = "org.apache.ant:ant:${Versions.antVersion}"
     const val h2 = "com.h2database:h2:${Versions.h2Version}"
     const val lombok = "org.projectlombok:lombok:${Versions.lombokVersion}"
+    const val mysql = "mysql:mysql-connector-java:${Versions.mysqlVersion}"
 }
 
 object TestLibs {

@@ -14,20 +14,14 @@ public class LombokPlugin extends BasePlugin {
   @Override
   public boolean modelBaseRecordClassGenerated(
       TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-    if (introspectedTable.getTargetRuntime() == TargetRuntime.MYBATIS3) {
-      topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.Getter"));
-      topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.Setter"));
-      topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.ToString"));
+    addLombokAnnotations(topLevelClass, introspectedTable);
+    return true;
+  }
 
-      topLevelClass.addAnnotation("@Getter");
-      topLevelClass.addAnnotation("@Setter");
-
-      if (topLevelClass.getSuperClass().isPresent()) {
-        topLevelClass.addAnnotation("@ToString(callSuper = true)");
-      } else {
-        topLevelClass.addAnnotation("@ToString");
-      }
-    }
+  @Override
+  public boolean modelRecordWithBLOBsClassGenerated(
+      TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+    addLombokAnnotations(topLevelClass, introspectedTable);
     return true;
   }
 
@@ -49,5 +43,23 @@ public class LombokPlugin extends BasePlugin {
       IntrospectedTable introspectedTable,
       ModelClassType modelClassType) {
     return false;
+  }
+
+  private void addLombokAnnotations(
+      TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+    if (introspectedTable.getTargetRuntime() == TargetRuntime.MYBATIS3) {
+      topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.Getter"));
+      topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.Setter"));
+      topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.ToString"));
+
+      topLevelClass.addAnnotation("@Getter");
+      topLevelClass.addAnnotation("@Setter");
+
+      if (topLevelClass.getSuperClass().isPresent()) {
+        topLevelClass.addAnnotation("@ToString(callSuper = true)");
+      } else {
+        topLevelClass.addAnnotation("@ToString");
+      }
+    }
   }
 }

@@ -1,14 +1,8 @@
 package io.digimono.mybatis.generator.plugins;
 
-import static io.digimono.mybatis.generator.constants.Constants.LINE_INDENT;
-import static org.mybatis.generator.internal.util.StringUtility.isTrue;
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-
 import io.digimono.mybatis.generator.constants.Constants.MyBatisPlus;
 import io.digimono.mybatis.generator.plugins.base.BasePlugin;
 import io.digimono.mybatis.generator.utils.Utils;
-import java.util.ArrayList;
-import java.util.List;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.IntrospectedTable.TargetRuntime;
@@ -20,6 +14,13 @@ import org.mybatis.generator.config.PropertyRegistry;
 import org.mybatis.generator.config.TableConfiguration;
 import org.mybatis.generator.internal.util.StringUtility;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static io.digimono.mybatis.generator.constants.Constants.LINE_INDENT;
+import static org.mybatis.generator.internal.util.StringUtility.isTrue;
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
+
 /** @author yangyanju */
 public class MybatisPlusAnnotationPlugin extends BasePlugin {
 
@@ -29,57 +30,14 @@ public class MybatisPlusAnnotationPlugin extends BasePlugin {
   @Override
   public boolean modelBaseRecordClassGenerated(
       TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-    if (introspectedTable.getTargetRuntime() == TargetRuntime.MYBATIS3) {
-      final String schema =
-          introspectedTable.getTableConfigurationProperty(MyBatisPlus.TABLE_SCHEMA);
-      final String resultMap =
-          introspectedTable.getTableConfigurationProperty(MyBatisPlus.TABLE_RESULT_MAP);
-      final String autoResultMap =
-          introspectedTable.getTableConfigurationProperty(MyBatisPlus.TABLE_AUTO_RESULT_MAP);
-      final String keepGlobalPrefix =
-          introspectedTable.getTableConfigurationProperty(MyBatisPlus.TABLE_KEEP_GLOBAL_PREFIX);
+    addMyBatisPlusAnnotations(topLevelClass, introspectedTable);
+    return true;
+  }
 
-      final String tableName = introspectedTable.getTableConfiguration().getTableName();
-      final StringBuilder sb = new StringBuilder();
-      sb.append("@TableName(");
-      sb.append("value = \"").append(tableName).append("\"");
-
-      if (StringUtility.stringHasValue(resultMap)) {
-        sb.append(", ");
-        sb.append(LINE_SEPARATOR);
-        sb.append(LINE_INDENT);
-        sb.append("resultMap = \"").append(resultMap).append("\"");
-      }
-
-      if (StringUtility.stringHasValue(schema)) {
-        sb.append(", ");
-        sb.append(LINE_SEPARATOR);
-        sb.append(LINE_INDENT);
-        sb.append("schema = \"").append(schema).append("\"");
-      }
-
-      if (StringUtility.stringHasValue(autoResultMap)) {
-        sb.append(", ");
-        sb.append(LINE_SEPARATOR);
-        sb.append(LINE_INDENT);
-        sb.append("autoResultMap = ").append(autoResultMap);
-      }
-
-      if (StringUtility.stringHasValue(keepGlobalPrefix)) {
-        sb.append(", ");
-        sb.append(LINE_SEPARATOR);
-        sb.append(LINE_INDENT);
-        sb.append("keepGlobalPrefix = ").append(keepGlobalPrefix);
-      }
-
-      sb.append(")");
-
-      // don't need to do this for MYBATIS3_DSQL as that runtime already adds this annotation
-      topLevelClass.addImportedType(
-          new FullyQualifiedJavaType(
-              "com.baomidou.mybatisplus.annotation.TableName")); // $NON-NLS-1$
-      topLevelClass.addAnnotation(sb.toString()); // $NON-NLS-1$
-    }
+  @Override
+  public boolean modelRecordWithBLOBsClassGenerated(
+      TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+    addMyBatisPlusAnnotations(topLevelClass, introspectedTable);
     return true;
   }
 
@@ -173,6 +131,61 @@ public class MybatisPlusAnnotationPlugin extends BasePlugin {
       sb.append(Character.toLowerCase(c));
     }
     return sb.toString();
+  }
+
+  private void addMyBatisPlusAnnotations(
+      TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+    if (introspectedTable.getTargetRuntime() == TargetRuntime.MYBATIS3) {
+      final String schema =
+          introspectedTable.getTableConfigurationProperty(MyBatisPlus.TABLE_SCHEMA);
+      final String resultMap =
+          introspectedTable.getTableConfigurationProperty(MyBatisPlus.TABLE_RESULT_MAP);
+      final String autoResultMap =
+          introspectedTable.getTableConfigurationProperty(MyBatisPlus.TABLE_AUTO_RESULT_MAP);
+      final String keepGlobalPrefix =
+          introspectedTable.getTableConfigurationProperty(MyBatisPlus.TABLE_KEEP_GLOBAL_PREFIX);
+
+      final String tableName = introspectedTable.getTableConfiguration().getTableName();
+      final StringBuilder sb = new StringBuilder();
+      sb.append("@TableName(");
+      sb.append("value = \"").append(tableName).append("\"");
+
+      if (StringUtility.stringHasValue(resultMap)) {
+        sb.append(", ");
+        sb.append(LINE_SEPARATOR);
+        sb.append(LINE_INDENT);
+        sb.append("resultMap = \"").append(resultMap).append("\"");
+      }
+
+      if (StringUtility.stringHasValue(schema)) {
+        sb.append(", ");
+        sb.append(LINE_SEPARATOR);
+        sb.append(LINE_INDENT);
+        sb.append("schema = \"").append(schema).append("\"");
+      }
+
+      if (StringUtility.stringHasValue(autoResultMap)) {
+        sb.append(", ");
+        sb.append(LINE_SEPARATOR);
+        sb.append(LINE_INDENT);
+        sb.append("autoResultMap = ").append(autoResultMap);
+      }
+
+      if (StringUtility.stringHasValue(keepGlobalPrefix)) {
+        sb.append(", ");
+        sb.append(LINE_SEPARATOR);
+        sb.append(LINE_INDENT);
+        sb.append("keepGlobalPrefix = ").append(keepGlobalPrefix);
+      }
+
+      sb.append(")");
+
+      // don't need to do this for MYBATIS3_DSQL as that runtime already adds this annotation
+      topLevelClass.addImportedType(
+          new FullyQualifiedJavaType(
+              "com.baomidou.mybatisplus.annotation.TableName")); // $NON-NLS-1$
+      topLevelClass.addAnnotation(sb.toString()); // $NON-NLS-1$
+    }
   }
 
   static class AnnotationEntry {

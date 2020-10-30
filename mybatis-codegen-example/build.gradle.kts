@@ -41,6 +41,7 @@ dependencies {
     mybatisGenerator(project(":mybatis-codegen"))
     mybatisGenerator(Libs.mybatisGeneratorCore)
     mybatisGenerator(Libs.h2)
+    mybatisGenerator(Libs.mysql)
 }
 
 configure<MBGeneratorExtension> {
