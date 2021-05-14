@@ -16,21 +16,6 @@
 
 plugins {
     `java-library`
-    pmd
-    checkstyle
-}
-
-val sourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("sources")
-    from(sourceSets.main.get().allSource)
-    // from(sourceSets["main"].allJava)
-    dependsOn(JavaPlugin.CLASSES_TASK_NAME)
-}
-
-val javadocJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("javadoc")
-    from(tasks[JavaPlugin.JAVADOC_TASK_NAME])
-    dependsOn(JavaPlugin.JAVADOC_TASK_NAME)
 }
 
 val isBom = project.name.endsWith("-bom")
@@ -40,42 +25,9 @@ java {
 
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
-}
 
-pmd {
-    toolVersion = Versions.pmdVersion
-
-    isConsoleOutput = true
-    isIgnoreFailures = true
-    rulePriority = 5
-    ruleSetConfig = resources.text.fromFile(file("$rootDir/src/codequality/pmd-ruleset.xml"), "utf-8")
-
-    // ruleSets = listOf(
-    //     "java-ali-comment",
-    //     "java-ali-concurrent",
-    //     "java-ali-constant",
-    //     "java-ali-exception",
-    //     "java-ali-flowcontrol",
-    //     "java-ali-naming",
-    //     "java-ali-oop",
-    //     "java-ali-orm",
-    //     "java-ali-other",
-    //     "java-ali-set"
-    // )
-}
-
-checkstyle {
-    val codeQualityDir = file("$rootDir/src/codequality")
-
-    isIgnoreFailures = true
-    isShowViolations = true
-    toolVersion = Versions.checkstyleVersion
-
-    configDirectory.set(codeQualityDir)
-
-    configProperties = mapOf(
-        "checkstyleConfigDir" to codeQualityDir.absolutePath
-    )
+    withJavadocJar()
+    withSourcesJar()
 }
 
 dependencies {
@@ -87,8 +39,6 @@ dependencies {
         compileOnly(Libs.lombok)
         annotationProcessor(Libs.lombok)
         // testAnnotationProcessor(Libs.lombok)
-
-        pmd("com.alibaba.p3c:p3c-pmd:${Versions.p3cPmdVersion}")
 
         testImplementation(enforcedPlatform(TestLibs.junit5Bom))
         testImplementation(TestLibs.junit)
@@ -107,8 +57,7 @@ tasks {
         options.encoding = Build.buildSourceEncoding
         options.compilerArgs.addAll(
             arrayOf(
-                "-Xlint:unchecked"
-                , "-parameters"
+                "-Xlint:unchecked", "-parameters"
             )
         )
     }
@@ -151,11 +100,6 @@ tasks {
                 it.addBooleanOption("html5", true)
             }
         }
-    }
-
-    artifacts {
-        add("archives", sourcesJar)
-        add("archives", javadocJar)
     }
 
     test {

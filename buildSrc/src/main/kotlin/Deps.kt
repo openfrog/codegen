@@ -20,24 +20,18 @@ object Versions {
     const val javaVersion = "1.8"
 
     // Plugins
-    const val spotbugsVersion = "4.0.6"
-    const val spotbugsPluginVersion = "4.4.3"
-    const val findsecbugsPluginVersion = "1.10.1"
-    const val pmdVersion = "6.25.0"
-    const val checkstyleVersion = "8.27"
-    const val p3cPmdVersion = "2.0.1"
-    const val gradlePluginPublishVersion = "0.12.0"
+    const val gradlePluginPublishVersion = "0.14.0"
 
     // Dependencies
-    const val junitVersion = "4.13"
-    const val junit5Version = "5.6.2"
-    const val junitPlatformVersion = "1.6.2"
+    const val junitVersion = "4.13.2"
+    const val junit5Version = "5.7.1"
+    const val junitPlatformVersion = "1.7.1"
 
     const val mybatisGeneratorVersion = "1.4.0"
-    const val antVersion = "1.10.8"
+    const val antVersion = "1.10.10"
     const val h2Version = "1.4.200"
-    const val mysqlVersion = "8.0.22"
-    const val lombokVersion = "1.18.12"
+    const val mysqlVersion = "8.0.25"
+    const val lombokVersion = "1.18.20"
 }
 
 object Libs {
@@ -58,7 +52,4 @@ object TestLibs {
     const val junitJupiterApi = "org.junit.jupiter:junit-jupiter-api:${Versions.junit5Version}"
     const val junitJupiterEngine = "org.junit.jupiter:junit-jupiter-engine:${Versions.junit5Version}"
     const val junitVintageEngine = "org.junit.vintage:junit-vintage-engine:${Versions.junit5Version}"
-
-    // const val apiGuardianApi = "org.apiguardian:apiguardian-api:${Versions.apiGuardianVersion}"
-    // const val opentest4j = "org.opentest4j:opentest4j:${Versions.opentest4jVersion}"
 }

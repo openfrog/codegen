@@ -16,21 +16,6 @@
 
 import io.digimono.gradle.plugin.MBGeneratorExtension
 
-// buildscript {
-//     repositories {
-//         mavenLocal()
-//         mavenCentral()
-//     }
-//
-//     dependencies {
-//         classpath("io.github.digimono:mybatis-generator-gradle-plugin:${project.version}")
-//     }
-// }
-//
-// apply {
-//     plugin("io.github.digimono.mybatis-generator")
-// }
-
 plugins {
     id("io.github.digimono.mybatis-generator") version "0.0.7"
 }

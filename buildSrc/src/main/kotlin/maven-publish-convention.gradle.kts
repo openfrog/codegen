@@ -27,6 +27,9 @@ publishing {
 
     repositories {
         maven {
+            // val releasesRepoUrl = layout.buildDirectory.dir("repos/releases")
+            // val snapshotsRepoUrl = layout.buildDirectory.dir("repos/snapshots")
+
             val releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
             val snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
 
@@ -42,8 +45,6 @@ publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
-            artifact(tasks["sourcesJar"])
-            artifact(tasks["javadocJar"])
 
             pom {
                 val projectURL: String by rootProject
@@ -83,8 +84,8 @@ publishing {
                 developers {
                     developer {
                         id.set("digimono")
-                        name.set("yangyanju")
-                        email.set("yanjuyang@outlook.com")
+                        name.set("Eric Yang")
+                        email.set("yanjuyq@gmail.com")
                         url.set("https://github.com/digimono")
                     }
                 }
@@ -110,23 +111,25 @@ publishing {
                             dependency.appendNode("version").setValue(it.version)
                         }
                     } else {
-                        root["dependencies"].asNodeList().getAt("*").forEach {
+                        val dependencies = root["dependencies"].asNodeList().getAt("*") as List<*>
+                        dependencies.forEach {
                             val dependency = it.asNode()
                             val scope = dependency["scope"].asNodeList().text()
                             val artifactId = dependency["artifactId"].asNodeList().text()
 
                             if (scope == "runtime") {
                                 if (project.configurations.findByName("implementation")?.allDependencies?.none { dep -> dep.name == artifactId } == false) {
-                                    dependency["scope"].asNodeList().forEach { dep -> dep.asNode().setValue("compile") }
+                                    (dependency["scope"].asNodeList() as List<*>).forEach { dep ->
+                                        dep.asNode().setValue("compile")
+                                    }
                                     dependency.appendNode("optional", true)
                                 }
                             }
                         }
 
-                        root["dependencyManagement"].asNodeList()
-                            .forEach {
-                                root.remove(it.asNode())
-                            }
+                        (root["dependencyManagement"].asNodeList() as List<*>).forEach {
+                            root.remove(it.asNode())
+                        }
                     }
                 }
             }
