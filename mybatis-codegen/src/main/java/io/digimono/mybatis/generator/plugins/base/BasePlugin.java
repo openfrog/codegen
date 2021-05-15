@@ -16,11 +16,12 @@
 
 package io.digimono.mybatis.generator.plugins.base;
 
-import java.util.List;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.IntrospectedTable.TargetRuntime;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.internal.util.StringUtility;
+
+import java.util.List;
 
 /** @author yangyanju */
 public abstract class BasePlugin extends PluginAdapter {
@@ -45,7 +46,7 @@ public abstract class BasePlugin extends PluginAdapter {
 
     try {
       Class<?> clazz = Class.forName(runtime);
-      Object obj = clazz.newInstance(); // NOSONAR
+      Object obj = clazz.getDeclaredConstructor().newInstance(); // NOSONAR
 
       if (obj instanceof IntrospectedTable) {
         if (((IntrospectedTable) obj).getTargetRuntime().equals(TargetRuntime.MYBATIS3)) {

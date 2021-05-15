@@ -19,23 +19,56 @@ package io.digimono.mybatis.generator.internal.types;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl;
+import org.mybatis.generator.internal.util.StringUtility;
 
 import java.sql.Types;
+import java.util.Properties;
 
 /** @author yangyanju */
 public class JavaTypeResolverImpl extends JavaTypeResolverDefaultImpl {
+
+  private boolean shortMapToInteger;
 
   public JavaTypeResolverImpl() {
     super();
   }
 
   @Override
+  public void addConfigurationProperties(Properties properties) {
+    super.addConfigurationProperties(properties);
+    this.shortMapToInteger = StringUtility.isTrue(properties.getProperty("shortMapToInteger"));
+  }
+
+  @Override
   protected FullyQualifiedJavaType overrideDefaultType(
       IntrospectedColumn column, FullyQualifiedJavaType defaultType) {
-    if (column.getJdbcType() == Types.TINYINT) {
-      return new FullyQualifiedJavaType(Integer.class.getName());
-    }
+    this.typeMap.put(
+        Types.TINYINT,
+        new JdbcTypeInformation("TINYINT", new FullyQualifiedJavaType(Integer.class.getName())));
+
+    super.typeMap.put(
+        Types.OTHER,
+        new JdbcTypeInformation("NVARCHAR", new FullyQualifiedJavaType(String.class.getName())));
 
     return super.overrideDefaultType(column, defaultType);
+  }
+
+  @Override
+  protected FullyQualifiedJavaType calculateBigDecimalReplacement(
+      IntrospectedColumn column, FullyQualifiedJavaType defaultType) {
+    // 1~4	  Short
+    // 5~9	  Integer
+    // 10~18  Long
+    // 18+    BigDecimal
+
+    if (!this.forceBigDecimals) {
+      if (column.getScale() > 0 && column.getLength() <= 18) {
+        return new FullyQualifiedJavaType(Double.class.getName());
+      } else if (column.getScale() <= 0 && column.getLength() <= 4 && this.shortMapToInteger) {
+        return new FullyQualifiedJavaType(Integer.class.getName());
+      }
+    }
+
+    return super.calculateBigDecimalReplacement(column, defaultType);
   }
 }
