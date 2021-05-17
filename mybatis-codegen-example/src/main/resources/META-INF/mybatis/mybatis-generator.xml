@@ -5,7 +5,7 @@
 
 <generatorConfiguration>
   <!-- <properties resource="META-INF/mybatis/generator.properties"/> -->
-  <context id="MySQLTables"
+  <context id="SQLTables"
            targetRuntime="io.digimono.mybatis.generator.codegen.mybatis3.CustomizedIntrospectedTableMyBatis3Impl">
 
     <property name="javaFileEncoding" value="UTF-8"/>
@@ -24,15 +24,13 @@
     <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
 
     <plugin type="io.digimono.mybatis.generator.plugins.LombokPlugin"/>
-    <plugin type="io.digimono.mybatis.generator.plugins.MybatisPlusAnnotationPlugin"/>
 
     <plugin type="io.digimono.mybatis.generator.plugins.SimpleStyleToStringPlugin">
       <property name="useToStringFromRoot" value="true"/>
     </plugin>
 
-    <!--<plugin type="io.digimono.mybatis.generator.plugins.FindAllPlugin"/>-->
     <plugin type="io.digimono.mybatis.generator.plugins.AliasColumnListPlugin"/>
-    <!--<plugin type="io.digimono.mybatis.generator.plugins.EmptyXMLMapperPlugin"/>-->
+    <plugin type="io.digimono.mybatis.generator.plugins.EmptyXMLMapperPlugin"/>
 
     <!--<plugin type="io.digimono.mybatis.generator.plugins.EmptyJavaMapperPlugin"/>-->
     <!-- MapperAnnotationPlugin must be after EmptyJavaMapperPlugin -->
@@ -60,6 +58,7 @@
     <javaTypeResolver type="io.digimono.mybatis.generator.internal.types.JavaTypeResolverImpl">
       <property name="forceBigDecimals" value="false"/>
       <property name="useJSR310Types" value="${use_jsr310_types}"/>
+      <property name="shortMapToInteger" value="${short_map_to_integer}"/>
     </javaTypeResolver>
 
     <javaModelGenerator
@@ -89,25 +88,18 @@
            enableDeleteByExample="false"
            enableUpdateByExample="false">
       <property name="useActualColumnNames" value="false"/>
-      <property name="selectAllOrderByClause" value="id DESC"/>
 
       <property name="markAsDeletedColumn" value="deleted"/>
       <property name="markAsDeletedValue" value="1"/>
       <property name="markAsUnDeletedValue" value="0"/>
-
-      <!--<property name="myBatisPlusTableSchema" value=""/>-->
-      <!--<property name="myBatisPlusTableResultMap" value="BaseResultMap"/>-->
-      <!--<property name="myBatisPlusTableAutoResultMap" value="false"/>-->
-      <!--<property name="myBatisPlusTableKeepGlobalPrefix" value="false"/>-->
-      <!--<property name="myBatisPlusTableFieldAddTypeHandler" value="true"/>-->
 
       <!--<property name="rootInterface"-->
       <!--          value="io.digimono.mybatis.mapper.BaseMapper&lt;Employee, Integer&gt;"/>-->
 
       <!--JDBC / SqlServer / MySql-->
       <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-      <columnOverride column="name" property="employeeName"
-                      typeHandler="com.github.ptech.mybatis.typehandler.ExampleTypeHandler"/>
+      <!--<columnOverride column="name" property="employeeName"-->
+      <!--                typeHandler="com.github.ptech.mybatis.typehandler.ExampleTypeHandler"/>-->
     </table>
   </context>
 </generatorConfiguration>
