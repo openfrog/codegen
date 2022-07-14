@@ -20,7 +20,7 @@ object Versions {
     const val javaVersion = "1.8"
 
     // Plugins
-    const val gradlePluginPublishVersion = "0.14.0"
+    const val gradlePluginPublishVersion = "0.15.0"
 
     // Dependencies
     const val junitVersion = "4.13.2"

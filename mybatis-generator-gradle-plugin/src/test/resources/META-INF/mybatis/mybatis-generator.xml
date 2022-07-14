@@ -37,6 +37,7 @@
     <!--<plugin type="io.digimono.mybatis.generator.plugins.EmptyJavaMapperPlugin"/>-->
     <!-- MapperAnnotationPlugin must be after EmptyJavaMapperPlugin -->
     <plugin type="io.digimono.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+    <plugin type="io.digimono.mybatis.generator.plugins.FindByEntityPlugin"/>
 
     <plugin type="io.digimono.mybatis.generator.plugins.MarkAsDeletedByIdPlugin">
       <property name="markAsDeletedColumn" value="deleted"/>

@@ -28,6 +28,7 @@ public final class Constants {
 
   public static final String INSERT_SELECTIVE_CLAUSE_ID = "Insert_Selective_Clause";
   public static final String UPDATE_SELECTIVE_CLAUSE_ID = "Update_Selective_Clause";
+  public static final String FIND_BY_ENTITY_CLAUSE_ID = "Select_By_Entity_Clause";
 
   public static final String PROP_ONLY_GENERATE_INSERT_SELECTIVE_METHOD =
       "onlyGenerateInsertSelectiveMethod";
@@ -40,6 +41,7 @@ public final class Constants {
 
   public static final String STATEMENT_ID_MARK_AS_DELETED_BY_ID_1 = "markAsDeletedByPrimaryKey";
   public static final String STATEMENT_ID_MARK_AS_DELETED_BY_ID_2 = "markAsDeletedById";
+  public static final String STATEMENT_ID_FIND_BY_ENTITY = "findByEntity";
 
   public static final class MyBatisPlus {
 

@@ -5,8 +5,7 @@
 
 <generatorConfiguration>
   <!-- <properties resource="META-INF/mybatis/generator.properties"/> -->
-  <context id="SQLTables"
-           targetRuntime="io.digimono.mybatis.generator.codegen.mybatis3.CustomizedIntrospectedTableMyBatis3Impl">
+  <context id="SQLTables" targetRuntime="MyBatis3DynamicSql">
 
     <property name="javaFileEncoding" value="UTF-8"/>
     <property name="addGWTInterface" value="false"/>
@@ -21,27 +20,7 @@
     <property name="useDefaultStatementId" value="true"/>
 
     <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
-    <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
-
-    <plugin type="io.digimono.mybatis.generator.plugins.LombokPlugin"/>
-
-    <plugin type="io.digimono.mybatis.generator.plugins.SimpleStyleToStringPlugin">
-      <property name="useToStringFromRoot" value="true"/>
-    </plugin>
-
-    <plugin type="io.digimono.mybatis.generator.plugins.AliasColumnListPlugin"/>
-    <plugin type="io.digimono.mybatis.generator.plugins.EmptyXMLMapperPlugin"/>
-
-    <!--<plugin type="io.digimono.mybatis.generator.plugins.EmptyJavaMapperPlugin"/>-->
-    <!-- MapperAnnotationPlugin must be after EmptyJavaMapperPlugin -->
-    <plugin type="io.digimono.mybatis.generator.plugins.MapperAnnotationPlugin"/>
-    <plugin type="io.digimono.mybatis.generator.plugins.FindByEntityPlugin"/>
-
-    <plugin type="io.digimono.mybatis.generator.plugins.MarkAsDeletedByIdPlugin">
-      <property name="markAsDeletedColumn" value="deleted"/>
-      <property name="markAsDeletedValue" value="1"/>
-      <property name="markAsUnDeletedValue" value="0"/>
-    </plugin>
+    <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
 
     <commentGenerator type="io.digimono.mybatis.generator.internal.CustomizedCommentGeneratorImpl">
       <property name="suppressAllComments" value="${suppress_all_comments}"/>
@@ -69,12 +48,6 @@
       <property name="trimStrings" value="true"/>
       <property name="constructorBased" value="false"/>
     </javaModelGenerator>
-
-    <sqlMapGenerator
-      targetProject="${sql.mapper.target.project}"
-      targetPackage="${sql.mapper.package}">
-      <property name="enableSubPackages" value="false"/>
-    </sqlMapGenerator>
 
     <javaClientGenerator
       targetProject="${java.mapper.target.project}"

@@ -47,7 +47,7 @@ publishing {
             from(components["java"])
 
             pom {
-                val projectURL: String by rootProject
+                val projectURL: String? by rootProject
                 val projectInceptionYear = "2019"
                 val projectDescription = if (project.description.isNullOrEmpty()) project.name else project.description
                 val isBom = project.name.endsWith("-bom")
