@@ -79,7 +79,8 @@ public class CustomizedCommentGeneratorImpl extends DefaultCommentGenerator {
     sb.append(" * This class corresponds to the database table "); // $NON-NLS-1$
     sb.append(introspectedTable.getFullyQualifiedTable());
     topLevelClass.addJavaDocLine(sb.toString());
-
+    topLevelClass.addJavaDocLine(" * ");
+    topLevelClass.addJavaDocLine(" * @author Mybatis Generator");
     topLevelClass.addJavaDocLine(" */"); // $NON-NLS-1$
   }
 
