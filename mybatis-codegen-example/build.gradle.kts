@@ -28,11 +28,11 @@ dependencies {
     mybatisGenerator(Libs.h2)
     mybatisGenerator(Libs.mysql)
 
-    implementation("org.mybatis:mybatis:3.5.7")
-    implementation("org.mybatis.dynamic-sql:mybatis-dynamic-sql:1.3.0")
+    implementation("org.mybatis:mybatis:3.5.10")
+    implementation("org.mybatis.dynamic-sql:mybatis-dynamic-sql:1.4.0")
 }
 
 configure<MBGeneratorExtension> {
-    configFile = "${project.projectDir}/src/main/resources/META-INF/mybatis/mybatis-generator-dynamic.xml"
+    configFile = "${project.projectDir}/src/main/resources/META-INF/mybatis/mybatis-generator.xml"
 }
 
