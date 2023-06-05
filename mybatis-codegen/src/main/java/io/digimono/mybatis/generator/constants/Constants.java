@@ -16,7 +16,9 @@
 
 package io.digimono.mybatis.generator.constants;
 
-/** @author yangyanju */
+/**
+ * @author yangyanju
+ */
 public final class Constants {
 
   public static final String LINE_INDENT = "    ";
@@ -42,6 +44,7 @@ public final class Constants {
   public static final String STATEMENT_ID_MARK_AS_DELETED_BY_ID_1 = "markAsDeletedByPrimaryKey";
   public static final String STATEMENT_ID_MARK_AS_DELETED_BY_ID_2 = "markAsDeletedById";
   public static final String STATEMENT_ID_FIND_BY_ENTITY = "findByEntity";
+  public static final String STATEMENT_ID_UPDATE_BATCH_SELECTIVE = "updateBatchSelective";
 
   public static final class MyBatisPlus {
 
