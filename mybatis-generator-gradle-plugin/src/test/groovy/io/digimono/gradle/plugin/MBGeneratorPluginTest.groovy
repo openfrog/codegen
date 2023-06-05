@@ -70,7 +70,7 @@ class MBGeneratorPluginTest {
 
             dependencies {
                 // mybatisGenerator(project(":mybatis-codegen"))
-                mybatisGenerator("io.github.digimono:mybatis-codegen:1.0.3")
+                mybatisGenerator("io.github.digimono:mybatis-codegen:1.0.4")
                 mybatisGenerator("org.mybatis.generator:mybatis-generator-core:1.4.0")
                 mybatisGenerator("com.h2database:h2:1.4.200")
             }

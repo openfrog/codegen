@@ -37,7 +37,8 @@
     <!--<plugin type="io.digimono.mybatis.generator.plugins.EmptyJavaMapperPlugin"/>-->
     <!-- MapperAnnotationPlugin must be after EmptyJavaMapperPlugin -->
     <plugin type="io.digimono.mybatis.generator.plugins.MapperAnnotationPlugin"/>
-    <plugin type="io.digimono.mybatis.generator.plugins.FindByEntityPlugin"/>
+    <!--<plugin type="io.digimono.mybatis.generator.plugins.FindByEntityPlugin"/>-->
+    <!--<plugin type="io.digimono.mybatis.generator.plugins.UpdateBatchSelectivePlugin"/>-->
 
     <plugin type="io.digimono.mybatis.generator.plugins.MarkAsDeletedByIdPlugin">
       <property name="markAsDeletedColumn" value="deleted"/>
@@ -95,6 +96,8 @@
       <property name="markAsDeletedColumn" value="deleted"/>
       <property name="markAsDeletedValue" value="1"/>
       <property name="markAsUnDeletedValue" value="0"/>
+
+      <!--<property name="ignoredColumnsOnBatchUpdate" value="NAME"/>-->
 
       <!--<property name="myBatisPlusTableSchema" value=""/>-->
       <!--<property name="myBatisPlusTableResultMap" value="BaseResultMap"/>-->
