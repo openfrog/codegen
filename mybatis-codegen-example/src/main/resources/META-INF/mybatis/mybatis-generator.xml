@@ -95,6 +95,8 @@
       <property name="markAsDeletedValue" value="1"/>
       <property name="markAsUnDeletedValue" value="0"/>
 
+      <!--<property name="ignoredColumnsOnBatchUpdate" value="NAME"/>-->
+
       <!--<property name="rootInterface"-->
       <!--          value="io.digimono.mybatis.mapper.BaseMapper&lt;Employee, Integer&gt;"/>-->
 

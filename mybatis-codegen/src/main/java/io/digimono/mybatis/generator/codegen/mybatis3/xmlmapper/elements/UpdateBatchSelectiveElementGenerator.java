@@ -2,7 +2,9 @@ package io.digimono.mybatis.generator.codegen.mybatis3.xmlmapper.elements;
 
 import static io.digimono.mybatis.generator.constants.Constants.STATEMENT_ID_UPDATE_BATCH_SELECTIVE;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.TextElement;
@@ -17,8 +19,15 @@ import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElem
  */
 public class UpdateBatchSelectiveElementGenerator extends AbstractXmlElementGenerator {
 
+  private final List<String> ignoredColumns;
+
   public UpdateBatchSelectiveElementGenerator() {
+    this(Collections.emptyList());
+  }
+
+  public UpdateBatchSelectiveElementGenerator(List<String> ignoredColumns) {
     super();
+    this.ignoredColumns = ignoredColumns;
   }
 
   @Override
@@ -33,7 +42,6 @@ public class UpdateBatchSelectiveElementGenerator extends AbstractXmlElementGene
     StringBuilder sb = new StringBuilder();
     sb.append("update ");
     sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
-    // sb.append(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime());
 
     answer.addElement(new TextElement(sb.toString()));
 
@@ -43,8 +51,17 @@ public class UpdateBatchSelectiveElementGenerator extends AbstractXmlElementGene
 
     answer.addElement(element);
 
-    List<IntrospectedColumn> columns =
-        ListUtilities.removeGeneratedAlwaysColumns(introspectedTable.getNonPrimaryKeyColumns());
+    final List<IntrospectedColumn> nonPrimaryKeyColumns =
+        introspectedTable.getNonPrimaryKeyColumns();
+    final List<IntrospectedColumn> columns;
+    if (this.ignoredColumns != null && !this.ignoredColumns.isEmpty()) {
+      columns =
+          ListUtilities.removeGeneratedAlwaysColumns(nonPrimaryKeyColumns).stream()
+              .filter(column -> !ignoredColumns.contains(column.getActualColumnName()))
+              .collect(Collectors.toList());
+    } else {
+      columns = ListUtilities.removeGeneratedAlwaysColumns(nonPrimaryKeyColumns);
+    }
 
     List<IntrospectedColumn> primaryKeyColumns = introspectedTable.getPrimaryKeyColumns();
 

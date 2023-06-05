@@ -13,11 +13,11 @@ indent_size = 4
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.{json, yml, yaml, sql, xml}]
+[*.{json,yml,yaml,sql,xml}]
 indent_size = 2
 
 [*.md]
 trim_trailing_whitespace = false
 
-[*.{bat, cmd, ps1}]
+[*.{bat,cmd,ps1}]
 end_of_line = crlf

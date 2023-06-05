@@ -1,8 +1,13 @@
 package io.digimono.mybatis.generator.plugins;
 
+import static io.digimono.mybatis.generator.constants.Constants.IGNORED_COLUMNS_ON_BATCH_UPDATE;
+
 import io.digimono.mybatis.generator.codegen.mybatis3.javamapper.UpdateBatchSelectiveMethodGenerator;
 import io.digimono.mybatis.generator.codegen.mybatis3.xmlmapper.elements.UpdateBatchSelectiveElementGenerator;
 import io.digimono.mybatis.generator.plugins.base.BasePlugin;
+import io.digimono.mybatis.generator.utils.PluginUtils;
+import java.util.List;
+import java.util.Properties;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Interface;
 import org.mybatis.generator.api.dom.xml.Document;
@@ -15,9 +20,15 @@ import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElem
  */
 public class UpdateBatchSelectivePlugin extends BasePlugin {
 
+  private List<String> ignoredColumns;
+
   @Override
   public void initialized(IntrospectedTable introspectedTable) {
     super.initialized(introspectedTable);
+
+    Properties properties = getProperties();
+    this.ignoredColumns =
+        PluginUtils.getProperties(properties, introspectedTable, IGNORED_COLUMNS_ON_BATCH_UPDATE);
   }
 
   @Override
@@ -31,7 +42,8 @@ public class UpdateBatchSelectivePlugin extends BasePlugin {
 
   @Override
   public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
-    AbstractXmlElementGenerator elementGenerator = new UpdateBatchSelectiveElementGenerator();
+    AbstractXmlElementGenerator elementGenerator =
+        new UpdateBatchSelectiveElementGenerator(ignoredColumns);
     elementGenerator.setContext(context);
     elementGenerator.setIntrospectedTable(introspectedTable);
     elementGenerator.addElements(document.getRootElement());

@@ -46,6 +46,8 @@ public final class Constants {
   public static final String STATEMENT_ID_FIND_BY_ENTITY = "findByEntity";
   public static final String STATEMENT_ID_UPDATE_BATCH_SELECTIVE = "updateBatchSelective";
 
+  public static final String IGNORED_COLUMNS_ON_BATCH_UPDATE = "ignoredColumnsOnBatchUpdate";
+
   public static final class MyBatisPlus {
 
     public static final String TABLE_SCHEMA = "myBatisPlusTableSchema";

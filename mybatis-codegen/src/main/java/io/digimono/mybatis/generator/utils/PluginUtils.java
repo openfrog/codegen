@@ -16,6 +16,8 @@
 
 package io.digimono.mybatis.generator.utils;
 
+import java.util.*;
+import java.util.stream.Collectors;
 import org.mybatis.generator.api.CompositePlugin;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -23,11 +25,9 @@ import org.mybatis.generator.api.Plugin;
 import org.mybatis.generator.config.Context;
 import org.mybatis.generator.internal.util.StringUtility;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Properties;
-
-/** @author yangyanju */
+/**
+ * @author yangyanju
+ */
 public final class PluginUtils {
 
   private static final String PROP_MARK_AS_DELETED_COLUMN = "markAsDeletedColumn";
@@ -99,7 +99,22 @@ public final class PluginUtils {
     return hasPlugin;
   }
 
-  private static String getProperty(
+  public static List<String> getProperties(
+      Properties pluginProperties, IntrospectedTable introspectedTable, String property) {
+    String value = getProperty(pluginProperties, introspectedTable, property);
+
+    if (StringUtility.stringHasValue(value)) {
+      return Arrays.stream(value.split(","))
+          .filter(StringUtility::stringHasValue)
+          .map(String::trim)
+          .filter(StringUtility::stringHasValue)
+          .collect(Collectors.toList());
+    }
+
+    return Collections.emptyList();
+  }
+
+  public static String getProperty(
       Properties pluginProperties, IntrospectedTable introspectedTable, String property) {
     String value = introspectedTable.getTableConfigurationProperty(property);
 
