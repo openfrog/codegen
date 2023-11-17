@@ -7,7 +7,6 @@ import io.digimono.mybatis.generator.codegen.mybatis3.xmlmapper.elements.UpdateB
 import io.digimono.mybatis.generator.plugins.base.BasePlugin;
 import io.digimono.mybatis.generator.utils.PluginUtils;
 import java.util.List;
-import java.util.Properties;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Interface;
 import org.mybatis.generator.api.dom.xml.Document;
@@ -26,7 +25,6 @@ public class UpdateBatchSelectivePlugin extends BasePlugin {
   public void initialized(IntrospectedTable introspectedTable) {
     super.initialized(introspectedTable);
 
-    Properties properties = getProperties();
     this.ignoredColumns =
         PluginUtils.getProperties(properties, introspectedTable, IGNORED_COLUMNS_ON_BATCH_UPDATE);
   }

@@ -20,7 +20,6 @@ import io.digimono.mybatis.generator.plugins.base.BasePlugin;
 import io.digimono.mybatis.generator.utils.PluginUtils;
 import io.digimono.mybatis.generator.utils.Utils;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 import org.mybatis.generator.api.IntrospectedColumn;
@@ -47,8 +46,6 @@ public class MarkAsDeletedByIdPlugin extends BasePlugin {
   @Override
   public void initialized(IntrospectedTable introspectedTable) {
     super.initialized(introspectedTable);
-
-    Properties properties = getProperties();
 
     this.introspectedColumn = PluginUtils.getMarkAsDeletedColumn(properties, introspectedTable);
     this.markAsDeletedValue = PluginUtils.getMarkAsDeletedValue(properties, introspectedTable);

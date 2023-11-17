@@ -27,7 +27,7 @@ object Versions {
     const val junit5Version = "5.7.1"
     const val junitPlatformVersion = "1.7.1"
 
-    const val mybatisGeneratorVersion = "1.4.0"
+    const val mybatisGeneratorVersion = "1.4.2"
     const val antVersion = "1.10.10"
     const val h2Version = "1.4.200"
     const val mysqlVersion = "8.0.25"

@@ -16,16 +16,15 @@
 
 package io.digimono.mybatis.generator.codegen.mybatis3.xmlmapper.elements;
 
+import static io.digimono.mybatis.generator.constants.Constants.INSERT_SELECTIVE_CLAUSE_ID;
+
+import java.util.Optional;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.GeneratedKey;
-
-import java.util.Optional;
-
-import static io.digimono.mybatis.generator.constants.Constants.INSERT_SELECTIVE_CLAUSE_ID;
 
 /**
  * @author yangyanju
@@ -49,7 +48,16 @@ public class InsertSelectiveElementGenerator extends BaseXmlElementGenerator {
 
     context.getCommentGenerator().addComment(answer);
 
-    GeneratedKey gk = introspectedTable.getGeneratedKey();
+    Object obj = introspectedTable.getGeneratedKey();
+    GeneratedKey gk = null;
+
+    if (obj instanceof Optional) { // For mybatis-generator-core 1.4.2+
+      Optional<?> holder = (Optional<?>) obj;
+      gk = (GeneratedKey) holder.orElse(null);
+    } else if (obj instanceof GeneratedKey) { // For mybatis-generator-core 1.4.0
+      gk = (GeneratedKey) obj;
+    }
+
     if (gk != null) {
       Optional<IntrospectedColumn> introspectedColumn = introspectedTable.getColumn(gk.getColumn());
       // if the column is null, then it's a configuration error. The

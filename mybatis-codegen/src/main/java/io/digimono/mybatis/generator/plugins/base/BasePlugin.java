@@ -34,7 +34,7 @@ public abstract class BasePlugin extends PluginAdapter {
   public boolean validate(List<String> warnings) {
     this.warnings = warnings;
 
-    String runtime = getContext().getTargetRuntime();
+    String runtime = context.getTargetRuntime();
 
     if (!StringUtility.stringHasValue(runtime)) {
       return true;
