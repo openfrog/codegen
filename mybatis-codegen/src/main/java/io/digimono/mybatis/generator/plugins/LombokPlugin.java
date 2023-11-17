@@ -8,7 +8,9 @@ import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 
-/** @author yangyanju */
+/**
+ * @author yangyanju
+ */
 public class LombokPlugin extends BasePlugin {
 
   @Override
@@ -51,6 +53,7 @@ public class LombokPlugin extends BasePlugin {
       topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.Getter"));
       topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.Setter"));
       topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.ToString"));
+      topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.experimental.Accessors"));
 
       topLevelClass.addAnnotation("@Getter");
       topLevelClass.addAnnotation("@Setter");
@@ -60,6 +63,8 @@ public class LombokPlugin extends BasePlugin {
       } else {
         topLevelClass.addAnnotation("@ToString");
       }
+
+      topLevelClass.addAnnotation("@Accessors(chain = true)");
     }
   }
 }
