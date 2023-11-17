@@ -61,7 +61,7 @@ public class FindByEntityPlugin extends BasePlugin {
     Method method = new Method(findByEntityStatementId);
     method.setVisibility(JavaVisibility.PUBLIC);
     method.setAbstract(true);
-    method.addParameter(new Parameter(parameterType, "entity"));
+    method.addParameter(new Parameter(parameterType, "row"));
     method.setReturnType(returnType);
 
     context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
