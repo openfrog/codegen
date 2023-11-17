@@ -8,10 +8,22 @@ import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 
+import java.util.Objects;
+
 /**
  * @author yangyanju
  */
 public class LombokPlugin extends BasePlugin {
+
+  private boolean useLombokAccessors = false;
+
+  @Override
+  public void initialized(IntrospectedTable introspectedTable) {
+    super.initialized(introspectedTable);
+
+    String value = properties.getProperty("useLombokAccessors", "false");
+    this.useLombokAccessors = Objects.equals(value, "true");
+  }
 
   @Override
   public boolean modelBaseRecordClassGenerated(
@@ -50,10 +62,14 @@ public class LombokPlugin extends BasePlugin {
   private void addLombokAnnotations(
       TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
     if (introspectedTable.getTargetRuntime() == TargetRuntime.MYBATIS3) {
+
       topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.Getter"));
       topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.Setter"));
       topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.ToString"));
-      topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.experimental.Accessors"));
+
+      if (useLombokAccessors) {
+        topLevelClass.addImportedType(new FullyQualifiedJavaType("lombok.experimental.Accessors"));
+      }
 
       topLevelClass.addAnnotation("@Getter");
       topLevelClass.addAnnotation("@Setter");
@@ -64,7 +80,9 @@ public class LombokPlugin extends BasePlugin {
         topLevelClass.addAnnotation("@ToString");
       }
 
-      topLevelClass.addAnnotation("@Accessors(chain = true)");
+      if (useLombokAccessors) {
+        topLevelClass.addAnnotation("@Accessors(chain = true)");
+      }
     }
   }
 }
