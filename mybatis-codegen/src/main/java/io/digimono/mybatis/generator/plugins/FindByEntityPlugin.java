@@ -16,18 +16,23 @@
 
 package io.digimono.mybatis.generator.plugins;
 
+import static io.digimono.mybatis.generator.constants.Constants.STATEMENT_ID_FIND_BY_ENTITY;
+
+import io.digimono.mybatis.generator.codegen.mybatis3.xmlmapper.elements.FindByEntityClauseElementGenerator;
+import io.digimono.mybatis.generator.codegen.mybatis3.xmlmapper.elements.FindByEntityElementGenerator;
 import io.digimono.mybatis.generator.plugins.base.BasePlugin;
 import io.digimono.mybatis.generator.utils.Utils;
+import java.util.Set;
+import java.util.TreeSet;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.api.dom.xml.Document;
+import org.mybatis.generator.api.dom.xml.XmlElement;
+import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElementGenerator;
 
-import java.util.Set;
-import java.util.TreeSet;
-
-import static io.digimono.mybatis.generator.constants.Constants.STATEMENT_ID_FIND_BY_ENTITY;
-
-/** @author yangyanju */
+/**
+ * @author yangyanju
+ */
 public class FindByEntityPlugin extends BasePlugin {
 
   private String findByEntityStatementId;
@@ -76,10 +81,24 @@ public class FindByEntityPlugin extends BasePlugin {
 
   @Override
   public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
-    return true;
+    initializeAndExecuteGenerator(
+        new FindByEntityClauseElementGenerator(), document.getRootElement(), introspectedTable);
+    initializeAndExecuteGenerator(
+        new FindByEntityElementGenerator(), document.getRootElement(), introspectedTable);
+
+    return super.sqlMapDocumentGenerated(document, introspectedTable);
   }
 
   public void addMapperAnnotations(Interface interfaze, Method method) {}
 
   public void addExtraImports(Interface interfaze) {}
+
+  protected void initializeAndExecuteGenerator(
+      AbstractXmlElementGenerator elementGenerator,
+      XmlElement parentElement,
+      IntrospectedTable introspectedTable) {
+    elementGenerator.setContext(context);
+    elementGenerator.setIntrospectedTable(introspectedTable);
+    elementGenerator.addElements(parentElement);
+  }
 }
