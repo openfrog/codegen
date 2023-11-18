@@ -1,7 +1,7 @@
 package io.digimono.mybatis.generator.codegen.mybatis3.xmlmapper.elements;
 
 import static io.digimono.mybatis.generator.constants.Constants.FIND_BY_ENTITY_CLAUSE_ID;
-import static io.digimono.mybatis.generator.constants.Constants.STATEMENT_ID_FIND_BY_ENTITY;
+import static io.digimono.mybatis.generator.constants.Constants.STATEMENT_ID_SELECT_BY_ENTITY;
 
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.xml.Attribute;
@@ -23,7 +23,7 @@ public class FindByEntityElementGenerator extends AbstractXmlElementGenerator {
   public void addElements(XmlElement xmlElement) {
     XmlElement answer = new XmlElement("select");
 
-    answer.addAttribute(new Attribute("id", STATEMENT_ID_FIND_BY_ENTITY));
+    answer.addAttribute(new Attribute("id", STATEMENT_ID_SELECT_BY_ENTITY));
 
     FullyQualifiedJavaType parameterType = introspectedTable.getRules().calculateAllFieldsClass();
     answer.addAttribute(new Attribute("parameterType", parameterType.getFullyQualifiedName()));

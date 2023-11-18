@@ -7,6 +7,8 @@ import io.digimono.mybatis.generator.codegen.mybatis3.xmlmapper.elements.UpdateB
 import io.digimono.mybatis.generator.plugins.base.BasePlugin;
 import io.digimono.mybatis.generator.utils.PluginUtils;
 import java.util.List;
+
+import io.digimono.mybatis.generator.utils.Utils;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Interface;
 import org.mybatis.generator.api.dom.xml.Document;
@@ -31,6 +33,10 @@ public class UpdateBatchSelectivePlugin extends BasePlugin {
 
   @Override
   public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
+    if (Utils.generateEmptyJavaMapper(context, introspectedTable)) {
+      return true;
+    }
+
     AbstractJavaMapperMethodGenerator methodGenerator = new UpdateBatchSelectiveMethodGenerator();
     methodGenerator.setContext(context);
     methodGenerator.setIntrospectedTable(introspectedTable);

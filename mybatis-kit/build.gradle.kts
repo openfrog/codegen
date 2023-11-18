@@ -14,19 +14,6 @@
  * limitations under the License.
  */
 
-rootProject.name = "codegen"
-rootProject.buildFileName = "build.gradle.kts"
+dependencies {
 
-pluginManagement {
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-    }
 }
-
-include(
-    "mybatis-kit",
-    "mybatis-codegen",
-    "mybatis-codegen-example",
-    "mybatis-generator-gradle-plugin"
-)

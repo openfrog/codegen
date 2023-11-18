@@ -23,6 +23,7 @@ plugins {
 val mybatisGenerator by configurations
 
 dependencies {
+    mybatisGenerator(project(":mybatis-kit"))
     mybatisGenerator(project(":mybatis-codegen"))
     mybatisGenerator(Libs.mybatisGeneratorCore)
     mybatisGenerator(Libs.h2)

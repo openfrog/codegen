@@ -38,6 +38,7 @@ val coreProjects: List<Project> by extra {
 val projectsToPublish: List<Project> by extra {
     subprojects.filter {
         listOf(
+            "mybatis-kit",
             "mybatis-codegen"
         ).contains(it.name)
     }

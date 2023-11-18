@@ -16,10 +16,16 @@
 
 package io.digimono.mybatis.generator.codegen.mybatis3.javamapper;
 
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
+
 import io.digimono.mybatis.generator.codegen.mybatis3.xmlmapper.CustomizedXMLMapperGenerator;
 import io.digimono.mybatis.generator.plugins.EmptyJavaMapperPlugin;
 import io.digimono.mybatis.generator.utils.PluginUtils;
 import io.digimono.mybatis.generator.utils.Utils;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.dom.java.CompilationUnit;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
@@ -29,14 +35,9 @@ import org.mybatis.generator.codegen.AbstractXmlGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.JavaMapperGenerator;
 import org.mybatis.generator.config.PropertyRegistry;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
-/** @author yangyanju */
+/**
+ * @author yangyanju
+ */
 public class CustomizedJavaMapperGenerator extends JavaMapperGenerator {
 
   public CustomizedJavaMapperGenerator(String project) {
@@ -88,6 +89,7 @@ public class CustomizedJavaMapperGenerator extends JavaMapperGenerator {
       FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(rootInterface);
       interfaze.addSuperInterface(fqjt);
       interfaze.addImportedType(fqjt);
+      interfaze.addImportedType(new FullyQualifiedJavaType(introspectedTable.getBaseRecordType()));
     }
 
     if (!Utils.generateEmptyJavaMapper(context, introspectedTable)) {

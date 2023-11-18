@@ -43,7 +43,7 @@ public final class Constants {
 
   public static final String STATEMENT_ID_MARK_AS_DELETED_BY_ID_1 = "markAsDeletedByPrimaryKey";
   public static final String STATEMENT_ID_MARK_AS_DELETED_BY_ID_2 = "markAsDeletedById";
-  public static final String STATEMENT_ID_FIND_BY_ENTITY = "findByEntity";
+  public static final String STATEMENT_ID_SELECT_BY_ENTITY = "selectByEntity";
   public static final String STATEMENT_ID_UPDATE_BATCH_SELECTIVE = "updateBatchSelective";
 
   public static final String IGNORED_COLUMNS_ON_BATCH_UPDATE = "ignoredColumnsOnBatchUpdate";

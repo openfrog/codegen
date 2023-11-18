@@ -16,7 +16,7 @@
 
 package io.digimono.mybatis.generator.plugins;
 
-import static io.digimono.mybatis.generator.constants.Constants.STATEMENT_ID_FIND_BY_ENTITY;
+import static io.digimono.mybatis.generator.constants.Constants.STATEMENT_ID_SELECT_BY_ENTITY;
 
 import io.digimono.mybatis.generator.codegen.mybatis3.xmlmapper.elements.FindByEntityClauseElementGenerator;
 import io.digimono.mybatis.generator.codegen.mybatis3.xmlmapper.elements.FindByEntityElementGenerator;
@@ -40,7 +40,7 @@ public class FindByEntityPlugin extends BasePlugin {
   @Override
   public void initialized(IntrospectedTable introspectedTable) {
     super.initialized(introspectedTable);
-    this.findByEntityStatementId = STATEMENT_ID_FIND_BY_ENTITY;
+    this.findByEntityStatementId = STATEMENT_ID_SELECT_BY_ENTITY;
   }
 
   @Override

@@ -14,7 +14,7 @@
 
     <property name="onlyGenerateInsertSelectiveMethod" value="true"/>
     <property name="onlyGenerateUpdateSelectiveMethod" value="true"/>
-    <!--<property name="generateEmptyJavaMapper" value="true"/>-->
+    <property name="generateEmptyJavaMapper" value="true"/>
 
     <property name="generatedMapperSuffix" value="Generated"/>
     <property name="generatedMapperSubpackage" value="generated"/>
@@ -23,7 +23,9 @@
     <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
     <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
 
-    <plugin type="io.digimono.mybatis.generator.plugins.LombokPlugin"/>
+    <plugin type="io.digimono.mybatis.generator.plugins.LombokPlugin">
+      <property name="useLombokAccessors" value="true"/>
+    </plugin>
 
     <plugin type="io.digimono.mybatis.generator.plugins.SimpleStyleToStringPlugin">
       <property name="useToStringFromRoot" value="true"/>
@@ -97,8 +99,8 @@
 
       <!--<property name="ignoredColumnsOnBatchUpdate" value="NAME"/>-->
 
-      <!--<property name="rootInterface"-->
-      <!--          value="io.digimono.mybatis.mapper.BaseMapper&lt;Employee, Integer&gt;"/>-->
+      <property name="rootInterface"
+                value="io.digimono.mybatis.kit.mapper.BaseMapper&lt;Employee, Integer&gt;"/>
 
       <!--JDBC / SqlServer / MySql-->
       <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
