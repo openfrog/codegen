@@ -35,10 +35,11 @@ import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
-/** @author yangyanju */
+/**
+ * @author yangyanju
+ */
 public class MarkAsDeletedByIdPlugin extends BasePlugin {
 
-  private IntrospectedColumn introspectedColumn;
   private int markAsDeletedValue;
   private int markAsUnDeletedValue;
   private String markAsDeletedStatementId;
@@ -47,14 +48,9 @@ public class MarkAsDeletedByIdPlugin extends BasePlugin {
   public void initialized(IntrospectedTable introspectedTable) {
     super.initialized(introspectedTable);
 
-    this.introspectedColumn = PluginUtils.getMarkAsDeletedColumn(properties, introspectedTable);
     this.markAsDeletedValue = PluginUtils.getMarkAsDeletedValue(properties, introspectedTable);
     this.markAsUnDeletedValue = PluginUtils.getMarkAsUnDeletedValue(properties, introspectedTable);
     this.markAsDeletedStatementId = Utils.getMarkAsDeletedStatementId(context);
-
-    if (this.introspectedColumn == null) {
-      warnings.add("The logical delete column does not exist.");
-    }
   }
 
   @Override
@@ -63,7 +59,13 @@ public class MarkAsDeletedByIdPlugin extends BasePlugin {
       return true;
     }
 
-    if (this.introspectedColumn == null || !introspectedTable.hasPrimaryKeyColumns()) {
+    IntrospectedColumn markAsDeletedColumn = getMarkAsDeletedColumn(introspectedTable);
+    if (markAsDeletedColumn == null) {
+      return true;
+    }
+
+    if (!introspectedTable.hasPrimaryKeyColumns()) {
+      warnings.add("The primary key columns does not exists");
       return true;
     }
 
@@ -116,7 +118,13 @@ public class MarkAsDeletedByIdPlugin extends BasePlugin {
 
   @Override
   public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
-    if (this.introspectedColumn == null || !introspectedTable.hasPrimaryKeyColumns()) {
+    IntrospectedColumn markAsDeletedColumn = getMarkAsDeletedColumn(introspectedTable);
+    if (markAsDeletedColumn == null) {
+      return true;
+    }
+
+    if (!introspectedTable.hasPrimaryKeyColumns()) {
+      warnings.add("The primary key columns does not exists");
       return true;
     }
 
@@ -151,7 +159,7 @@ public class MarkAsDeletedByIdPlugin extends BasePlugin {
 
     sb.setLength(0);
     sb.append("SET ")
-        .append(introspectedColumn.getActualColumnName())
+        .append(markAsDeletedColumn.getActualColumnName())
         .append(" = ")
         .append(markAsDeletedValue);
 
@@ -175,7 +183,7 @@ public class MarkAsDeletedByIdPlugin extends BasePlugin {
 
     sb.setLength(0);
     sb.append(" AND ")
-        .append(introspectedColumn.getActualColumnName())
+        .append(markAsDeletedColumn.getActualColumnName())
         .append(" = ")
         .append(markAsUnDeletedValue);
 
@@ -189,4 +197,12 @@ public class MarkAsDeletedByIdPlugin extends BasePlugin {
   public void addMapperAnnotations(Method method) {}
 
   public void addExtraImports(Interface interfaze) {}
+
+  private IntrospectedColumn getMarkAsDeletedColumn(IntrospectedTable introspectedTable) {
+    IntrospectedColumn column = PluginUtils.getMarkAsDeletedColumn(properties, introspectedTable);
+    if (column == null) {
+      warnings.add("The logical delete column does not exist.");
+    }
+    return column;
+  }
 }
