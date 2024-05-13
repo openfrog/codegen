@@ -24,9 +24,11 @@ tasks.withType<Wrapper> {
     description = "The Gradle Wrapper is the preferred way of starting a Gradle build."
     gradleVersion = System.getProperty("gradle.version")
     distributionType = Wrapper.DistributionType.BIN
+    distributionUrl = "https://mirrors.cloud.tencent.com/gradle/gradle-${gradleVersion}-bin.zip"
 }
 
 val projectURL: String by extra { "https://github.com/digimono/codegen" }
+val publishToBuildDirectory: Boolean by extra { false }
 
 val coreProjects: List<Project> by extra {
     subprojects.filter {
