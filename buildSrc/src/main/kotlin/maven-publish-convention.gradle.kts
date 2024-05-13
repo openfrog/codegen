@@ -23,22 +23,33 @@ plugins {
     signing
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 publishing {
 
     repositories {
         maven {
-            // val releasesRepoUrl = layout.buildDirectory.dir("repos/releases")
-            // val snapshotsRepoUrl = layout.buildDirectory.dir("repos/snapshots")
+            val releasesRepoUrl: Any
+            val snapshotsRepoUrl: Any
 
-            val releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-            val snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+            val publishToBuildDirectory: Boolean? by rootProject
+            if (publishToBuildDirectory != null && publishToBuildDirectory == true) {
+                releasesRepoUrl = layout.buildDirectory.dir("repos/releases")
+                snapshotsRepoUrl = layout.buildDirectory.dir("repos/snapshots")
+            } else {
+                releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+
+                credentials {
+                    username = System.getProperty("oss.username")
+                    password = System.getProperty("oss.password")
+                }
+            }
 
             setUrl(if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl)
-
-            credentials {
-                username = System.getProperty("oss.username")
-                password = System.getProperty("oss.password")
-            }
         }
     }
 
@@ -143,6 +154,12 @@ signing {
 }
 
 tasks {
+    withType<Javadoc> {
+        if (JavaVersion.current().isJava9Compatible) {
+            (options as StandardJavadocDocletOptions).addBooleanOption("html5", true)
+        }
+    }
+
     withType<Sign> {
         val isReleaseVersion = !version.toString().endsWith("SNAPSHOT")
 
