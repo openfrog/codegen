@@ -34,7 +34,7 @@
       ${project.basedir}/src/main/resources/META-INF/mybatis/mybatis-generator.xml
     </mybatis.generator.config.location>
 
-    <h2.version>1.4.199</h2.version>
+    <h2.version>2.1.210</h2.version>
   </properties>
 
   <build>
